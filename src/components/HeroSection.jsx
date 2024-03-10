@@ -5,9 +5,9 @@ function HeroSection() {
   return (
     <div className="hero-container">
       <div className="hero-background-image"></div>
-      <h1 className="hero-heading">Assam's Finest Tea</h1>
+      <h1 className="hero-heading">Welcome to Red Sanders Family</h1>
       <p className="hero-subtitle">
-        A Sip of Authenticity, Directly from the Tea Gardens to Your Cup
+      A Taste of Authenticity, Straight from the Roots of the Red Sanders Tree to Your Bottle.
       </p>
       <Link to="/all-products">
         <button className="shop-now">Explore</button>
