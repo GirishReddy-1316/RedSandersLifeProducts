@@ -32,7 +32,7 @@ function CartProduct({ item, index, onUpdateQuantity, onDelete }) {
         </div>
       </div>
       <div className="price-delete">
-        <p>${(parseFloat(price.substring(1)) * quantity).toFixed(2)}</p>
+        <p>₹{(parseFloat(price.substring(1)) * quantity).toFixed(2)}</p>
         <img src={deleteImg} onClick={handleDelete} />
       </div>
     </div>

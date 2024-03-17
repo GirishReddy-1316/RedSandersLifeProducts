@@ -35,20 +35,20 @@ function Checkout() {
   const [emailValid, setEmailValid] = useState(true);
   const [streetAddressValid, setStreetAddressValid] = useState(true);
   const [cityValid, setCityValid] = useState(true);
-  const [zipValid, setZipValid] = useState(true);
+  const [zipValid, setPinCode] = useState(true);
   const [selectedStateValid, setSelectedStateValid] = useState(true);
   const [mobileValid, setMobileValid] = useState(true);
   const [cardHolderNameValid, setCardHolderNameValid] = useState(true);
 
   const paste = () => {
-    setcustName("Faisal Abid");
-    setEmail("faesalabid@gmail.com");
-    setStreetAddress("Jersey Street");
-    setCity("Jersey City");
-    setZip("07306");
-    setSelectedState("New Jersey");
-    setMobile("1234567890");
-    setCardHolderName("Faisal Abid");
+    setcustName("Girish Reddy");
+    setEmail("gundulurugiri@gmail.com");
+    setStreetAddress("5-60, Mallaiahpalli");
+    setCity("Tirupati");
+    setZip("517101");
+    setSelectedState("Andhra Pradesh");
+    setMobile("9591834456");
+    setCardHolderName("Girish Reddy");
   };
 
   const totalPrice = cartItems.reduce((total, item) => {
@@ -104,13 +104,13 @@ function Checkout() {
     }
 
     if (!zip.trim() || !/^\d{5}(-\d{4})?$/.test(zip)) {
-      setZipValid(false);
+      setPinCode(false);
       isValid = false;
       toast.error("Invalid ZipCode", {
         position: "bottom-center",
       });
     } else {
-      setZipValid(true);
+      setPinCode(true);
     }
 
     if (!selectedState) {
@@ -270,7 +270,7 @@ function Checkout() {
                         {item.name} x {item.quantity}
                       </span>
                       <span>
-                        $
+                      ₹
                         {(
                           parseFloat(item.price.substring(1)) * item.quantity
                         ).toFixed(2)}
@@ -282,15 +282,15 @@ function Checkout() {
                 <div className="order-totals">
                   <div className="order-item">
                     <span>Subtotal</span>
-                    <span>${totalPrice.toFixed(2)}</span>
+                    <span>₹{totalPrice.toFixed(2)}</span>
                   </div>
                   <div className="order-item">
                     <span>Shipping</span>
-                    <span>$10.00</span>
+                    <span>₹10.00</span>
                   </div>
                   <div className="order-item total">
                     <span>Total</span>
-                    <span>${finalPrice.toFixed(2)}</span>
+                    <span>₹{finalPrice.toFixed(2)}</span>
                   </div>
                 </div>
               </div>

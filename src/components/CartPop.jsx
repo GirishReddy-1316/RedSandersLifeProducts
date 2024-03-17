@@ -57,7 +57,7 @@ function CartPop({
         <div className="popup-bottom">
           <div className="subtotal">
             <p>Subtotal</p>
-            <p>${subtotal.toFixed(2)} USD</p>
+            <p>₹{subtotal.toFixed(2)} Rs</p>
           </div>
 
           <button
