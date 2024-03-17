@@ -4,13 +4,13 @@
   align-items: center;
   flex-direction: column;
   overflow: hidden;
-  background-color: #ecaaaa;
-  background-image: radial-gradient(
+  background-color: #ffffff;
+  /* background-image: radial-gradient(
       at 50% 50%,
       hsla(162, 33%, 36%, 0.173) 0,
       transparent 50%
     ),
-    radial-gradient(at 82% 65%, hsl(219, 21%, 62%) 0, transparent 50%);
+    radial-gradient(at 82% 65%, hsl(219, 21%, 62%) 0, transparent 50%); */
 }
 
 .featured-heading {
