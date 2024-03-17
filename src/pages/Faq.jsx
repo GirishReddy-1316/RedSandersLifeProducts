@@ -9,14 +9,14 @@ function Faq() {
 
   const questionsAnswers = [
     {
-      question: "What types of tea do you offer?",
+      question: "What types of products do you offer?",
       answer:
-        "We offer a wide range of teas including classic Assam black tea, green tea, white tea, and our special blends.",
+        "We offer a wide range of red sandal products including classic Red Sanders Water, Pure Red Sanders Water, Red Sandal Agarbathies, and We can give you some customized products",
     },
     {
-      question: "How do you source your tea?",
+      question: "How do you source your wood?",
       answer:
-        "Our teas are directly sourced from the finest tea gardens in Assam, ensuring quality and freshness.",
+        "Our wood is directly sourced from the finest forests in Tirupati, ensuring quality and color.",
     },
     {
       question: "Do you offer international shipping?",

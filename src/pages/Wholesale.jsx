@@ -9,20 +9,20 @@ function Wholesale() {
       <PagesHeader />
 
       <main className="wholesale-main-content">
-        <h1>Welcome to Tea of Assam Wholesale</h1>
+        <h1>Welcome to Hare Rama Hare Krishna Industries Wholesale</h1>
         <p>
-          Join us in bringing the rich heritage of Assam tea to enthusiasts
+          Join us in bringing the rich heritage of Red Sandal Wood to enthusiasts
           around the globe.
         </p>
 
         <section className="why-wholesale">
-          <h2>Why Partner with Tea of Assam?</h2>
+          <h2>Why Partner with Hare Rama Hare Krishna Industries?</h2>
           <ul className="our-offerings-list">
             <li>
               Direct from the Source:
               <span>
-                Our teas are sourced directly from the best tea estates in
-                Assam, ensuring freshness and quality.
+                Our Products are sourced directly from the city of Tirupati
+                Andhra Pradesh, ensuring the quality and color.
               </span>
             </li>
             <li>
@@ -50,30 +50,25 @@ function Wholesale() {
         </section>
 
         <section className="our-offerings">
-          <h2>Our Curated Selection for Wholesale</h2>
+          <h2>Our carefully curated collection for wholesale distribution.</h2>
           <p>
-            From traditional blends to innovative infusions, our selection
-            caters to all palates:
+          From classic blends to creative infusions, our assortment appeals to every taste preference:
           </p>
           <ul className="our-offerings-list">
             <li>
-              Classic Assam Black Tea:
-              <span>The robust, malty flavor that Assam is famous for.</span>
+              Classic Pure Red Sanders Water:
+              <span>Distinctive flavor and is renowned for its vibrant color and health advantages.</span>
             </li>
             <li>
-              Green and White Teas:
-              <span>Delicate and subtle, perfect for the connoisseur.</span>
+              Red Sanders Water:
+              <span>Perfect combination for natural sugar and red sandal.</span>
             </li>
             <li>
-              Signature Blends:
+              Red Sandal Agarbathies:
               <span>
-                Unique combinations crafted by our master tea blenders.
+               Famous for it's Unique combinations raw materials, Long lasting and fragnace.
               </span>
-            </li>
-            <li>
-              Teaware and Accessories:
-              <span>From elegant teapots to practical brewing tools.</span>
-            </li>
+            </li>            
           </ul>
         </section>
 
@@ -108,8 +103,8 @@ function Wholesale() {
           <span className="bottom-p">
             Ready to explore the possibilities or need more information? Our
             Wholesale Team is here to assist. Email us at{" "}
-            <a href="mailto:wholesale@teaofassam.com">
-              wholesale@teaofassam.com
+            <a href="mailto:wholesale@redsanderslife.com">
+              wholesale@redsanderslife.com
             </a>{" "}
             or visit our <a href="/contact">Contact Page</a> for more details.
           </span>

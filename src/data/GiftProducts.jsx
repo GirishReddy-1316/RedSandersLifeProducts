@@ -3,24 +3,30 @@ import gift2Tea from "../assets/products/gift2.png";
 
 const GiftProducts = [
   {
-    id: 1001,
+    id: 1,
+    brandName: "HRK",
     image: gift1Tea,
-    name: "Trio Cups Gift Set",
-    price: "$70.99",
-    size: "3 items",
-    slug: "gift-box",
-    desc: "This is soluble instant coffee. 1 spoon makes 1 cup of 125ml coffee. Drink hot or cold in milk or water. This is solubleinstant coffee. 1 spoon makes 1 cup of 125ml coffee. Drink hot or cold in milk or water. This is soluble instant coffee. 1 spoon makes 1 cup of 125ml coffee. Drink hot or cold in milk or water. This is solubleinstant coffee. 1 spoon makes 1 cup of 125ml coffee. Drink hot or cold in milk or water.",
+    name: "Pure Red Sanders Water",
+    price: "75.00 Rs",
+    category: "Drink",
+    size: "350ml",
+    featured: true,
+    slug: "pure-red-sanders-water",
+    desc: "Where does this come from: this water is extracted from the roots of the red sanders plant. It's a unique process we're using to get water from red sanders roots. By drinking this water, you can enjoy additional health benefits. Additionally, the regular water used in this process is purified RO drinking water.",
   },
 
   {
-    id: 1002,
+    id: 2,
+    brandName: "HRK",
     image: gift2Tea,
-    name: "Tea-Pot Gift Bundle",
-    price: "$60.49",
-    size: "3 items",
-    slug: "tea-bundle",
-    desc: "This is soluble instant coffee. 1 spoon makes 1 cup of 125ml coffee. Drink hot or cold in milk or water. This is solubleinstant coffee. 1 spoon makes 1 cup of 125ml coffee. Drink hot or cold in milk or water. This is soluble instant coffee. 1 spoon makes 1 cup of 125ml coffee. Drink hot or cold in milk or water. This is solubleinstant coffee. 1 spoon makes 1 cup of 125ml coffee. Drink hot or cold in milk or water.",
-  },
+    name: "Red Sanders Water",
+    price: "100.00 Rs",
+    category: "Drink",
+    size: "350ml",
+    featured: true,
+    slug: "red-sanders-water",
+    desc: "Where does this come from: It's extracted from the roots of the red sanders plant using a special method. By drinking this water, you can enjoy extra health benefits along with a pleasant taste. Furthermore, the regular water used in this process is purified RO drinking water, and we've also added some natural sugars that are beneficial to our health.",
+  }
 ];
 
 export default GiftProducts;

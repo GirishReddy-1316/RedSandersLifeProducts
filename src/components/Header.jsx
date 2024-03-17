@@ -28,7 +28,7 @@ function Header({ cartCount, wishCount, setCartVisible }) {
             Company <img className="dd" src={dropdown} alt="dropdown icon" />
             <ul className="dropdown-content">
               <li>
-                <Link to="/about">About TOA</Link>
+                <Link to="/about">About HRHK</Link>
               </li>
               <li>
                 <Link to="/wholesale">Wholesale</Link>

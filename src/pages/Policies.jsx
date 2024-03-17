@@ -16,9 +16,9 @@ function Policies() {
           <p>
             At{" "}
             <a href="/" className="policies-title">
-              Tea of Assam
+              Hare Rama Hare Krishna Industries
             </a>
-            , we take pride in ensuring that our teas reach you fresh and fast.
+            , we take pride in ensuring that our products reach you fresh and fast.
             Our shipping partners are selected for their reliability and speed.
             We offer standard and expedited shipping options, both domestically
             within India and internationally. Shipping costs are calculated
@@ -34,7 +34,7 @@ function Policies() {
             satisfied with your purchase, you may return it within 30 days of
             receipt for a full refund or exchange. The items must be returned in
             their original condition and packaging. Please note that return
-            shipping costs are not covered by Tea of Assam.
+            shipping costs are not covered by HRHK.
           </p>
         </section>
 
@@ -53,7 +53,7 @@ function Policies() {
         <section className="terms-conditions">
           <h2>Terms & Conditions</h2>
           <p>
-            By accessing or using the Tea of Assam website and our services, you
+            By accessing or using the HRHK website and our services, you
             agree to be bound by our terms and conditions. These terms cover
             important topics such as intellectual property rights, user conduct,
             disclaimers, and liability limitations. We encourage you to read
@@ -64,7 +64,7 @@ function Policies() {
         <section className="sustainability-commitment">
           <h2>Our Commitment to Sustainability</h2>
           <p>
-            Sustainability is at the heart of everything we do at Tea of Assam.
+            Sustainability is at the heart of everything we do at HRHK Industries.
             From the tea gardens to your cup, we are dedicated to promoting
             environmentally friendly practices, supporting local communities,
             and ensuring the highest standards of ethical sourcing. Learn more

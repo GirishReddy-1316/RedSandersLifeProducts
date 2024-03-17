@@ -6,7 +6,7 @@ function FeaturedSection({ addToCart, addToWish }) {
   return (
     <div className="featured-container">
       <div className="featured-heading">
-        <p className="featured-text">Featured Products</p>
+        <p className="featured-text"></p>
         <Link to="/all-products">
           <p className="f-show-more">View All </p>
         </Link>
