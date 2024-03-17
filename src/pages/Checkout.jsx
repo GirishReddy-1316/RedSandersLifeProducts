@@ -24,7 +24,7 @@ function Checkout() {
   const [email, setEmail] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
-  const [zip, setZip] = useState("");
+  const [pin, setPin] = useState("");
   const [country] = useState("India");
   const [selectedState, setSelectedState] = useState("");
   const [mobile, setMobile] = useState("");
@@ -35,7 +35,7 @@ function Checkout() {
   const [emailValid, setEmailValid] = useState(true);
   const [streetAddressValid, setStreetAddressValid] = useState(true);
   const [cityValid, setCityValid] = useState(true);
-  const [zipValid, setPinCode] = useState(true);
+  const [pinValid, setPinCode] = useState(true);
   const [selectedStateValid, setSelectedStateValid] = useState(true);
   const [mobileValid, setMobileValid] = useState(true);
   const [cardHolderNameValid, setCardHolderNameValid] = useState(true);
@@ -45,7 +45,7 @@ function Checkout() {
     setEmail("gundulurugiri@gmail.com");
     setStreetAddress("5-60, Mallaiahpalli");
     setCity("Tirupati");
-    setZip("517101");
+    setPin("517101");
     setSelectedState("Andhra Pradesh");
     setMobile("9591834456");
     setCardHolderName("Girish Reddy");
@@ -199,7 +199,7 @@ function Checkout() {
                 value={streetAddress}
                 onChange={(e) => setStreetAddress(e.target.value)}
               />
-              <div className="city-zip">
+              <div className="city-pin">
                 <input
                   placeholder="City"
                   type="text"
@@ -211,13 +211,13 @@ function Checkout() {
                 />
 
                 <input
-                  placeholder="Zip Code"
+                  placeholder="pin Code"
                   type="text"
-                  name="zip"
+                  name="pin"
                   id="ml"
-                  className={zipValid ? "" : "error-input"}
-                  value={zip}
-                  onChange={(e) => setZip(e.target.value)}
+                  className={pinValid ? "" : "error-input"}
+                  value={pin}
+                  onChange={(e) => setPin(e.target.value)}
                 />
               </div>
 
