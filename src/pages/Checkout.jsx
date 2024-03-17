@@ -25,7 +25,7 @@ function Checkout() {
   const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
   const [zip, setZip] = useState("");
-  const [country] = useState("United States of America");
+  const [country] = useState("India");
   const [selectedState, setSelectedState] = useState("");
   const [mobile, setMobile] = useState("");
   const [cardHolderName, setCardHolderName] = useState("");
@@ -103,10 +103,10 @@ function Checkout() {
       setCityValid(true);
     }
 
-    if (!zip.trim() || !/^\d{5}(-\d{4})?$/.test(zip)) {
+    if (!pin.trim() || !/^\d{6}$/.test(pin))    {
       setPinCode(false);
       isValid = false;
-      toast.error("Invalid ZipCode", {
+      toast.error("Invalid PinCode", {
         position: "bottom-center",
       });
     } else {

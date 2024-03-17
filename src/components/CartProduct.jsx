@@ -5,6 +5,7 @@ function CartProduct({ item, index, onUpdateQuantity, onDelete }) {
   const { image, name, price, size, quantity } = item;
 
   const handleQuantityChange = (delta) => {
+    debugger
     onUpdateQuantity(index, delta);
   };
 
