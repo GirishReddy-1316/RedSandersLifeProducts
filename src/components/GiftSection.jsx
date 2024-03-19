@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 function GiftSection({ giftAddToCart, addToWish }) {
   const giftSubtitles =
-    "As the coffee shop market becomes more popular, the number of cafe websites is growing. The internet and social media play an important role in finding new customers.";
+    "We often want our loved ones to be happy and healthy. If you're in that group, this product is perfect for gifting to your loved ones. The products we offer are natural and promote good health. Giving these kinds of products to our loved ones is considered a blessing.";
 
   const [items, setItems] = useState(GiftProducts);
 
@@ -19,7 +19,7 @@ function GiftSection({ giftAddToCart, addToWish }) {
         <div className="gift-info">
           <h3 className="gift-boxes-text">Gift Boxes</h3>
           <h2 className="gift-heading">
-            Gift your loved ones the Tea of Assam Gift Boxes
+            Gift your loved ones the Red Sandal Gift Boxes
           </h2>
           <p className="gift-subtitles">{giftSubtitles}</p>
         </div>

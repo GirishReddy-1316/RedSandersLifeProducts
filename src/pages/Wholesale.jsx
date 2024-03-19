@@ -21,7 +21,7 @@ function Wholesale() {
             <li>
               Direct from the Source:
               <span>
-                Our Products are sourced directly from the city of Tirupati
+                Our Products are sourced directly from the private farms land in and around city of Tirupati
                 Andhra Pradesh, ensuring the quality and color.
               </span>
             </li>
@@ -57,16 +57,16 @@ function Wholesale() {
           <ul className="our-offerings-list">
             <li>
               Classic Pure Red Sanders Water:
-              <span>Distinctive flavor and is renowned for its vibrant color and health advantages.</span>
+              <span>Distinctive flavor and is renowned for its vibrant color and health benefits.</span>
             </li>
             <li>
               Red Sanders Water:
-              <span>Perfect combination for natural sugar and red sandal.</span>
+              <span>Perfect combination of Pure Red Sandalwood root extract and Natural Sweetners (No Sugar Added).</span>
             </li>
             <li>
-              Red Sandal Agarbathies:
+              Red Sandal Incense Sticks (Agarbhatthis) and Dhoops:
               <span>
-               Famous for it's Unique combinations raw materials, Long lasting and fragnace.
+               Famous for it's Unique combination of raw materials and Long lasting.
               </span>
             </li>            
           </ul>

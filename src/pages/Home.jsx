@@ -116,7 +116,7 @@ function Home() {
       </div>
 
       <FeaturedSection addToCart={addToCart} addToWish={addToWish} />
-      {/* <GiftSection giftAddToCart={giftAddToCart} addToWish={addToWish} /> */}
+      <GiftSection giftAddToCart={giftAddToCart} addToWish={addToWish} />
 
       <Footer />
       <BottomBar wishCount={wishItems.length} />

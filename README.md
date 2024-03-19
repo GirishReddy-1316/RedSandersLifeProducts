@@ -2,4 +2,5 @@
 
 To start this code,
 use npm install
-npm run dev
+npm run dev, 
+firebase deploy
