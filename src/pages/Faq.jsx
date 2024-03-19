@@ -11,7 +11,7 @@ function Faq() {
     {
       question: "What types of products do you offer?",
       answer:
-        "We offer a wide range of red sandal products including classic Red Sanders Water, Pure Red Sanders Water, Red Sandal Agarbathies, and We can give you some customized products",
+        "We offer a wide range of red sandal products including classic Red Sanders Water, Pure Red Sanders Water, Red Sandal Agarbhatthis, Red Sandal Powder and We can give you some customized products",
     },
     {
       question: "How do you source your wood?",

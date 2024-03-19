@@ -20,13 +20,16 @@
 @media (max-width: 890px) {
   .footer-elements {
     padding-bottom: 50px;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 }
 @media (max-width: 625px) {
   .footer-elements {
-    font-size: 0.6rem;
-    gap: 20px;
-    padding-bottom: 40px;
+    font-size: 0.9rem;
+    gap: 15px;
+    padding-bottom: 54px;
+  }
+  .bottom-container {
+    background-color: maroon;
   }
 }
