@@ -80,7 +80,17 @@
   border: 2px solid #4d8908fd;
   border-radius: 5px;
 }
-
+.registrationLink{
+  color:#fff;
+  font-size: 25px;
+  padding: 8%;
+  a{
+    color: #4d8908fd;
+  }
+}
+.contact-head{
+  padding-top:20px;
+}
 @keyframes shake {
   0%,
   100% {

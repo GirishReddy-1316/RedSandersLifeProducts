@@ -66,7 +66,7 @@ function FeaturedProduct({ addToCart, addToWish }) {
                 </Link>
               </h3>
               <p className="product-size">{item.size}</p>
-              <p className="product-price">{item.price}</p>
+              <p className="product-price">{item.price} </p>
               <div>
                 <button
                   className="padd-to-wish"

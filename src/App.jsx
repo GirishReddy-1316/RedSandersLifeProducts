@@ -11,6 +11,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import Faq from "./pages/Faq.jsx";
 import { Toaster } from "sonner";
 import UnderConstruction from "./pages/UnderConstruction.jsx";
+import RegistrationForm from "./pages/RegistrationForm.jsx";
 import Wishlist from "./pages/Wishlist.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import Thankyou from "./pages/Thankyou.jsx";
@@ -37,6 +38,7 @@ function App() {
           <Route path="/policies" element={<Policies />} />
           <Route path="/wholesale" element={<Wholesale />} />
           <Route path="/underconstruction" element={<UnderConstruction />} />
+          <Route path="/registrationForm" element={<RegistrationForm />} />
           <Route path="/faqs" element={<Faq />} />
         </Routes>
       </div>

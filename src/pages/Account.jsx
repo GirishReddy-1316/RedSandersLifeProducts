@@ -62,7 +62,9 @@ function Account() {
   return (
     <div className="account-container">
       <PagesHeader />
-
+      <div className='pheader-container'>
+      <h2 className="contact-head">Login</h2>
+      </div>
       <form onSubmit={order} className="contact-form">
         <input
           id="custname"
@@ -105,6 +107,8 @@ function Account() {
           </span>
         )}
       </form>
+      <div className="registrationLink">Join us today! <a href="/registrationForm">Register</a> now for free and become a part of our community.</div>
+
       <Footer />
       <BottomBar />
     </div>
