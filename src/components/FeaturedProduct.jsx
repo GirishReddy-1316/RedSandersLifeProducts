@@ -15,7 +15,7 @@ function FeaturedProduct({ addToCart, addToWish }) {
 
   const filteredProducts = items.filter((product) => product.featured === true);
 
-  const itemsPerPage = windowWidth < 891 ? 2 : filteredProducts.length;
+  const itemsPerPage = windowWidth < 891 ? 6 : filteredProducts.length;
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
   useEffect(() => {
