@@ -12,6 +12,10 @@ function HeroSection() {
       <Link to="/all-products">
         <button className="shop-now">Explore</button>
       </Link>
+      <Link to="/admin-dashboard">
+        <button className="shop-now">Admin Board</button>
+      </Link>
+      
     </div>
   );
 }

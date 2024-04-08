@@ -16,6 +16,7 @@ import Wishlist from "./pages/Wishlist.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import Thankyou from "./pages/Thankyou.jsx";
 import "./styles/index.css";
+import AdminDashboard from "./pages/AdminDashboard.jsx";
 
 function App() {
   let location = useLocation();
@@ -29,6 +30,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/all-products" element={<AllProducts />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/products/:id" element={<SingleProduct />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/account" element={<Account />} />
