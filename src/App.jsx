@@ -17,6 +17,7 @@ import ScrollToTop from "./components/ScrollToTop.jsx";
 import Thankyou from "./pages/Thankyou.jsx";
 import "./styles/index.css";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
+import Orders from "./pages/Orders.jsx";
 
 function App() {
   let location = useLocation();
@@ -42,6 +43,8 @@ function App() {
           <Route path="/underconstruction" element={<UnderConstruction />} />
           <Route path="/registrationForm" element={<RegistrationForm />} />
           <Route path="/faqs" element={<Faq />} />
+          <Route path="/orders" element={<Orders />} />
+          
         </Routes>
       </div>
     </>

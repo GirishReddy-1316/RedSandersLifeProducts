@@ -45,15 +45,6 @@ function Header({ cartCount, wishCount, setCartVisible }) {
 
         <div className="head-icons-container">
           <Search />
-          <Link to="/account">
-            {" "}
-            <img
-              src={accountIcon}
-              alt="account-icon"
-              className="account-icon head-icons"
-            />{" "}
-          </Link>
-
           <span className="wishlist-icon-container">
             <Link to="/wishlist">
               {" "}
@@ -67,6 +58,22 @@ function Header({ cartCount, wishCount, setCartVisible }) {
               <span className="wishlist-counter">{wishCount}</span>
             )}
           </span>
+          <Link to="/account">
+            {" "}
+            <img
+              src={accountIcon}
+              alt="account-icon"
+              className="account-icon head-icons"
+            /><span className="icon-text">Login</span> {" "}
+          </Link> 
+          <Link to="/orders">
+            {" "}
+            <img
+              src={accountIcon}
+              alt="account-icon"
+              className="account-icon head-icons"
+            /><span className="icon-text">Orders</span> {" "}
+          </Link>          
 
           <span className="cart-icon-container">
             <img
@@ -75,7 +82,7 @@ function Header({ cartCount, wishCount, setCartVisible }) {
               alt=""
               className="cart-icon head-icons"
             />
-            {cartCount > 0 && <span className="cart-counter">{cartCount}</span>}
+            <span className="icon-text">Cart</span> {cartCount > 0 && <span className="cart-counter">{cartCount}</span>}
           </span>
         </div>
       </header>
