@@ -109,7 +109,7 @@ function Account() {
           />
 
           <input type="submit" value="Sign In" />
-          <a onClick={handleForgotPassword}>Forgot Password?</a>
+          <a className="forgot-password" onClick={handleForgotPassword}>Forgot Password?</a>
 
           {formSubmitted && (
             <span className={`thanks ${formSubmitted ? "visible" : ""}`}>

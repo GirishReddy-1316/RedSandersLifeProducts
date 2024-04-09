@@ -91,6 +91,9 @@
 .contact-head{
   padding-top:20px;
 }
+.forgot-password{
+  color:#fff;
+}
 @keyframes shake {
   0%,
   100% {
