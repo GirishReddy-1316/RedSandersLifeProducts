@@ -90,14 +90,33 @@ const RegistrationForm = () => {
   };
 
   const handleVerify = () => {
-    if (formData.phoneNumber.trim()) {
+    const newErrors = {};
+  
+    if (!formData.username.trim()) {
+      newErrors.username = 'Username is required';
+    }
+  
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!validateEmail(formData.email)) {
+      newErrors.email = 'Enter a valid email address';
+    }
+  
+    if (!formData.phoneNumber.trim()) {
+      newErrors.phoneNumber = 'Phone number is required';
+    } else if (!validatePhoneNumber(formData.phoneNumber)) {
+      newErrors.phoneNumber = 'Enter a valid Indian phone number';
+    }
+  
+    if (Object.keys(newErrors).length === 0) {
       // Proceed to OTP verification stage
       setVerificationStage('otp');
     } else {
-      // Show error if phone number is empty
-      setErrors({ ...errors, phoneNumber: 'Phone number is required' });
+      // Update the errors state if there are validation errors
+      setErrors(newErrors);
     }
   };
+  
 
   return (
     <div className="registration-form-container">
