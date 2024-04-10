@@ -207,6 +207,7 @@ const RegistrationForm = () => {
           </div>
         )}
       </form>
+      <input type="button" value="Gmail Login" />
       <Footer />
       <BottomBar />
     </div>
