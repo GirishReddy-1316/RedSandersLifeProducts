@@ -1,13 +1,9 @@
-import PagesHeader from "../components/PagesHeader.jsx";
-import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import "../styles/wholesale.css";
 
 function Wholesale() {
   return (
     <div className="wholesale-page">
-      <PagesHeader />
-
       <main className="wholesale-main-content">
         <h1>Welcome to Hare Rama Hare Krishna Industries Wholesale</h1>
         <p>
@@ -111,7 +107,6 @@ function Wholesale() {
         </section>
       </main>
 
-      <Footer />
       <BottomBar />
     </div>
   );

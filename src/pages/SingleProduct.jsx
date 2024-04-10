@@ -1,5 +1,4 @@
 import "../styles/singleproduct.css";
-import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import Header from "../components/Header.jsx";
 import CartPop from "../components/CartPop.jsx";
@@ -143,7 +142,6 @@ function SingleProduct() {
           </div>
         </div>
       </div>
-      <Footer />
       <BottomBar />
     </>
   );

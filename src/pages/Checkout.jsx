@@ -6,8 +6,6 @@ import mastercard from "../assets/master.png";
 import amex from "../assets/amex.png";
 import pasteIcon from "../assets/paste.svg";
 import disc from "../assets/disc.png";
-import Footer from "../components/Footer.jsx";
-import PagesHeader from "../components/PagesHeader.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
@@ -164,8 +162,6 @@ function Checkout() {
   return (
     <>
       <div className="checkout-page">
-        <PagesHeader />
-
         <div className="checkout-main-container">
           <form onSubmit={order} className="checkout-form">
             <div className="checkout-left">
@@ -344,7 +340,6 @@ function Checkout() {
           </form>
         </div>
 
-        <Footer />
         <BottomBar />
       </div>
     </>

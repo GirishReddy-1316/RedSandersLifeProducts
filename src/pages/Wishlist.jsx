@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import "../styles/allproducts.css";
 import Header from "../components/Header.jsx";
 import BottomBar from "../components/BottomBar.jsx";
-import Footer from "../components/Footer.jsx";
 import CartPop from "../components/CartPop.jsx";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
@@ -134,7 +133,6 @@ function Wishlist() {
           </div>
         )}
       </div>
-      <Footer />
       <BottomBar />
     </>
   );

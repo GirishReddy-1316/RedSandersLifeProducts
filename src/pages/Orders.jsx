@@ -1,5 +1,4 @@
 import React from 'react';
-import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import "../styles/orders.css";
 import Header from "../components/Header.jsx";
@@ -46,7 +45,6 @@ const Orders = () => {
             )}
                 
         </div>
-        <Footer />
             <BottomBar /> 
         </div>
     );

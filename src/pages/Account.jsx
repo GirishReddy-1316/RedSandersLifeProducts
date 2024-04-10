@@ -1,7 +1,5 @@
 import { useState } from "react";
 import "../styles/account.css";
-import PagesHeader from "../components/PagesHeader.jsx";
-import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import ForgotPassword from "../components/ForgotPassword.jsx";
 
@@ -68,7 +66,6 @@ function Account() {
 
   return (
     <div className="account-container">
-      <PagesHeader />
       <div className="pheader-container">
         <h2 className="contact-head">Login</h2>
       </div>
@@ -125,7 +122,6 @@ function Account() {
         and become a part of our community.
       </div>
 
-      <Footer />
       <BottomBar />
     </div>
   );
