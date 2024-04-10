@@ -1,9 +1,13 @@
+import PagesHeader from "../components/PagesHeader.jsx";
+import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import "../styles/about.css";
 
 function About() {
   return (
     <div className="about-us-page">
+      <PagesHeader />
+
       <main className="about-main-content">
         <section className="about-intro">
           <h1>About Hare Rama Hare Krishna Industries</h1>
@@ -39,6 +43,7 @@ function About() {
         </section>
       </main>
 
+      <Footer />
       <BottomBar />
     </div>
   );

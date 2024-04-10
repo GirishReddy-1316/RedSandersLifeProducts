@@ -7,6 +7,7 @@ import bg from "../assets/bg2.mp4";
 import CartPop from "../components/CartPop.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import "../styles/home.css";
+import Footer from "../components/Footer.jsx";
 import "../styles/home.css";
 
 function Home() {
@@ -117,6 +118,7 @@ function Home() {
       <FeaturedSection addToCart={addToCart} addToWish={addToWish} />
       <GiftSection giftAddToCart={giftAddToCart} addToWish={addToWish} />
 
+      <Footer />
       <BottomBar wishCount={wishItems.length} />
     </div>
   );

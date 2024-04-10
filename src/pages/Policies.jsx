@@ -1,9 +1,13 @@
+import PagesHeader from "../components/PagesHeader.jsx";
+import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import "../styles/policies.css";
 
 function Policies() {
   return (
     <div className="policies-page">
+      <PagesHeader />
+
       <main className="policies-main-content">
         <h1>Our Policies</h1>
 
@@ -70,6 +74,7 @@ function Policies() {
         </section>
       </main>
 
+      <Footer />
       <BottomBar />
     </div>
   );

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "../styles/contact.css";
+import PagesHeader from "../components/PagesHeader.jsx";
+import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 
 function Contact() {
@@ -59,6 +61,7 @@ function Contact() {
 
   return (
     <div className="contact-container">
+      <PagesHeader />
 
       <form onSubmit={order} className="contact-form">
         <h1 className="contact-head">Contact Us</h1>
@@ -106,6 +109,7 @@ function Contact() {
           </span>
         )}
       </form>
+      <Footer />
       <BottomBar />
     </div>
   );

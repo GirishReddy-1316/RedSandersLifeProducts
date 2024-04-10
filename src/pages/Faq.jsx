@@ -1,4 +1,6 @@
 import { useState } from "react";
+import PagesHeader from "../components/PagesHeader.jsx";
+import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import "../styles/faq.css";
 
@@ -34,6 +36,8 @@ function Faq() {
 
   return (
     <div className="faq-page">
+      <PagesHeader />
+
       <main className="faq-content">
         <div className="faq-container">
           <h1>Frequently Asked Questions</h1>
@@ -53,6 +57,7 @@ function Faq() {
         </div>
       </main>
 
+      <Footer />
       <BottomBar />
     </div>
   );
