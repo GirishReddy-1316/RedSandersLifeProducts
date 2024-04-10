@@ -1,86 +1,71 @@
-
 import React, { useState } from "react";
 import "../styles/forgotpassword.css";
 
-
 function ForgotPassword({ onPasswordReset }) {
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showOtpForm, setShowOtpForm] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
   const [passwordSubmitted, setPasswordSubmitted] = useState(false);
-  const [passwordError, setPasswordError] = useState(""); 
-  const [phoneError, setPhoneError] = useState("");
-  const [otpError, setOtpError] = useState("");
-
-  
+  const [passwordError, setPasswordError] = useState("");
+  const [inputError, setInputError] = useState("");
 
   function handleSendOtp() {
-    // Validate phone number
-    const re = /^[6-9]\d{9}$/; // Indian phone number regex pattern
-    if (!re.test(phoneNumber)) {
-      setPhoneError("Please enter a valid Indian phone number");
-      return; // Exit function if phone number is invalid
+    if (!phoneNumber && !email) {
+      setInputError("Please enter Phone Number or Email");
+      return;
     }
-    // Logic to send OTP to the provided phone number
-    setShowOtpForm(true); // Show OTP form after sending OTP
+
+    // Logic to send OTP to the provided phone number or email
+    setShowOtpForm(true);
   }
 
   function handleOtpVerification() {
     // Logic to verify OTP
-    setOtpVerified(true); // Set OTP verification flag to true
-  }
-
-  function handlePasswordChange(e) {
-    setNewPassword(e.target.value);
-  }
-
-  function handleConfirmPasswordChange(e) {
-    setConfirmPassword(e.target.value);
+    setOtpVerified(true);
   }
 
   function handlePasswordSubmit(e) {
     e.preventDefault();
-    // Compare new password and confirm password
+
+    if (!newPassword || !confirmPassword) {
+      setPasswordError("Please enter both passwords");
+      return;
+    }
+
     if (newPassword !== confirmPassword) {
       setPasswordError("Passwords do not match");
-      return; // Exit function if passwords don't match
+      return;
     }
+
     // Logic to submit new password
     setPasswordSubmitted(true);
-    // Call the parent function to handle password reset
     onPasswordReset();
   }
 
-  
-  function handlePhoneNumberChange(e) {
-    setPhoneNumber(e.target.value); // Set phone number value
-  }
-
-  function handleOtpChange(e) {
-    const re = /^\d{0,4}$/; // Only accept digits with max length of 4
-    const value = e.target.value;
-    if (re.test(value)) {
-      setOtp(value);
-      setOtpError("");
-    } else {
-      setOtpError("OTP must be a 4-digit number");
-    }
-  }
-
   return (
-    <div className="forgot-password-container"> {/* Apply container class */}
-        <input
-        type="text"
-        placeholder="Phone Number"
-        value={phoneNumber}
-        onChange={handlePhoneNumberChange}
-      />
-      {phoneError && <p className="error-message">{phoneError}</p>}
-      <button className="send-otp-button" onClick={handleSendOtp}>Send OTP</button>
-      {showOtpForm && (
+    <div className="forgot-password-container">
+      {!showOtpForm && (
+        <div>
+          <input
+            type="text"
+            placeholder="Phone Number or Email"
+            value={phoneNumber || email}
+            onChange={(e) =>
+              phoneNumber ? setPhoneNumber(e.target.value) : setEmail(e.target.value)
+            }
+          />
+          {inputError && <p className="error-message">{inputError}</p>}
+          <button className="send-otp-button" onClick={handleSendOtp}>
+            Send OTP
+          </button>
+        </div>
+      )}
+
+      {showOtpForm && !otpVerified && (
         <div className="otp-form-container">
           <input
             type="text"
@@ -88,27 +73,38 @@ function ForgotPassword({ onPasswordReset }) {
             value={otp}
             onChange={(e) => setOtp(e.target.value)}
           />
-          {otpError && <p className="error-message">{otpError}</p>}
-          <button className="verify-otp-button" onClick={handleOtpVerification}>Verify OTP</button>
+          <button
+            className="verify-otp-button"
+            onClick={handleOtpVerification}
+          >
+            Verify OTP
+          </button>
         </div>
       )}
+
       {otpVerified && (
-        <div className="password-form-container"> {/* Apply container class */}
+        <div className="password-form-container">
           <input
             type="password"
             placeholder="New Password"
             value={newPassword}
-            onChange={handlePasswordChange}
+            onChange={(e) => setNewPassword(e.target.value)}
           />
           <input
             type="password"
             placeholder="Confirm Password"
             value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          <button className="submit-button" onClick={handlePasswordSubmit}>Submit</button> {/* Apply button class */}
-          {passwordError && <p className="error-message">{passwordError}</p>} {/* Display password error message */}
-          {passwordSubmitted && <p className="success-message">Password updated successfully!</p>} {/* Display success message */}
+          <button className="submit-button" onClick={handlePasswordSubmit}>
+            Register
+          </button>
+          {passwordError && (
+            <p className="error-message">{passwordError}</p>
+          )}
+          {passwordSubmitted && (
+            <p className="success-message">Password updated successfully!</p>
+          )}
         </div>
       )}
     </div>
