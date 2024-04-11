@@ -2,8 +2,7 @@ import React from 'react';
 import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import "../styles/orders.css";
-import Header from "../components/Header.jsx";
-
+import PagesHeader from '../components/PagesHeader.jsx';
 
 const Orders = () => {
     // Sample data for orders
@@ -16,7 +15,7 @@ const Orders = () => {
     return (
       <div>
         <div className="orders-container">
-           <Header />
+           <PagesHeader />
             <h2 className='no-orders'>Orders</h2>
             {orders.length === 0 ? (
                 <p className='no-orders'>No orders available</p>

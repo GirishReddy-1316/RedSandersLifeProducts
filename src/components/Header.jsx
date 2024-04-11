@@ -21,9 +21,7 @@ function Header({ cartCount, wishCount, setCartVisible }) {
           <li>
             <Link to="/all-products">Shop Now</Link>
           </li>
-          <li>
-            <Link to="/contact">Contact</Link>
-          </li>
+         
           <li className="pages">
             Company <img className="dd" src={dropdown} alt="dropdown icon" />
             <ul className="dropdown-content">
@@ -38,6 +36,9 @@ function Header({ cartCount, wishCount, setCartVisible }) {
               </li>
               <li>
                 <Link to="/policies">Policies</Link>
+              </li>
+              <li>
+                <Link to="/contact">Contact</Link>
               </li>
             </ul>
           </li>

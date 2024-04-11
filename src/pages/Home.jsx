@@ -115,8 +115,8 @@ function Home() {
         <HeroSection />
       </div>
 
-      <FeaturedSection addToCart={addToCart} addToWish={addToWish} />
-      <GiftSection giftAddToCart={giftAddToCart} addToWish={addToWish} />
+      {/* <FeaturedSection addToCart={addToCart} addToWish={addToWish} />
+      <GiftSection giftAddToCart={giftAddToCart} addToWish={addToWish} /> */}
 
       <Footer />
       <BottomBar wishCount={wishItems.length} />
