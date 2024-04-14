@@ -169,7 +169,14 @@ const RegistrationForm = () => {
     }
   };
 
-
+  async function handlerGoogleAuth() {
+    try {
+      window.location.href = `http://localhost:3000/auth/google`
+    } catch (error) {
+      console.error('Google login error:', error.response ? error.response.data.message : error.message);
+      alert('Google login failed!');
+    }
+  }
 
   return (
     <div className="registration-form-container">
@@ -261,7 +268,7 @@ const RegistrationForm = () => {
         )}
       </form>
       <GoogleButton
-        onClick={() => { console.log('Google button clicked') }}
+        onClick={handlerGoogleAuth}
       />
       <Footer />
       <BottomBar />
