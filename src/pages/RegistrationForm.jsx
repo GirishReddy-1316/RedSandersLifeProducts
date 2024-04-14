@@ -3,8 +3,12 @@ import '../styles/registrationForm.css';
 import PagesHeader from "../components/PagesHeader.jsx";
 import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
+import axiosInstance from '../api.js';
+import { useNavigate } from 'react-router-dom';
+import GoogleButton from 'react-google-button';
 
 const RegistrationForm = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     username: '',
     phoneNumber: '',
@@ -15,6 +19,7 @@ const RegistrationForm = () => {
   });
   const [errors, setErrors] = useState({});
   const [verificationStage, setVerificationStage] = useState('phone'); // 'phone', 'otp', 'password'
+
 
   const validateEmail = (email) => {
     // Basic email validation regex
@@ -28,7 +33,23 @@ const RegistrationForm = () => {
     return phoneRegex.test(phoneNumber);
   };
 
-  const handleSubmit = (e) => {
+  const finalizeRegistration = async () => {
+    try {
+      const payload = {
+        username: formData.username,
+        email: formData.email,
+        phoneNumber: formData.phoneNumber,
+        password: formData.password,
+      };
+      const response = await axiosInstance.post('/user/registration', payload);
+      console.log('Registration successful', response.data);
+
+    } catch (error) {
+      console.error('Registration error:', error.response ? error.response.data : error.message);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = {};
 
@@ -56,18 +77,14 @@ const RegistrationForm = () => {
       newErrors.password = 'Passwords do not match';
       newErrors.confirmPassword = 'Passwords do not match';
     }
-
+    console.log("verificationStage", verificationStage)
     if (Object.keys(newErrors).length === 0) {
-      // Proceed to next stage or submit the form if the last stage
       if (verificationStage === 'phone') {
         setVerificationStage('otp');
       } else if (verificationStage === 'otp') {
         setVerificationStage('password');
       } else {
-        // Submit the form if no errors and at the last stage
-        console.log('formdataaa',formData);
-        alert('Form submitted successfully!');
-        // Clear form fields
+        finalizeRegistration()
         setFormData({
           username: '',
           phoneNumber: '',
@@ -77,6 +94,7 @@ const RegistrationForm = () => {
           confirmPassword: '',
         });
         setVerificationStage('phone'); // Reset verification stage
+        navigate("/account")
       }
     } else {
       // Update the errors state if there are validation errors
@@ -89,34 +107,69 @@ const RegistrationForm = () => {
     setErrors({ ...errors, [e.target.name]: '' });
   };
 
-  const handleVerify = () => {
+  const handleVerify = async () => {
     const newErrors = {};
-  
+
     if (!formData.username.trim()) {
       newErrors.username = 'Username is required';
     }
-  
+
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
     } else if (!validateEmail(formData.email)) {
       newErrors.email = 'Enter a valid email address';
     }
-  
+
     if (!formData.phoneNumber.trim()) {
       newErrors.phoneNumber = 'Phone number is required';
     } else if (!validatePhoneNumber(formData.phoneNumber)) {
       newErrors.phoneNumber = 'Enter a valid Indian phone number';
     }
-  
+
     if (Object.keys(newErrors).length === 0) {
-      // Proceed to OTP verification stage
-      setVerificationStage('otp');
+      try {
+        const response = await axiosInstance.post('/user/otp', formData);
+        console.log(response);
+        setVerificationStage('otp');
+      } catch (error) {
+        console.error('Registration form submission error:', error.response ? error.response.data : error.message);
+      }
+
     } else {
-      // Update the errors state if there are validation errors
       setErrors(newErrors);
     }
   };
-  
+
+  const handlerSubmitOTP = async () => {
+    const newErrors = {};
+
+    if (!formData.otp.trim()) {
+      newErrors.otp = 'OTP is required';
+    }
+
+    if (Object.keys(newErrors).length === 0) {
+      try {
+        const response = await axiosInstance.post('/user/verify-otp', {
+          email: formData.email,
+          phoneNumber: formData.phoneNumber,
+          otp: formData.otp,
+        });
+        console.log(response);
+        if (response.status === 200) {
+          setVerificationStage('password');
+        } else {
+          newErrors.otp = 'Invalid OTP';
+          setErrors(newErrors);
+        }
+      } catch (error) {
+        console.error('OTP verification error:', error.response ? error.response.data : error.message);
+      }
+    } else {
+      setErrors(newErrors);
+    }
+  };
+
+
 
   return (
     <div className="registration-form-container">
@@ -177,7 +230,7 @@ const RegistrationForm = () => {
           </div>
         )}
         {verificationStage === 'otp' && (
-          <input type="submit" value="Submit OTP" />
+          <button type="button" onClick={handlerSubmitOTP}> Submit OTP</button>
         )}
         {verificationStage === 'password' && (
           <div>
@@ -207,7 +260,9 @@ const RegistrationForm = () => {
           </div>
         )}
       </form>
-      <input type="button" value="Gmail Login" />
+      <GoogleButton
+        onClick={() => { console.log('Google button clicked') }}
+      />
       <Footer />
       <BottomBar />
     </div>
