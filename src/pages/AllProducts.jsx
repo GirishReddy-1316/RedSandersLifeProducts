@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import addToCartImg from "../assets/cart-product.svg";
 import wishlistImg from "../assets/heart.svg";
+import axiosInstance from "../api.js";
 
 function AllProducts() {
   const [cartItems, setCartItems] = useState(() => {
@@ -78,6 +79,19 @@ function AllProducts() {
           : item,
       ),
     );
+  };
+
+  useEffect(() => {
+    getAllProductsList()
+  }, [])
+
+  const getAllProductsList = async () => {
+    try {
+      const response = await axiosInstance.get("/products");
+      setItems(response.data);
+    } catch (error) {
+      console.error("There was an error fetching the products list:", error);
+    }
   };
 
   return (
