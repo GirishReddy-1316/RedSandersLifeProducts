@@ -5,7 +5,7 @@ import Footer from '../components/Footer.jsx';
 import BottomBar from '../components/BottomBar.jsx';
 import ForgotPassword from '../components/ForgotPassword.jsx';
 import axiosInstance from '../api.js';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import GoogleButton from 'react-google-button';
 import axios from 'axios';
 
@@ -126,7 +126,7 @@ function Account() {
         onClick={handlerGoogleAuth}
       />
       <div className="registrationLink">
-        Join us today! <a href="/registrationForm">Register</a> now for free
+        Join us today! <Link to={"/registrationForm"}>Register</Link> now for free
         and become a part of our community.
       </div>
       <Footer />
