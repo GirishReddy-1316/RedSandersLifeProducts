@@ -9,9 +9,15 @@ import BottomBar from "../components/BottomBar.jsx";
 import "../styles/home.css";
 import Footer from "../components/Footer.jsx";
 import "../styles/home.css";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import axiosInstance from "../api.js";
 
 function Home() {
+  const navigate = useNavigate();
+  let [searchParams] = useSearchParams();
+  const accessToken = searchParams.get('accessToken');
   const [cartVisible, setCartVisible] = useState(false);
+  let token = localStorage.getItem("token");
 
   const [cartItems, setCartItems] = useState(() => {
     const savedCartItems = localStorage.getItem("cartItems");
@@ -95,6 +101,32 @@ function Home() {
       ),
     );
   };
+
+
+  useEffect(() => {
+    if (accessToken) {
+      localStorage.setItem('token', accessToken);
+      navigate("/")
+    }
+    if (token) {
+      getUserProfile(token)
+    }
+  }, [accessToken, token]);
+
+  async function getUserProfile(accessToken) {
+    try {
+      const response = await axiosInstance.get('/user/profile', {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      });
+      console.log(response.data)
+      return response.data;
+
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+    }
+  }
 
   return (
     <div className="main">
