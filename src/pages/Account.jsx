@@ -58,7 +58,7 @@ function Account() {
         const response = await axiosInstance.post('/user/login', { emailOrPhone, password: custPassword });
         setFormSubmitted(true)
         console.log(response.data);
-        localStorage.setItem('token', JSON.stringify(response.data.token));
+        localStorage.setItem('token', response.data.token);
         localStorage.setItem('userInfo', JSON.stringify(response.data.user));
         navigate("/")
 
@@ -71,7 +71,7 @@ function Account() {
 
   async function handlerGoogleAuth() {
     try {
-      window.location.href = `http://localhost:3000/auth/google`
+      window.location.href = `https://sore-tan-pangolin-kilt.cyclic.app/auth/google`
     } catch (error) {
       console.error('Google login error:', error.response ? error.response.data.message : error.message);
       alert('Google login failed!');
