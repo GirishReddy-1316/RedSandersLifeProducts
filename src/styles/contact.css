@@ -6,11 +6,9 @@
   height: 100vh;
   padding: 0;
   margin: 0;
-  background-image: radial-gradient(
-      at 50% 50%,
+  background-image: radial-gradient(at 50% 50%,
       hsla(162, 77%, 40%, 0.121) 0,
-      transparent 50%
-    ),
+      transparent 50%),
     radial-gradient(at 82% 65%, #111d2765 0, transparent 50%);
 }
 
@@ -21,8 +19,9 @@
   padding-bottom: 30px;
   text-transform: uppercase;
 }
+
 .contact-form {
-  height: 90vh;
+  height: 45vh;
   width: 40vw;
   display: flex;
   flex-direction: column;
@@ -63,6 +62,7 @@
   border: 1px solid rgba(151, 0, 0, 0.668);
   animation: shake 0.5s ease-in-out;
 }
+
 .contact-text {
   color: #dfdfdf;
   width: 100%;
@@ -72,6 +72,7 @@
   border: 1px solid #ffffff32;
   background-color: transparent;
 }
+
 .thanks {
   padding: 10px;
   align-self: flex-start;
@@ -82,16 +83,20 @@
 }
 
 @keyframes shake {
+
   0%,
   100% {
     transform: translateX(0);
   }
+
   25% {
     transform: translateX(-5px);
   }
+
   50% {
     transform: translateX(5px);
   }
+
   75% {
     transform: translateX(-5px);
   }
@@ -101,6 +106,7 @@
   .contact-form {
     width: 90vw;
   }
+
   .contact-head {
     font-size: 1rem;
   }

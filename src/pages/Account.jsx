@@ -1,48 +1,46 @@
-import { useState } from "react";
-import "../styles/account.css";
-import PagesHeader from "../components/PagesHeader.jsx";
-import Footer from "../components/Footer.jsx";
-import BottomBar from "../components/BottomBar.jsx";
-import ForgotPassword from "../components/ForgotPassword.jsx";
+import React, { useState } from 'react';
+import '../styles/account.css';
+import PagesHeader from '../components/PagesHeader.jsx';
+import Footer from '../components/Footer.jsx';
+import BottomBar from '../components/BottomBar.jsx';
+import ForgotPassword from '../components/ForgotPassword.jsx';
+import axiosInstance from '../api.js';
+import { Link, useNavigate } from 'react-router-dom';
+import GoogleButton from 'react-google-button';
+import axios from 'axios';
 
 function Account() {
+  const navigate = useNavigate()
   const [animationKey, setAnimationKey] = useState(0);
-  const [custName, setcustName] = useState("");
+  const [emailOrPhone, setEmailOrPhone] = useState("");
   const [custPassword, setCustPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [custNameValid, setcustNameValid] = useState(true);
-  const [custPasswordValid, setcustPasswordValid] = useState(true);
-  const [emailValid, setEmailValid] = useState(true);
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [inputValid, setInputValid] = useState(true);
+  const [custPasswordValid, setCustPasswordValid] = useState(true);
   const [forgotPassword, setForgotPassword] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false)
 
   function triggerAnimation() {
     setAnimationKey((prevKey) => prevKey + 1);
   }
 
   function validateForm() {
-    console.log("Validating form...");
     let isValid = true;
 
-    if (!custName.trim()) {
-      setcustNameValid(false);
-      isValid = false;
-    } else {
-      setcustNameValid(true);
-    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^\d{10}$/;
 
     if (!custPassword.trim()) {
-      setcustPasswordValid(false);
+      setCustPasswordValid(false);
       isValid = false;
     } else {
-      setcustPasswordValid(true);
+      setCustPasswordValid(true);
     }
 
-    if (!email.trim() || !email.includes("@")) {
-      setEmailValid(false);
+    if (!emailOrPhone.trim() || !(emailRegex.test(emailOrPhone) || phoneRegex.test(emailOrPhone))) {
+      setInputValid(false);
       isValid = false;
     } else {
-      setEmailValid(true);
+      setInputValid(true);
     }
 
     if (!isValid) {
@@ -52,18 +50,32 @@ function Account() {
     return isValid;
   }
 
-  function order(submit) {
-    submit.preventDefault();
+  async function handlerSignin(e) {
+    e.preventDefault();
     if (validateForm()) {
-      console.log(custName, email);
-      setFormSubmitted(true);
-    } else {
-      setFormSubmitted(false);
+      console.log("Signing in with:", emailOrPhone);
+      try {
+        const response = await axiosInstance.post('/user/login', { emailOrPhone, password: custPassword });
+        setFormSubmitted(true)
+        console.log(response.data);
+        localStorage.setItem('token', JSON.stringify(response.data.token));
+        localStorage.setItem('userInfo', JSON.stringify(response.data.user));
+        navigate("/")
+
+      } catch (error) {
+        console.error('Login error:', error.response ? error.response.data.message : error.message);
+        alert('Login failed!');
+      }
     }
   }
 
-  function handleForgotPassword() {
-    setForgotPassword(true);
+  async function handlerGoogleAuth() {
+    try {
+      window.location.href = `http://localhost:3000/auth/google`
+    } catch (error) {
+      console.error('Google login error:', error.response ? error.response.data.message : error.message);
+      alert('Google login failed!');
+    }
   }
 
   return (
@@ -71,60 +83,52 @@ function Account() {
       <PagesHeader />
       <div className="pheader-container">
         <h2 className="contact-head">Login</h2>
+
+        {!forgotPassword ? (
+          <form onSubmit={handlerSignin} className="contact-form">
+            <input
+              id="emailOrPhone"
+              key={`emailOrPhone-${animationKey}`}
+              type="text"
+              name="emailOrPhone"
+              className={inputValid ? "" : "contact-error-input"}
+              value={emailOrPhone}
+              onChange={(e) => setEmailOrPhone(e.target.value)}
+              autoComplete="email"
+              placeholder="Email or phone number"
+            />
+
+            <input
+              id="custpassword"
+              key={`custPassword-${animationKey}`}
+              type="password"
+              name="custpassword"
+              className={custPasswordValid ? "" : "contact-error-input"}
+              value={custPassword}
+              onChange={(e) => setCustPassword(e.target.value)}
+              placeholder="Password"
+            />
+
+            <input type="submit" value="Sign In" />
+            <a className="forgot-password" onClick={() => setForgotPassword(true)}>Forgot Password?</a>
+
+            {formSubmitted && (
+              <span className={`thanks ${formSubmitted ? "visible" : ""}`}>
+                Welcome back
+              </span>
+            )}
+          </form>
+        ) : (
+          <ForgotPassword onPasswordReset={() => setForgotPassword(false)} />
+        )}
       </div>
-      {!forgotPassword ? (
-        <form onSubmit={order} className="contact-form">
-          <input
-            id="custname"
-            key={`custName-${animationKey}`}
-            type="text"
-            name="custname"
-            className={custNameValid ? "" : "contact-error-input"}
-            value={custName}
-            onChange={(e) => setcustName(e.target.value)}
-            autoComplete="name"
-            placeholder="Your Name"
-          />
-
-          <input
-            id="email"
-            key={`email-${animationKey}`}
-            type="email"
-            name="email"
-            className={emailValid ? "" : "contact-error-input"}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            autoComplete="email"
-            placeholder="Email"
-          />
-
-          <input
-            id="custpassword"
-            key={`custPassword-${animationKey}`}
-            type="password"
-            name="custpassword"
-            className={custPasswordValid ? "" : "contact-error-input"}
-            onChange={(e) => setCustPassword(e.target.value)}
-            placeholder="Password"
-          />
-
-          <input type="submit" value="Sign In" />
-          <a className="forgot-password" onClick={handleForgotPassword}>Forgot Password?</a>
-
-          {formSubmitted && (
-            <span className={`thanks ${formSubmitted ? "visible" : ""}`}>
-              Welcome back, {custName}
-            </span>
-          )}
-        </form>
-      ) : (
-        <ForgotPassword onPasswordReset={handleForgotPassword} />
-      )}
+      <GoogleButton
+        onClick={handlerGoogleAuth}
+      />
       <div className="registrationLink">
-        Join us today! <a href="/registrationForm">Register</a> now for free
+        Join us today! <Link to={"/registrationForm"}>Register</Link> now for free
         and become a part of our community.
       </div>
-
       <Footer />
       <BottomBar />
     </div>

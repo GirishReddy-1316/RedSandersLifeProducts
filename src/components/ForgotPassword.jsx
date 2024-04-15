@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import "../styles/forgotpassword.css";
+import axiosInstance from "../api";
+import { useNavigate } from "react-router-dom";
 
 function ForgotPassword({ onPasswordReset }) {
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [email, setEmail] = useState("");
+  const navigate = useNavigate()
+  const [EmailOrPhone, setEmailOrPhone] = useState("");
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -13,22 +15,40 @@ function ForgotPassword({ onPasswordReset }) {
   const [passwordError, setPasswordError] = useState("");
   const [inputError, setInputError] = useState("");
 
-  function handleSendOtp() {
-    if (!phoneNumber && !email) {
+  async function handleSendOtp() {
+    if (!EmailOrPhone) {
       setInputError("Please enter Phone Number or Email");
       return;
     }
 
     // Logic to send OTP to the provided phone number or email
-    setShowOtpForm(true);
+    try {
+      const response = await axiosInstance.post('/user/forget-password', { email: EmailOrPhone, phone: EmailOrPhone });
+      console.log('OTP sent', response.data);
+      setShowOtpForm(true);
+    } catch (error) {
+      console.error('Error sending OTP:', error.response ? error.response.data.message : error.message);
+      setInputError('Failed to send OTP!');
+    }
+
   }
 
-  function handleOtpVerification() {
-    // Logic to verify OTP
-    setOtpVerified(true);
+  async function handleOtpVerification() {
+    try {
+      const response = await axiosInstance.post('/user/verify-password-otp', { phoneNumber: EmailOrPhone, otp });
+      console.log('OTP verification', response.data);
+      if (response.status === 200) {
+        setOtpVerified(true);
+      } else {
+        setInputError('OTP verification failed! Please try again.');
+      }
+    } catch (error) {
+      console.error('Error verifying OTP:', error.response ? error.response.data.message : error.message);
+      setInputError('Failed to verify OTP!');
+    }
   }
 
-  function handlePasswordSubmit(e) {
+  async function handlePasswordSubmit(e) {
     e.preventDefault();
 
     if (!newPassword || !confirmPassword) {
@@ -42,8 +62,19 @@ function ForgotPassword({ onPasswordReset }) {
     }
 
     // Logic to submit new password
-    setPasswordSubmitted(true);
-    onPasswordReset();
+    try {
+      const response = axiosInstance.post('/user/reset-password', { EmailOrPhone, password: newPassword });
+      if (response.status === 200) {
+        setPasswordSubmitted(true);
+        onPasswordReset();
+        navigate("/account")
+      } else {
+        setInputError('Password reset failed! Please try again.');
+      }
+    } catch (error) {
+      console.error('Error password reset:', error.response ? error.response.data.message : error.message);
+      setInputError('Failed to password reset!');
+    }
   }
 
   return (
@@ -53,10 +84,8 @@ function ForgotPassword({ onPasswordReset }) {
           <input
             type="text"
             placeholder="Phone Number or Email"
-            value={phoneNumber || email}
-            onChange={(e) =>
-              phoneNumber ? setPhoneNumber(e.target.value) : setEmail(e.target.value)
-            }
+            value={EmailOrPhone}
+            onChange={(e) => setEmailOrPhone(e.target.value)}
           />
           {inputError && <p className="error-message">{inputError}</p>}
           <button className="send-otp-button" onClick={handleSendOtp}>
@@ -97,7 +126,7 @@ function ForgotPassword({ onPasswordReset }) {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
           <button className="submit-button" onClick={handlePasswordSubmit}>
-            Register
+            Reset Password
           </button>
           {passwordError && (
             <p className="error-message">{passwordError}</p>

@@ -3,109 +3,120 @@ import "../styles/contact.css";
 import PagesHeader from "../components/PagesHeader.jsx";
 import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
+import axiosInstance from "../api.js";
 
 function Contact() {
-  const [animationKey, setAnimationKey] = useState(0);
-  const [custName, setcustName] = useState("");
-  const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [custNameValid, setcustNameValid] = useState(true);
-  const [emailValid, setEmailValid] = useState(true);
-  const [mobileValid, setMobileValid] = useState(true);
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formState, setFormState] = useState({
+    custName: "",
+    email: "",
+    mobile: "",
+    message: "",
+    custNameValid: true,
+    emailValid: true,
+    mobileValid: true,
+    formSubmitted: false,
+  });
+
+  // De-structure for easier access in the code
+  const { custName, email, mobile, message, custNameValid, emailValid, mobileValid, formSubmitted } = formState;
+
   function triggerAnimation() {
     setAnimationKey((prevKey) => prevKey + 1);
   }
 
   function validateForm() {
-    console.log("Validating form...");
-    let isValid = true;
+    const isValid = {
+      custName: !!custName.trim(),
+      email: !!email.trim() && email.includes("@"),
+      mobile: !!mobile.trim() && /^\d+$/.test(mobile),
+    };
 
-    if (!custName.trim()) {
-      setcustNameValid(false);
-      isValid = false;
-    } else {
-      setcustNameValid(true);
-    }
+    setFormState({
+      ...formState,
+      custNameValid: isValid.custName,
+      emailValid: isValid.email,
+      mobileValid: isValid.mobile,
+    });
 
-    if (!email.trim() || !email.includes("@")) {
-      setEmailValid(false);
-      isValid = false;
-    } else {
-      setEmailValid(true);
-    }
-
-    if (!mobile.trim() || !/^\d+$/.test(mobile)) {
-      setMobileValid(false);
-      isValid = false;
-    } else {
-      setMobileValid(true);
-    }
-
-    if (!isValid) {
-      triggerAnimation();
-    }
-
-    return isValid;
+    return isValid.custName && isValid.email && isValid.mobile;
   }
 
-  function order(submit) {
-    submit.preventDefault();
+  async function handleContactSubmit(e) {
+    e.preventDefault();
     if (validateForm()) {
-      console.log(custName, email, mobile);
-      setFormSubmitted(true);
-    } else {
-      setFormSubmitted(false);
+      try {
+        const response = await axiosInstance.post('/contact', { custName, email, mobile, message });
+        console.log(response.data);
+        setFormState({ ...formState, formSubmitted: true });
+        setFormState({
+          ...formState,
+          custName: "",
+          email: "",
+          mobile: "",
+          message: "",
+          formSubmitted: true,
+        });
+
+      } catch (error) {
+        console.error('Error submitting contact query:', error);
+      }
     }
+  }
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
   }
 
   return (
     <div className="contact-container">
       <PagesHeader />
-
-      <form onSubmit={order} className="contact-form">
-        <h1 className="contact-head">Contact Us</h1>
+      <form onSubmit={handleContactSubmit} className="contact-form">
+        <h1>Contact Us</h1>
         <input
-          id="custname"
-          key={`custName-${animationKey}`}
+          id="custName"
           type="text"
-          name="custname"
+          name="custName"
           className={custNameValid ? "" : "contact-error-input"}
           value={custName}
-          onChange={(e) => setcustName(e.target.value)}
+          onChange={handleChange}
           autoComplete="name"
           placeholder="Your Name"
         />
-
         <input
           id="email"
-          key={`email-${animationKey}`}
           type="email"
           name="email"
           className={emailValid ? "" : "contact-error-input"}
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleChange}
           autoComplete="email"
           placeholder="Email"
         />
-
         <input
           id="mobile"
-          key={`mobile-${animationKey}`}
           type="tel"
           name="mobile"
           className={mobileValid ? "" : "contact-error-input"}
           value={mobile}
-          onChange={(e) => setMobile(e.target.value)}
+          onChange={handleChange}
           autoComplete="tel"
           placeholder="Contact Number"
         />
-        <textarea placeholder="Message" className="contact-text"></textarea>
+        <textarea
+          name="message"
+          className="contact-text"
+          value={message}
+          onChange={handleChange}
+          placeholder="Message"
+        ></textarea>
         <input type="submit" value="Send" />
         {formSubmitted && (
-          <span className={`thanks ${formSubmitted ? "visible" : ""}`}>
-            Your request has been received. We will review it and get back to
-            you soon.
+          <span className="thanks visible">
+            Your request has been received. We will review it and get back to you soon.
           </span>
         )}
       </form>
