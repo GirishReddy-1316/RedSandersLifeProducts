@@ -4,6 +4,8 @@ import wishlistIcon from "../assets/wishlist.svg";
 import accountIcon from "../assets/account.svg";
 import dropdown from "../assets/dd.svg";
 import cartIcon from "../assets/cart2.svg";
+import cartAdd from "../assets/cart.svg";
+
 import { Link } from "react-router-dom";
 import Search from "./Search.jsx";
 
@@ -65,25 +67,25 @@ function Header({ cartCount, wishCount, setCartVisible }) {
               src={accountIcon}
               alt="account-icon"
               className="account-icon head-icons"
-            /><span className="icon-text">Login</span> {" "}
+            /> {" "}
           </Link> 
           <Link to="/orders">
             {" "}
             <img
-              src={accountIcon}
-              alt="account-icon"
+              src={cartIcon}
+              alt="orders-icon"
               className="account-icon head-icons"
-            /><span className="icon-text">Orders</span> {" "}
+            />{" "}
           </Link>          
 
           <span className="cart-icon-container">
             <img
               onClick={() => setCartVisible((preview) => !preview)}
-              src={cartIcon}
-              alt=""
+              src={cartAdd}
+              alt="cart-icon"
               className="cart-icon head-icons"
             />
-            <span className="icon-text">Cart</span> {cartCount > 0 && <span className="cart-counter">{cartCount}</span>}
+            {cartCount > 0 && <span className="cart-counter">{cartCount}</span>}
           </span>
         </div>
       </header>
