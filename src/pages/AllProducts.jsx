@@ -18,7 +18,7 @@ function AllProducts() {
   });
   const [cartVisible, setCartVisible] = useState(false);
 
-  const [items, setItems] = useState(Products);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
