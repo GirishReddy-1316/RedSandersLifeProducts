@@ -10,7 +10,6 @@ import { toast } from "sonner";
 import addToCartImg from "../assets/cart-product.svg";
 import wishlistImg from "../assets/heart.svg";
 import axiosInstance from "../api.js";
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 function AllProducts() {
@@ -114,57 +113,51 @@ function AllProducts() {
         wishCount={wishItems.length}
         setCartVisible={setCartVisible}
       />
-      {!loading ? (
+
+      <div className="all-products-container">
         <div className="all-products">
-          <CircularProgress disableShrink />
-        </div>
-      ) : (
-        <div className="all-products-container">
-          <div className="all-products">
-            {items.map((item) => (
-              <div key={item.id} className="all-product">
-                <Link to={`/products/${item.slug}`} state={{ items: item }}>
-                  <img
-                    className="all-product-image"
-                    src={item.image}
-                    alt={item.name}
-                  />
-                </Link>
-                <div className="all-product-details">
-                  <h3 className="all-product-name">
-                    <Link to={`/products/${item.slug}`} state={{ items: item }}>
-                      {item.name}
-                    </Link>
-                  </h3>
-                  <p className="all-product-size">{item.size}</p>
-                  <p className="all-product-price">{item.price}</p>
-                  <div className="all-products-btns">
-                    <button
-                      className="all-padd-to-wish"
-                      onClick={() => {
-                        addToWish(item);
-                        toast.success("Added to Wishlist", { duration: 1000 });
-                      }}
-                    >
-                      <img src={wishlistImg} />
-                    </button>
-                    <button
-                      className="all-padd-to-cart"
-                      onClick={() => {
-                        addToCart(item);
-                        toast.success("Added to Cart", { duration: 1000 });
-                      }}
-                    >
-                      <img src={addToCartImg} />
-                    </button>
-                  </div>
+          {items.map((item) => (
+            <div key={item.id} className="all-product">
+              <Link to={`/products/${item.slug}`} state={{ items: item }}>
+                <img
+                  className="all-product-image"
+                  src={item.image}
+                  alt={item.name}
+                />
+              </Link>
+              <div className="all-product-details">
+                <h3 className="all-product-name">
+                  <Link to={`/products/${item.slug}`} state={{ items: item }}>
+                    {item.name}
+                  </Link>
+                </h3>
+                <p className="all-product-size">{item.size}</p>
+                <p className="all-product-price">{item.price}</p>
+                <div className="all-products-btns">
+                  <button
+                    className="all-padd-to-wish"
+                    onClick={() => {
+                      addToWish(item);
+                      toast.success("Added to Wishlist", { duration: 1000 });
+                    }}
+                  >
+                    <img src={wishlistImg} />
+                  </button>
+                  <button
+                    className="all-padd-to-cart"
+                    onClick={() => {
+                      addToCart(item);
+                      toast.success("Added to Cart", { duration: 1000 });
+                    }}
+                  >
+                    <img src={addToCartImg} />
+                  </button>
                 </div>
               </div>
-            ))}
-          </div >
+            </div>
+          ))}
         </div >
-      )
-      }
+      </div >
 
       <Footer />
       <BottomBar />
