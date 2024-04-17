@@ -1,23 +1,24 @@
-import React, { useState } from 'react';
-import '../styles/account.css';
-import PagesHeader from '../components/PagesHeader.jsx';
-import Footer from '../components/Footer.jsx';
-import BottomBar from '../components/BottomBar.jsx';
-import ForgotPassword from '../components/ForgotPassword.jsx';
-import axiosInstance from '../api.js';
-import { Link, useNavigate } from 'react-router-dom';
-import GoogleButton from 'react-google-button';
-import axios from 'axios';
+import React, { useState } from "react";
+import "../styles/account.css";
+import PagesHeader from "../components/PagesHeader.jsx";
+import Footer from "../components/Footer.jsx";
+import BottomBar from "../components/BottomBar.jsx";
+import ForgotPassword from "../components/ForgotPassword.jsx";
+import axiosInstance from "../api.js";
+import { Link, useNavigate } from "react-router-dom";
+import GoogleButton from "react-google-button";
+import axios from "axios";
+import { toast } from "sonner";
 
 function Account() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [animationKey, setAnimationKey] = useState(0);
   const [emailOrPhone, setEmailOrPhone] = useState("");
   const [custPassword, setCustPassword] = useState("");
   const [inputValid, setInputValid] = useState(true);
   const [custPasswordValid, setCustPasswordValid] = useState(true);
   const [forgotPassword, setForgotPassword] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false)
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   function triggerAnimation() {
     setAnimationKey((prevKey) => prevKey + 1);
@@ -36,7 +37,10 @@ function Account() {
       setCustPasswordValid(true);
     }
 
-    if (!emailOrPhone.trim() || !(emailRegex.test(emailOrPhone) || phoneRegex.test(emailOrPhone))) {
+    if (
+      !emailOrPhone.trim() ||
+      !(emailRegex.test(emailOrPhone) || phoneRegex.test(emailOrPhone))
+    ) {
       setInputValid(false);
       isValid = false;
     } else {
@@ -55,26 +59,40 @@ function Account() {
     if (validateForm()) {
       console.log("Signing in with:", emailOrPhone);
       try {
-        const response = await axiosInstance.post('/user/login', { emailOrPhone, password: custPassword });
-        setFormSubmitted(true)
+        const response = await axiosInstance.post("/user/login", {
+          emailOrPhone,
+          password: custPassword,
+        });
+        setFormSubmitted(true);
         console.log(response.data);
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('userInfo', JSON.stringify(response.data.user));
-        navigate("/")
-
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("userInfo", JSON.stringify(response.data.user));
+        toast.success("User Logged in successfully", {
+          duration: 2000,
+          position: "top-center",
+        });
+        navigate("/");
       } catch (error) {
-        console.error('Login error:', error.response ? error.response.data.message : error.message);
-        alert('Login failed!');
+        toast.error(
+          "Login failed: " +
+            (error.response ? error.response.data.message : error.message),
+          { duration: 2000, position: "top-center" }
+        );
+      } finally {
+        setFormSubmitted(false);
       }
     }
   }
 
   async function handlerGoogleAuth() {
     try {
-      window.location.href = `https://sore-tan-pangolin-kilt.cyclic.app/auth/google`
+      window.location.href = `https://sore-tan-pangolin-kilt.cyclic.app/auth/google`;
     } catch (error) {
-      console.error('Google login error:', error.response ? error.response.data.message : error.message);
-      alert('Google login failed!');
+      console.error(
+        "Google login error:",
+        error.response ? error.response.data.message : error.message
+      );
+      alert("Google login failed!");
     }
   }
 
@@ -110,7 +128,12 @@ function Account() {
             />
 
             <input type="submit" value="Sign In" />
-            <a className="forgot-password" onClick={() => setForgotPassword(true)}>Forgot Password?</a>
+            <a
+              className="forgot-password"
+              onClick={() => setForgotPassword(true)}
+            >
+              Forgot Password?
+            </a>
 
             {formSubmitted && (
               <span className={`thanks ${formSubmitted ? "visible" : ""}`}>
@@ -122,12 +145,10 @@ function Account() {
           <ForgotPassword onPasswordReset={() => setForgotPassword(false)} />
         )}
       </div>
-      <GoogleButton
-        onClick={handlerGoogleAuth}
-      />
+      <GoogleButton onClick={handlerGoogleAuth} />
       <div className="registrationLink">
-        Join us today! <Link to={"/registrationForm"}>Register</Link> now for free
-        and become a part of our community.
+        Join us today! <Link to={"/registrationForm"}>Register</Link> now for
+        free and become a part of our community.
       </div>
       <Footer />
       <BottomBar />

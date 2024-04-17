@@ -1,6 +1,6 @@
 import "../styles/herosection.css";
 import { Link } from "react-router-dom";
-import CarouselSlider from "./Corusel";
+import CarouselSlider from "./CarouselSlider";
 
 function HeroSection() {
   return (

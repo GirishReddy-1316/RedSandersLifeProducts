@@ -17,12 +17,18 @@ import ScrollToTop from "./components/ScrollToTop.jsx";
 import Thankyou from "./pages/Thankyou.jsx";
 import "./styles/index.css";
 import Orders from "./pages/Orders.jsx";
+import Loader from "./components/Loader.jsx";
+import React, { useState } from "react";
+
 
 function App() {
   let location = useLocation();
+  const [loading, setLoading] = useState(false);
+
 
   return (
     <>
+      {loading && <Loader />} 
       <Toaster richColors theme="dark" />
       <ScrollToTop />
       <div key={location.pathname} className="fade-in">
