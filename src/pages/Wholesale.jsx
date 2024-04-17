@@ -9,14 +9,14 @@ function Wholesale() {
       <PagesHeader />
 
       <main className="wholesale-main-content">
-        <h1>Welcome to Hare Rama Hare Krishna Industries Wholesale</h1>
+        <h1>Welcome to Jiyaba Wholesale</h1>
         <p>
           Join us in bringing the rich heritage of Red Sandal Wood to enthusiasts
           around the globe.
         </p>
 
         <section className="why-wholesale">
-          <h2>Why Partner with Hare Rama Hare Krishna Industries?</h2>
+          <h2>Why Partner with Jiyaba ?</h2>
           <ul className="our-offerings-list">
             <li>
               Direct from the Source:

@@ -16,7 +16,7 @@ function Policies() {
           <p>
             At{" "}
             <a href="/" className="policies-title">
-              Hare Rama Hare Krishna Industries
+              Jiyaba
             </a>
             , we take pride in ensuring that our products reach you fresh and fast.
             Our shipping partners are selected for their reliability and speed.
@@ -64,7 +64,7 @@ function Policies() {
         <section className="sustainability-commitment">
           <h2>Our Commitment to Sustainability</h2>
           <p>
-            Sustainability is at the heart of everything we do at HRHK Industries.
+            Sustainability is at the heart of everything we do at Jiyaba.
             From the tea gardens to your cup, we are dedicated to promoting
             environmentally friendly practices, supporting local communities,
             and ensuring the highest standards of ethical sourcing. Learn more

@@ -63,24 +63,24 @@ function PagesHeader({ cartCount, wishCount, setCartVisible }) {
               src={accountIcon}
               alt="account-icon"
               className="account-icon head-icons"
-            /><span className="icon-text">Login</span> {" "}
+            /> {" "}
           </Link> : (<div onClick={handleLogout}>
             <img
               src={accountIcon}
               alt="account-icon"
               className="account-icon head-icons"
             />
-            <span className="icon-text">Logout</span> {" "}
+             {" "}
           </div>)
           }
 
           <Link to="/orders">
             {" "}
             <img
-              src={accountIcon}
+              src={cartIcon}
               alt="account-icon"
               className="account-icon head-icons"
-            /><span className="icon-text">Orders</span> {" "}
+            />{" "}
           </Link>
         </div>
       </header>

@@ -1,10 +1,11 @@
 import "../styles/herosection.css";
 import { Link } from "react-router-dom";
+import CarouselSlider from "./Corusel";
 
 function HeroSection() {
   return (
     <div className="hero-container">
-      <div className="hero-background-image"></div>
+       <CarouselSlider />
       <h1 className="hero-heading">Welcome to Red Sanders Family</h1>
       <p className="hero-subtitle">
       A Taste of Authenticity, Straight from the Roots of the Red Sanders Tree to Your Bottle.

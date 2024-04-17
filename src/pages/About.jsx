@@ -10,7 +10,7 @@ function About() {
 
       <main className="about-main-content">
         <section className="about-intro">
-          <h1>About Hare Rama Hare Krishna Industries</h1>
+          <h1>About Jiyaba </h1>
           <p className="tagline">
           A Taste of Authenticity, Straight from the Roots of the Red Sanders Tree to Your Bottle.
           </p>
@@ -22,7 +22,7 @@ function About() {
         <section className="our-mission">
           <h2>Our Mission</h2>
           <p>
-          At HRHK Industries, we believe in the potential of Red Sanders Trees and their benefits. We aim to introduce a range of products made from red sandalwood to provide various health benefits to people. Our goal is to offer a variety of products derived from Red Sanders Trees.
+          At Jiyaba, we believe in the potential of Red Sanders Trees and their benefits. We aim to introduce a range of products made from red sandalwood to provide various health benefits to people. Our goal is to offer a variety of products derived from Red Sanders Trees.
           </p>
         </section>
 
