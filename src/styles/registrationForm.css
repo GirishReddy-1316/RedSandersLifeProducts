@@ -14,7 +14,7 @@
     radial-gradient(at 82% 65%, #111d2765 0, transparent 50%);
 
   >form {
-    height: 45vh;
+    height: 95vh;
     width: 40vw;
     display: flex;
     flex-direction: column;
@@ -25,7 +25,7 @@
     color: #f6f6f6;
     width: 100%;
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
@@ -57,7 +57,20 @@
 
   .error {
     color: red;
-    margin-top: 5px;
+    /* margin-top: 5px; */
+  }
+  button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin:10px 0;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
   }
 }
 

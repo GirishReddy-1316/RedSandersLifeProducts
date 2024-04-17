@@ -3,6 +3,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import slide1 from "../assets/slide.jpg";
+import slide2 from "../assets/slide2.jpg";
+
 import '../styles/carousel.css'
 
 function CarouselSlider() {
@@ -53,7 +55,7 @@ function CarouselSlider() {
       </div>
       <div className="carousel-slide">
         <img
-          src="https://mdbootstrap.com/img/Photos/Slides/img%20(22).jpg"
+          src={slide2}
           className="d-block w-100"
           alt="..."
         />

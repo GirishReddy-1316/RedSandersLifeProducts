@@ -38,13 +38,14 @@ function ForgotPassword({ onPasswordReset }) {
 
     } catch (error) {      
       setInputError("Failed to send OTP!");
-      toast.error(error.response ? error.response.data.message : error.message), { duration: 2000, position: 'top-center' }; 
+      toast.error((error.response ? error.response.data.message : error.message), { duration: 2000, position: 'top-center' }); 
       setLoading(false);
 
     }
   }
 
   async function handleOtpVerification() {
+    setLoading(true);
     try {
       const response = await axiosInstance.post("/user/verify-password-otp", {
         phoneNumber: EmailOrPhone,
@@ -58,13 +59,15 @@ function ForgotPassword({ onPasswordReset }) {
         setInputError("OTP verification failed! Please try again.");
         toast.error("OTP verification failed! Please try again.", {  duration: 2000 , position: 'top-center' });
       }
+      setLoading(false);
     } catch (error) {
       console.error(
         "Error verifying OTP:",
         error.response ? error.response.data.message : error.message
       );
       setInputError("Failed to verify OTP!");
-      toast.error(error.response ? error.response.data.message : error.message), { duration: 2000, position: 'top-center' }; 
+      toast.error((error.response ? error.response.data.message : error.message), { duration: 2000, position: 'top-center' }); 
+      setLoading(false);
     }
   }
 
@@ -83,6 +86,7 @@ function ForgotPassword({ onPasswordReset }) {
 
     // Logic to submit new password
     try {
+      setLoading(true);
       const response = axiosInstance.post("/user/reset-password", {
         EmailOrPhone,
         password: newPassword,
@@ -91,10 +95,12 @@ function ForgotPassword({ onPasswordReset }) {
         setPasswordSubmitted(true);
         onPasswordReset();
         toast.success("Password changed successfully.", {  duration: 2000 , position: 'top-center'});
+        setLoading(false);
         navigate("/account");
       } else {
         setInputError("Password reset failed! Please try again.");
         toast.error("Password reset failed! Please try again.", {  duration: 2000 , position: 'top-center' });
+        setLoading(false);
       }
     } catch (error) {
       console.error(
@@ -103,6 +109,7 @@ function ForgotPassword({ onPasswordReset }) {
       );
       setInputError("Failed to password reset!");
       toast.error("Failed to password reset! Please try again.", { duration: 2000 , position: 'top-center' });
+      setLoading(false);
     }
   }
 

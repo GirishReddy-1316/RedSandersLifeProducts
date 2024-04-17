@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import GoogleButton from "react-google-button";
 import axios from "axios";
 import { toast } from "sonner";
+import Loader from "../components/Loader.jsx";
 
 function Account() {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ function Account() {
   const [custPasswordValid, setCustPasswordValid] = useState(true);
   const [forgotPassword, setForgotPassword] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   function triggerAnimation() {
     setAnimationKey((prevKey) => prevKey + 1);
@@ -59,10 +61,12 @@ function Account() {
     if (validateForm()) {
       console.log("Signing in with:", emailOrPhone);
       try {
+        setLoading(true);
         const response = await axiosInstance.post("/user/login", {
           emailOrPhone,
           password: custPassword,
         });
+        setLoading(false);
         setFormSubmitted(true);
         console.log(response.data);
         localStorage.setItem("token", response.data.token);
@@ -78,26 +82,34 @@ function Account() {
             (error.response ? error.response.data.message : error.message),
           { duration: 2000, position: "top-center" }
         );
+        setLoading(false);
       } finally {
         setFormSubmitted(false);
+        setLoading(false);
       }
     }
   }
 
   async function handlerGoogleAuth() {
     try {
+      setLoading(true);
       window.location.href = `https://sore-tan-pangolin-kilt.cyclic.app/auth/google`;
     } catch (error) {
       console.error(
         "Google login error:",
         error.response ? error.response.data.message : error.message
       );
-      alert("Google login failed!");
+      setLoading(false);
+      toast.error(
+        error.response ? error.response.data.message : error.message,
+        { duration: 2000, position: "top-center" }
+      );
     }
   }
 
   return (
     <div className="account-container">
+      {loading && <Loader />} 
       <PagesHeader />
       <div className="pheader-container">
         <h2 className="contact-head">Login</h2>
