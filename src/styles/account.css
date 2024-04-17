@@ -21,7 +21,7 @@
 }
 
 .contact-form {
-  /* height: 90vh; */
+  height: 60vh;
   width: 40vw;
   display: flex;
   flex-direction: column;
@@ -92,12 +92,9 @@
   }
 }
 
-.contact-head {
-  /* padding-top:20px; */
-}
-
 .forgot-password {
   color: #fff;
+  cursor: pointer;
 }
 
 @keyframes shake {
@@ -126,6 +123,9 @@
   }
 
   .contact-head {
+    font-size: 1rem;
+  }
+  .registrationLink {
     font-size: 1rem;
   }
 }
