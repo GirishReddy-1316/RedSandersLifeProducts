@@ -11,6 +11,7 @@ import PagesHeader from "../components/PagesHeader.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { axiosInstanceWithToken } from "../api.js";
 
 function Checkout() {
   const [cartItems, setCartItems] = useState(() => {
@@ -103,7 +104,7 @@ function Checkout() {
       setCityValid(true);
     }
 
-    if (!pin.trim() || !/^\d{6}$/.test(pin))    {
+    if (!pin.trim() || !/^\d{6}$/.test(pin)) {
       setPinCode(false);
       isValid = false;
       toast.error("Invalid PinCode", {
@@ -146,13 +147,6 @@ function Checkout() {
     return isValid;
   }
 
-  function order(submit) {
-    submit.preventDefault();
-    if (validateForm()) {
-      navigate("/thankyou");
-    }
-  }
-
   const handleCardHolderNameChange = (e) => {
     setCardHolderName(e.target.value);
   };
@@ -161,13 +155,51 @@ function Checkout() {
     setCvc(e.target.value);
   };
 
+
+  async function createOrder() {
+    try {
+      if (!validateForm()) {
+        return;
+      }
+
+      const order = {
+        products: cartItems.map((item) => ({
+          productId: item._id,
+          quantity: item.quantity
+        })),
+        totalPrice: finalPrice,
+        shippingAddress: `${streetAddress}, ${city}, ${selectedState}, ${pin}, ${country}`,
+        paymentMethod: "Credit Card",
+      };
+
+      const response = await axiosInstanceWithToken.post("/order/create", order);
+      console.log(response);
+
+      if (response.status === 201) {
+        localStorage.removeItem("cartItems");
+        navigate("/thankyou");
+      } else {
+        toast.error("Failed to create order");
+      }
+    } catch (error) {
+      console.error("Error creating order:", error);
+      toast.error("An error occurred while creating the order");
+    }
+  }
+
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    createOrder();
+  }
+
+
   return (
     <>
       <div className="checkout-page">
         <PagesHeader />
 
         <div className="checkout-main-container">
-          <form onSubmit={order} className="checkout-form">
+          <form onSubmit={handleFormSubmit} className="checkout-form">
             <div className="checkout-left">
               <div className="demo-details" onClick={paste}>
                 <img src={pasteIcon} className="paste-image" />
@@ -270,7 +302,7 @@ function Checkout() {
                         {item.name} x {item.quantity}
                       </span>
                       <span>
-                      ₹
+                        ₹
                         {(
                           parseFloat(item.price.substring(1)) * item.quantity
                         ).toFixed(2)}
