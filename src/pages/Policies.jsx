@@ -34,7 +34,7 @@ function Policies() {
             satisfied with your purchase, you may return it within 30 days of
             receipt for a full refund or exchange. The items must be returned in
             their original condition and packaging. Please note that return
-            shipping costs are not covered by HRHK.
+            shipping costs are not covered by JiYaBa.
           </p>
         </section>
 
@@ -53,7 +53,7 @@ function Policies() {
         <section className="terms-conditions">
           <h2>Terms & Conditions</h2>
           <p>
-            By accessing or using the HRHK website and our services, you
+            By accessing or using the JiYaBa website and our services, you
             agree to be bound by our terms and conditions. These terms cover
             important topics such as intellectual property rights, user conduct,
             disclaimers, and liability limitations. We encourage you to read

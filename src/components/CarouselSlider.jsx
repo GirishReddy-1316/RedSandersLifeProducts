@@ -1,9 +1,12 @@
 import React from "react";
 import Slider from "react-slick";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import slide1 from "../assets/slide.jpg";
+import slide1 from "../assets/slide1.jpg";
 import slide2 from "../assets/slide2.jpg";
+import slide3 from "../assets/slide3.jpg";
+
 
 import '../styles/carousel.css'
 
@@ -39,49 +42,54 @@ function CarouselSlider() {
 
   return (
     <Slider {...settings}>
-      <div className="carousel-slide">
-        <img
-          src={slide1}
-          className="d-block w-100"
-          alt="..."
-        />
-        <div className="carousel-caption">
-          <h1 className="hero-heading">Welcome to Red Sanders Family</h1>
-          <p className="hero-subtitle">
-            A Taste of Authenticity, Straight from the Roots of the Red Sanders
-            Tree to Your Bottle.
-          </p>
+      <Link to="/all-products">
+        <div className="carousel-slide">
+          <img
+            src={slide1}
+            className="d-block w-100"
+            alt="..."
+          />
+          <div className="carousel-caption">
+            <h1 className="hero-heading">Welcome to Red Sanders Family</h1>
+            <p className="hero-subtitle">
+              A Taste of Authenticity, Straight from the Roots of the Red Sanders
+              Tree to Your Body.
+            </p>
+          </div>
         </div>
-      </div>
-      <div className="carousel-slide">
-        <img
-          src={slide2}
-          className="d-block w-100"
-          alt="..."
-        />
-        <div className="carousel-caption">
-          <h1 className="hero-heading">Welcome to Red Sanders Family</h1>
-          <p className="hero-subtitle">
-            A Taste of Authenticity, Straight from the Roots of the Red Sanders
-            Tree to Your Bottle.
-          </p>
+      </Link>
+      <Link to="/all-products"> 
+        <div className="carousel-slide">
+          <img
+            src={slide2}
+            className="d-block w-100"
+            alt="..."
+          />
+          <div className="carousel-caption">
+            <h1 className="hero-heading">Welcome to Red Sanders Family</h1>
+            <p className="hero-subtitle">
+              A Taste of Authenticity, Straight from the Roots of the Red Sanders
+              Tree to Your Body.
+            </p>
+          </div>
         </div>
-      </div>
-      <div className="carousel-slide">
-        <img
-          src="https://mdbootstrap.com/img/Photos/Slides/img%20(23).jpg"
-          className="d-block w-100"
-          alt="..."
-        />
-        <div className="carousel-caption">
-          <h1 className="hero-heading">Welcome to Red Sanders Family</h1>
-          <p className="hero-subtitle">
-            A Taste of Authenticity, Straight from the Roots of the Red Sanders
-            Tree to Your Bottle.
-          </p>
+      </Link>
+      <Link to="/all-products"> 
+        <div className="carousel-slide">
+          <img
+            src={slide3}
+            className="d-block w-100"
+            alt="..."
+          />
+          <div className="carousel-caption">
+            <h1 className="hero-heading">Welcome to Red Sanders Family</h1>
+            <p className="hero-subtitle">
+              A Taste of Authenticity, Straight from the Roots of the Red Sanders
+              Tree to Your Body.
+            </p>
+          </div>
         </div>
-      </div>
-     
+      </Link>
     </Slider>
   );
 }
