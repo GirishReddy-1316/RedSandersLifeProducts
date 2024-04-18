@@ -1,0 +1,4 @@
+export const UPDATE_WISH_ITEMS = 'UPDATE_WISH_ITEMS';
+export const REMOVE_FROM_WISHLIST = 'REMOVE_FROM_WISHLIST';
+export const ADD_TO_CART = 'ADD_TO_CART';
+
