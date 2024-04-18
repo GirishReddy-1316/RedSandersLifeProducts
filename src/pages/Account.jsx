@@ -4,12 +4,12 @@ import PagesHeader from "../components/PagesHeader.jsx";
 import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import ForgotPassword from "../components/ForgotPassword.jsx";
-import axiosInstance from "../api.js";
 import { Link, useNavigate } from "react-router-dom";
 import GoogleButton from "react-google-button";
 import axios from "axios";
 import { toast } from "sonner";
 import Loader from "../components/Loader.jsx";
+import { axiosInstance } from "../api.js";
 
 function Account() {
   const navigate = useNavigate();
@@ -79,7 +79,7 @@ function Account() {
       } catch (error) {
         toast.error(
           "Login failed: " +
-            (error.response ? error.response.data.message : error.message),
+          (error.response ? error.response.data.message : error.message),
           { duration: 2000, position: "top-center" }
         );
         setLoading(false);
@@ -109,7 +109,7 @@ function Account() {
 
   return (
     <div className="account-container">
-      {loading && <Loader />} 
+      {loading && <Loader />}
       <PagesHeader />
       <div className="pheader-container">
         <h2 className="contact-head">Login</h2>

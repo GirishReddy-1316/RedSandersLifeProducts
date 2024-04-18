@@ -10,7 +10,7 @@ import "../styles/home.css";
 import Footer from "../components/Footer.jsx";
 import "../styles/home.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import axiosInstance from "../api.js";
+import { axiosInstance } from "../api.js";
 
 function Home() {
   const navigate = useNavigate();

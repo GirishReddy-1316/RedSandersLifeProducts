@@ -3,7 +3,7 @@ import "../styles/registrationForm.css";
 import PagesHeader from "../components/PagesHeader.jsx";
 import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
-import axiosInstance from "../api.js";
+import { axiosInstance } from "../api.js";
 import { useNavigate } from "react-router-dom";
 import GoogleButton from "react-google-button";
 import { toast } from "sonner";
@@ -151,6 +151,7 @@ const RegistrationForm = () => {
           position: "top-center",
         });
         setVerificationStage("otp");
+        setLoading(false);
       } catch (error) {
         toast.error(
           error.response ? error.response.data.message : error.message,
