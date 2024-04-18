@@ -5,11 +5,13 @@ import accountIcon from "../assets/account.svg";
 import dropdown from "../assets/dd.svg";
 import cartIcon from "../assets/cart2.svg";
 import cartAdd from "../assets/cart.svg";
-
 import { Link } from "react-router-dom";
 import Search from "./Search.jsx";
+import { useSelector } from 'react-redux';
 
 function Header({ cartCount, wishCount, setCartVisible }) {
+  const userData = useSelector(state => state.userData);
+
   return (
     <div className="header-container">
       <header className="header">
@@ -48,45 +50,52 @@ function Header({ cartCount, wishCount, setCartVisible }) {
 
         <div className="head-icons-container">
           <Search />
-          <span className="wishlist-icon-container">
-            <Link to="/wishlist">
-              {" "}
-              <img
-                src={wishlistIcon}
-                alt="wishlist-icon"
-                className="wishlist-icon head-icons"
-              />{" "}
-            </Link>
-            {wishCount > 0 && (
-              <span className="wishlist-counter">{wishCount}</span>
-            )}
-          </span>
-          <Link to="/account">
-            {" "}
-            <img
-              src={accountIcon}
-              alt="account-icon"
-              className="account-icon head-icons"
-            /> {" "}
-          </Link> 
-          <Link to="/orders">
-            {" "}
-            <img
-              src={cartIcon}
-              alt="orders-icon"
-              className="account-icon head-icons"
-            />{" "}
-          </Link>          
-
-          <span className="cart-icon-container">
-            <img
-              onClick={() => setCartVisible((preview) => !preview)}
-              src={cartAdd}
-              alt="cart-icon"
-              className="cart-icon head-icons"
-            />
-            {cartCount > 0 && <span className="cart-counter">{cartCount}</span>}
-          </span>
+          {userData ? (
+            <>
+              <span className="username">{userData.username}</span>
+              <Link to="/orders">
+                {" "}
+                <img
+                  src={cartIcon}
+                  alt="orders-icon"
+                  className="account-icon head-icons"
+                />{" "}
+              </Link>          
+            </>
+          ) : (
+            <>
+              <Link to="/account">
+                {" "}
+                <img
+                  src={accountIcon}
+                  alt="account-icon"
+                  className="account-icon head-icons"
+                />{" "}
+              </Link> 
+              <span className="wishlist-icon-container">
+                <Link to="/wishlist">
+                  {" "}
+                  <img
+                    src={wishlistIcon}
+                    alt="wishlist-icon"
+                    className="wishlist-icon head-icons"
+                  />{" "}
+                </Link>
+                {wishCount > 0 && (
+                  <span className="wishlist-counter">{wishCount}</span>
+                )}
+              </span>
+              <span className="cart-icon-container">
+                <img
+                  onClick={() => setCartVisible((preview) => !preview)}
+                  src={cartAdd}
+                  alt="cart-icon"
+                  className="cart-icon head-icons"
+                />
+                {cartCount > 0 && <span className="cart-counter">{cartCount}</span>}
+              </span>
+            </>
+          )}
         </div>
       </header>
     </div>

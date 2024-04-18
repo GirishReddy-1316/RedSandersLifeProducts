@@ -10,6 +10,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import Loader from "../components/Loader.jsx";
 import { axiosInstance } from "../api.js";
+import { useDispatch } from 'react-redux';
 
 function Account() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ function Account() {
   const [forgotPassword, setForgotPassword] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const dispatch = useDispatch();
   function triggerAnimation() {
     setAnimationKey((prevKey) => prevKey + 1);
   }
@@ -66,6 +67,7 @@ function Account() {
           emailOrPhone,
           password: custPassword,
         });
+        dispatch({ type: 'LOGIN_SUCCESS', payload: response });
         setLoading(false);
         setFormSubmitted(true);
         console.log(response.data);
@@ -83,6 +85,7 @@ function Account() {
           { duration: 2000, position: "top-center" }
         );
         setLoading(false);
+        dispatch({ type: 'LOGIN_FAIL', payload: error });
       } finally {
         setFormSubmitted(false);
         setLoading(false);
