@@ -1,15 +1,18 @@
 import "../styles/cartpop.css";
 import deleteImg from "../assets/delete.svg";
+import { removeFromCart, updateCartItemQuantity } from "../redux/action/actions";
+import { useDispatch } from "react-redux";
 
-function CartProduct({ item, index, onUpdateQuantity, onDelete }) {
+function CartProduct({ item, id }) {
   const { image, name, price, size, quantity } = item;
+  const dispatch = useDispatch();
 
-  const handleQuantityChange = (delta) => {    
-    onUpdateQuantity(index, delta);
+  const handleQuantityChange = (qnty) => {
+    dispatch(updateCartItemQuantity(id, qnty))
   };
 
   const handleDelete = () => {
-    onDelete(index);
+    dispatch(removeFromCart(id));
   };
 
   return (

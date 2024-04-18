@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import Loader from "../components/Loader.jsx";
 import { axiosInstance } from "../api.js";
 import { useDispatch } from 'react-redux';
+import { loginSuccess } from "../redux/action/authActions.js";
 
 function Account() {
   const navigate = useNavigate();
@@ -60,19 +61,16 @@ function Account() {
   async function handlerSignin(e) {
     e.preventDefault();
     if (validateForm()) {
-      console.log("Signing in with:", emailOrPhone);
       try {
         setLoading(true);
         const response = await axiosInstance.post("/user/login", {
           emailOrPhone,
           password: custPassword,
         });
-        dispatch({ type: 'LOGIN_SUCCESS', payload: response });
         setLoading(false);
         setFormSubmitted(true);
-        console.log(response.data);
+        dispatch(loginSuccess(response.data.token, response.data.user))
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("userInfo", JSON.stringify(response.data.user));
         toast.success("User Logged in successfully", {
           duration: 2000,
           position: "top-center",
@@ -85,7 +83,6 @@ function Account() {
           { duration: 2000, position: "top-center" }
         );
         setLoading(false);
-        dispatch({ type: 'LOGIN_FAIL', payload: error });
       } finally {
         setFormSubmitted(false);
         setLoading(false);

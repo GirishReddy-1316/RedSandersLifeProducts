@@ -12,12 +12,10 @@ import BottomBar from "../components/BottomBar.jsx";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { axiosInstanceWithToken } from "../api.js";
+import { useSelector } from "react-redux";
 
 function Checkout() {
-  const [cartItems, setCartItems] = useState(() => {
-    const savedCartItems = localStorage.getItem("cartItems");
-    return savedCartItems ? JSON.parse(savedCartItems) : [];
-  });
+  const { cartItems, subtotal } = useSelector(state => state.reducer);
 
   const navigate = useNavigate();
 
@@ -52,12 +50,7 @@ function Checkout() {
     setCardHolderName("Girish Reddy");
   };
 
-  const totalPrice = cartItems.reduce((total, item) => {
-    const itemPrice = item.price ? parseFloat(item.price.substring(1)) : 0;
-    return total + item.quantity * itemPrice;
-  }, 0);
-
-  const finalPrice = totalPrice + 10;
+  const finalPrice = subtotal + 10;
 
   const expiry = "05/33";
 
@@ -314,7 +307,7 @@ function Checkout() {
                 <div className="order-totals">
                   <div className="order-item">
                     <span>Subtotal</span>
-                    <span>₹{totalPrice.toFixed(2)}</span>
+                    <span>₹{subtotal.toFixed(2)}</span>
                   </div>
                   <div className="order-item">
                     <span>Shipping</span>

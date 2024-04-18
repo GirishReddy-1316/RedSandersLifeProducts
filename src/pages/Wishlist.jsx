@@ -9,73 +9,30 @@ import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import addToCartImg from "../assets/cart-product.svg";
 import deleteImg from "../assets/deletewish.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, removeFromWish } from "../redux/action/actions.js";
 
 function Wishlist() {
-  const [cartItems, setCartItems] = useState(() => {
-    const savedCartItems = localStorage.getItem("cartItems");
-    return savedCartItems ? JSON.parse(savedCartItems) : [];
-  });
   const [cartVisible, setCartVisible] = useState(false);
+  const cartItems = useSelector(state => state.reducer.cartItems);
+  const wishItems = useSelector(state => state.reducer.wishItems);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
-
-  const addToCart = (product) => {
-    const existingProduct = cartItems.find((elem) => elem.id === product.id);
-    if (existingProduct) {
-      setCartItems(
-        cartItems.map((elem) =>
-          elem.id === product.id
-            ? { ...elem, quantity: elem.quantity + 1 }
-            : elem,
-        ),
-      );
-    } else {
-      setCartItems([...cartItems, { ...product, quantity: 1 }]);
-    }
+  const addToCartProduct = (product) => {
+    dispatch(addToCart(product))
   };
 
-  const [wishItems, setWishItems] = useState(() => {
-    const savedWishItems = localStorage.getItem("wishItems");
-    return savedWishItems ? JSON.parse(savedWishItems) : [];
-  });
-
-  useEffect(() => {
-    localStorage.setItem("wishItems", JSON.stringify(wishItems));
-  }, [wishItems]);
-
-  const onDelete = (index) => {
-    setCartItems((currentItems) =>
-      currentItems.filter((_, idx) => idx !== index),
-    );
+  const removeFromWishProduct = (product) => {
+    dispatch(removeFromWish(product));
   };
 
-  const onDeleteWish = (index) => {
-    setWishItems((currentWishItems) =>
-      currentWishItems.filter((_, idx) => idx !== index),
-    );
-  };
-
-  const onUpdateQuantity = (index, delta) => {
-    setCartItems((currentItems) =>
-      currentItems.map((item, idx) =>
-        idx === index
-          ? { ...item, quantity: Math.max(item.quantity + delta, 0) }
-          : item,
-      ),
-    );
-  };
 
   return (
     <>
       {cartVisible && (
         <CartPop
-          cartItems={cartItems}
-          wishItems={wishItems}
           setCartVisible={setCartVisible}
-          onUpdateQuantity={onUpdateQuantity}
-          onDelete={onDelete}
+
         />
       )}
       <Header
@@ -110,7 +67,7 @@ function Wishlist() {
                     <button
                       className="wish-removed"
                       onClick={() => {
-                        onDeleteWish(index);
+                        removeFromWishProduct(item._id);
                         toast.warning("Removed from Wishlist", {
                           duration: 1000,
                         });
@@ -121,7 +78,7 @@ function Wishlist() {
                     <button
                       className="wish-padd-to-cart"
                       onClick={() => {
-                        addToCart(item);
+                        addToCartProduct(item);
                         toast.success("Added to Cart", { duration: 1000 });
                       }}
                     >

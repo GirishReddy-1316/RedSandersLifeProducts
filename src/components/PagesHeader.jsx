@@ -7,14 +7,17 @@ import cartIcon from "../assets/cart2.svg";
 import { Link } from "react-router-dom";
 import Search from "./Search.jsx";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutSuccess } from "../redux/action/authActions.js";
 
-function PagesHeader({ cartCount, wishCount, setCartVisible }) {
-  const [isLogin, isSetLogin] = useState(localStorage.getItem("token"))
+function PagesHeader() {
+  const dispatch = useDispatch();
+  const isLogin = useSelector((state) => state.auth);
+  console.log(isLogin);
 
   function handleLogout() {
     localStorage.removeItem("token");
-    localStorage.removeItem("userInfo");
-    window.location.reload();
+    dispatch(logoutSuccess())
   }
 
 
@@ -70,7 +73,7 @@ function PagesHeader({ cartCount, wishCount, setCartVisible }) {
               alt="account-icon"
               className="account-icon head-icons"
             />
-             {" "}
+            {" "}
           </div>)
           }
 

@@ -4,16 +4,16 @@ import cartClose from "../assets/close-cart.svg";
 import CartProduct from "./CartProduct.jsx";
 import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
 
 function CartPop({
-  cartItems = [],
   setCartVisible,
-  onUpdateQuantity,
-  onDelete,
 }) {
   const popupRef = useRef();
   const navigate = useNavigate();
-  const [chLink, setChLink] = useState("");
+  const { cartItems, wishItems, itemCount, subtotal } = useSelector(state => state.reducer);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -29,12 +29,6 @@ function CartPop({
     };
   }, [setCartVisible]);
 
-  const itemCount = cartItems.reduce((count, item) => count + item.quantity, 0);
-  const subtotal = cartItems.reduce((total, item) => {
-    const itemPrice = item.price ? parseFloat(item.price.substring(1)) : 0;
-    return total + item.quantity * itemPrice;
-  }, 0);
-
   return (
     <>
       <div className="popupcart" ref={popupRef}>
@@ -49,8 +43,7 @@ function CartPop({
               key={index}
               item={item}
               index={index}
-              onUpdateQuantity={onUpdateQuantity}
-              onDelete={onDelete}
+              id={item._id}
             />
           ))}
         </div>
