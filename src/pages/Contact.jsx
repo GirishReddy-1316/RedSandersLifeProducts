@@ -3,7 +3,7 @@ import "../styles/contact.css";
 import PagesHeader from "../components/PagesHeader.jsx";
 import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
-import axiosInstance from "../api.js";
+import { axiosInstance } from "../api.js";
 
 function Contact() {
   const [formState, setFormState] = useState({

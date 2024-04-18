@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import addToCartImg from "../assets/cart-product.svg";
 import wishlistImg from "../assets/heart.svg";
-import axiosInstance from "../api.js";
+import { axiosInstance } from "../api.js";
 
 
 function AllProducts() {

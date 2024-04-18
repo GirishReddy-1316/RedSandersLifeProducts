@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "../styles/forgotpassword.css";
-import axiosInstance from "../api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import Loader from "./Loader";
+import { axiosInstance } from "../api";
 
 
 function ForgotPassword({ onPasswordReset }) {
@@ -32,13 +32,13 @@ function ForgotPassword({ onPasswordReset }) {
         phone: EmailOrPhone,
       });
       console.log("OTP sent", response.data);
-      toast.success("OTP sent successfully to your mobile/email.", { duration: 2000 , position: 'top-center'});
+      toast.success("OTP sent successfully to your mobile/email.", { duration: 2000, position: 'top-center' });
       setShowOtpForm(true);
       setLoading(false);
 
-    } catch (error) {      
+    } catch (error) {
       setInputError("Failed to send OTP!");
-      toast.error((error.response ? error.response.data.message : error.message), { duration: 2000, position: 'top-center' }); 
+      toast.error((error.response ? error.response.data.message : error.message), { duration: 2000, position: 'top-center' });
       setLoading(false);
 
     }
@@ -53,11 +53,11 @@ function ForgotPassword({ onPasswordReset }) {
       });
       console.log("OTP verification", response.data);
       if (response.status === 200) {
-        toast.success("OTP verified successfully", {  duration: 2000 , position: 'top-center' });
+        toast.success("OTP verified successfully", { duration: 2000, position: 'top-center' });
         setOtpVerified(true);
       } else {
         setInputError("OTP verification failed! Please try again.");
-        toast.error("OTP verification failed! Please try again.", {  duration: 2000 , position: 'top-center' });
+        toast.error("OTP verification failed! Please try again.", { duration: 2000, position: 'top-center' });
       }
       setLoading(false);
     } catch (error) {
@@ -66,7 +66,7 @@ function ForgotPassword({ onPasswordReset }) {
         error.response ? error.response.data.message : error.message
       );
       setInputError("Failed to verify OTP!");
-      toast.error((error.response ? error.response.data.message : error.message), { duration: 2000, position: 'top-center' }); 
+      toast.error((error.response ? error.response.data.message : error.message), { duration: 2000, position: 'top-center' });
       setLoading(false);
     }
   }
@@ -94,12 +94,12 @@ function ForgotPassword({ onPasswordReset }) {
       if (response.status === 200) {
         setPasswordSubmitted(true);
         onPasswordReset();
-        toast.success("Password changed successfully.", {  duration: 2000 , position: 'top-center'});
+        toast.success("Password changed successfully.", { duration: 2000, position: 'top-center' });
         setLoading(false);
         navigate("/account");
       } else {
         setInputError("Password reset failed! Please try again.");
-        toast.error("Password reset failed! Please try again.", {  duration: 2000 , position: 'top-center' });
+        toast.error("Password reset failed! Please try again.", { duration: 2000, position: 'top-center' });
         setLoading(false);
       }
     } catch (error) {
@@ -108,14 +108,14 @@ function ForgotPassword({ onPasswordReset }) {
         error.response ? error.response.data.message : error.message
       );
       setInputError("Failed to password reset!");
-      toast.error("Failed to password reset! Please try again.", { duration: 2000 , position: 'top-center' });
+      toast.error("Failed to password reset! Please try again.", { duration: 2000, position: 'top-center' });
       setLoading(false);
     }
   }
 
   return (
     <div className="forgot-password-container">
-      {loading && <Loader />} 
+      {loading && <Loader />}
       {!showOtpForm && (
         <div>
           <input
