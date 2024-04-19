@@ -9,10 +9,10 @@ function Wholesale() {
       <PagesHeader />
 
       <main className="wholesale-main-content">
-        <h1>Welcome to Jiyaba Wholesale</h1>
+        <h1>Welcome!! Step into JiYaBa Wholesale </h1>
         <p>
-          Join us in bringing the rich heritage of Red Sandal Wood to enthusiasts
-          around the globe.
+          What makes our company the best choice for wholesale purchases of our
+          products?
         </p>
 
         <section className="why-wholesale">
@@ -21,15 +21,16 @@ function Wholesale() {
             <li>
               Direct from the Source:
               <span>
-                Our Products are sourced directly from the private farms land in and around city of Tirupati
-                Andhra Pradesh, ensuring the quality and color.
+              we procure genuine products with a license from the forest and farms. Our Products are sourced directly from the private farms land in
+                and around city of Tirupati Andhra Pradesh, ensuring the quality
+                and color.
               </span>
             </li>
             <li>
               Exclusive Wholesale Prices:
               <span>
-                Enjoy competitive pricing, enabling attractive margins for your
-                business.
+                Benefit from competitive pricing, providing excellent profit
+                margins for your business.
               </span>
             </li>
             <li>
@@ -50,65 +51,61 @@ function Wholesale() {
         </section>
 
         <section className="our-offerings">
-          <h2>Our carefully curated collection for wholesale distribution.</h2>
-          <p>
-          From classic blends to creative infusions, our assortment appeals to every taste preference:
-          </p>
+          <h2>
+            What products do we provide for wholesale distribution, and what
+            sets us apart as your ideal choice?
+          </h2>
+
           <ul className="our-offerings-list">
             <li>
-              Classic Pure Red Sanders Water:
-              <span>Distinctive flavor and is renowned for its vibrant color and health benefits.</span>
-            </li>
-            <li>
-              Red Sanders Water:
-              <span>Perfect combination of Pure Red Sandalwood root extract and Natural Sweetners (No Sugar Added).</span>
-            </li>
-            <li>
-              Red Sandal Incense Sticks (Agarbhatthis) and Dhoops:
+              Premium Pure Red Sanders Water:
               <span>
-               Famous for it's Unique combination of raw materials and Long lasting.
+                Bursting with Flavor, Color, and Health Benefits. Savor the
+                delicious taste and stunning red hue of this natural gem. And
+                the best part? It's not just tasty—it's great for your health
+                too!{" "}
               </span>
-            </li>            
+            </li>
+            <li>
+              Refreshing Choices for a Healthy Lifestyle:
+              <span>
+                 Explore our assortment of beverages, cool drinks, and soft
+                drinks, each offering their own array of healthful properties.
+              </span>
+            </li>
+            <li>
+              Elevate Your Senses:
+              <span>
+                Discover our range of Red Sandal Incense Sticks (Agarbattis) and
+                incense cones (Dhoops), made from pure red sandalwood materials.
+                Perfect for Yagnas and other rituals, along with a variety of
+                raw, natural red sandalwood products
+              </span>
+            </li>
+            <li>
+              Nourish Your Beauty Naturally with Red Sandal Extract Cosmetics:
+              <span>
+                We provide bulk cosmetics naturally derived from pure red sandal
+                extracts, including lip balm, lipstick, face packs, and more.
+              </span>
+            </li>
           </ul>
         </section>
 
         <section className="how-to-apply">
-          <h2>Begin Your Wholesale Journey</h2>
+          <h1>Begin Your Wholesale Journey with a Click! </h1>
           <p className="">Getting started is simple:</p>
           <ul className="contact-us our-offerings-list">
             <li>
-              Give us your details<a href="/contact"> here</a>
-            </li>
-            <li>
-              Our team will review your request and reach out to discuss your
+              Share Your Details <a href="/contact"> here</a> Our team will review your request and reach out to discuss your
               needs and how we can best support your business.
             </li>
             <li>
-              Once approved, you'll have access to our wholesale catalog and
-              pricing.
-            </li>
-          </ul>
-        </section>
-
-        <section className="faqs contact-us">
-          <h2>Frequently Asked Questions</h2>
-          <span className="bottom-p">
             Have more questions? Visit our <a href="/faqs">FAQ page</a> or
             contact us directly.
-          </span>
-        </section>
-
-        <section className="contact-us">
-          <h2>Let's Connect</h2>
-          <span className="bottom-p">
-            Ready to explore the possibilities or need more information? Our
-            Wholesale Team is here to assist. Email us at{" "}
-            <a href="mailto:wholesale@redsanderslife.com">
-              wholesale@redsanderslife.com
-            </a>{" "}
-            or visit our <a href="/contact">Contact Page</a> for more details.
-          </span>
-        </section>
+            </li>
+          </ul>
+        </section>     
       </main>
 
       <Footer />
