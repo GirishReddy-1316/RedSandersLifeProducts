@@ -12,7 +12,7 @@ import { logoutSuccess } from "../redux/action/authActions.js";
 
 function PagesHeader() {
   const dispatch = useDispatch();
-  const isLogin = useSelector((state) => state.auth);
+  const isLogin = useSelector((state) => state.auth.isLoggedIn);
   console.log(isLogin);
 
   function handleLogout() {

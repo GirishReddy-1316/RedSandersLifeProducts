@@ -4,18 +4,18 @@ import { LOGIN_SUCCESS, LOGOUT_SUCCESS, UPDATE_USER_INFO } from '../action/actio
 
 const initialState = {
     isLoggedIn: false,
-    accessToken: null,
+    token: localStorage.getItem('token'),
     userInfo: {}
 };
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOGIN_SUCCESS: {
-            const { accessToken, userInfo } = action.payload;
+            const { token, userInfo } = action.payload;
             return {
                 ...state,
                 isLoggedIn: true,
-                accessToken,
+                token,
                 userInfo
             };
         }
@@ -23,13 +23,14 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn: false,
-                accessToken: null,
+                token: null,
                 userInfo: {}
             };
         case UPDATE_USER_INFO: {
             const { userInfo } = action.payload;
             return {
                 ...state,
+                isLoggedIn: true,
                 userInfo
             };
         }

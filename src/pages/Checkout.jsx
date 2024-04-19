@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/checkout.css";
 import usStates from "../data/States.jsx";
 import visa from "../assets/visa.png";
@@ -16,7 +16,7 @@ import { useSelector } from "react-redux";
 
 function Checkout() {
   const { cartItems, subtotal } = useSelector(state => state.reducer);
-
+  const isLogin = useSelector((state) => state.auth.isLoggedIn);
   const navigate = useNavigate();
 
   const [custName, setcustName] = useState("");
@@ -184,6 +184,15 @@ function Checkout() {
     event.preventDefault();
     createOrder();
   }
+
+
+  useEffect(() => {
+    if (!isLogin) {
+      navigate("/account")
+    }
+
+  }, [isLogin])
+
 
 
   return (

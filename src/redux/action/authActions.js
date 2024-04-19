@@ -2,9 +2,9 @@
 
 import { LOGIN_SUCCESS, LOGOUT_SUCCESS, UPDATE_USER_INFO } from './actionTypes';
 
-export const loginSuccess = (accessToken, userInfo) => ({
+export const loginSuccess = (token, userInfo) => ({
     type: LOGIN_SUCCESS,
-    payload: { accessToken, userInfo }
+    payload: { token, userInfo }
 });
 
 export const logoutSuccess = () => ({
