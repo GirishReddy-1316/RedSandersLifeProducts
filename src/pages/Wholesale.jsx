@@ -89,13 +89,6 @@ function Wholesale() {
                 extracts, including lip balm, lipstick, face packs, and more.
               </span>
             </li>
-          </ul>
-        </section>
-
-        <section className="how-to-apply">
-          <h1>Begin Your Wholesale Journey with a Click! </h1>
-          <p className="">Getting started is simple:</p>
-          <ul className="contact-us our-offerings-list">
             <li>
               Share Your Details <a href="/contact"> here</a> Our team will review your request and reach out to discuss your
               needs and how we can best support your business.
@@ -105,7 +98,7 @@ function Wholesale() {
             contact us directly.
             </li>
           </ul>
-        </section>     
+        </section> 
       </main>
 
       <Footer />
