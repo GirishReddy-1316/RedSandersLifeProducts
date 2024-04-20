@@ -91,30 +91,31 @@ function Header({ cartCount, wishCount, setCartVisible }) {
                 {" "}
               </div>)
               }
-              <span className="wishlist-icon-container">
-                <Link to="/wishlist">
-                  {" "}
-                  <img
-                    src={wishlistIcon}
-                    alt="wishlist-icon"
-                    className="wishlist-icon head-icons"
-                  />{" "}
-                </Link>
-                {wishCount > 0 && (
-                  <span className="wishlist-counter">{wishCount}</span>
-                )}
-              </span>
-              <span className="cart-icon-container">
-                <img
-                  onClick={() => setCartVisible((preview) => !preview)}
-                  src={cartAdd}
-                  alt="cart-icon"
-                  className="cart-icon head-icons"
-                />
-                {cartCount > 0 && <span className="cart-counter">{cartCount}</span>}
-              </span>
+
             </>
           )}
+          <span className="wishlist-icon-container">
+            <Link to="/wishlist">
+              {" "}
+              <img
+                src={wishlistIcon}
+                alt="wishlist-icon"
+                className="wishlist-icon head-icons"
+              />{" "}
+            </Link>
+            {wishCount > 0 && (
+              <span className="wishlist-counter">{wishCount}</span>
+            )}
+          </span>
+          <span className="cart-icon-container">
+            <img
+              onClick={() => setCartVisible((preview) => !preview)}
+              src={cartAdd}
+              alt="cart-icon"
+              className="cart-icon head-icons"
+            />
+            {cartCount > 0 && <span className="cart-counter">{cartCount}</span>}
+          </span>
         </div>
       </header>
     </div>
