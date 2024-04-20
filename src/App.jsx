@@ -17,10 +17,49 @@ import ScrollToTop from "./components/ScrollToTop.jsx";
 import Thankyou from "./pages/Thankyou.jsx";
 import "./styles/index.css";
 import Orders from "./pages/Orders.jsx";
-
+import React, { useState, useEffect } from 'react';
 
 function App() {
   let location = useLocation();
+  const [timer, setTimer] = useState(null);
+  const [userActive, setUserActive] = useState(true);
+
+  
+  const resetTimer = () => {
+    clearTimeout(timer);
+    startTimer();
+  };
+
+  const startTimer = () => {
+    const timeout = setTimeout(() => {      
+      console.log("User has been logged out due to inactivity.");
+    }, 120000); 
+    setTimer(timeout);
+  };
+
+  const handleUserActivity = () => {
+    if (!userActive) {
+      setUserActive(true);
+      resetTimer();
+    }
+  };
+
+  useEffect(() => {
+    startTimer();
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const events = ['mousemove', 'keydown'];
+    events.forEach(event => {
+      window.addEventListener(event, handleUserActivity);
+    });
+    return () => {
+      events.forEach(event => {
+        window.removeEventListener(event, handleUserActivity);
+      });
+    };
+  }, [userActive]);
 
 
   return (
