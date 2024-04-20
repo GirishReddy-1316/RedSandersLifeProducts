@@ -45,7 +45,7 @@ function Home() {
   }, [accessToken]);
 
   useEffect(() => {
-    if (token) {
+    if (token && !isLoggedIn) {
       getUserProfile()
     }
   }, []);

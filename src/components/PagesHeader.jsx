@@ -4,7 +4,7 @@ import wishlistIcon from "../assets/wishlist.svg";
 import accountIcon from "../assets/account.svg";
 import dropdown from "../assets/dd.svg";
 import cartIcon from "../assets/cart2.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Search from "./Search.jsx";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,12 +12,15 @@ import { logoutSuccess } from "../redux/action/authActions.js";
 
 function PagesHeader() {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const isLogin = useSelector((state) => state.auth.isLoggedIn);
   console.log(isLogin);
 
   function handleLogout() {
     localStorage.removeItem("token");
     dispatch(logoutSuccess())
+    navigate("/account")
+
   }
 
 
@@ -66,13 +69,13 @@ function PagesHeader() {
               src={accountIcon}
               alt="account-icon"
               className="account-icon head-icons"
-            /> {" "}
+            /> {" "} <strong style={{ color: "white" }}>Login</strong>
           </Link> : (<div onClick={handleLogout}>
             <img
               src={accountIcon}
               alt="account-icon"
               className="account-icon head-icons"
-            />
+            /> <strong style={{ color: "white" }}>Logout</strong>
             {" "}
           </div>)
           }

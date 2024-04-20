@@ -5,12 +5,23 @@ import accountIcon from "../assets/account.svg";
 import dropdown from "../assets/dd.svg";
 import cartIcon from "../assets/cart2.svg";
 import cartAdd from "../assets/cart.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Search from "./Search.jsx";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutSuccess } from "../redux/action/authActions.js";
 
 function Header({ cartCount, wishCount, setCartVisible }) {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const userData = useSelector(state => state.userData);
+  const isLogin = useSelector((state) => state.auth.isLoggedIn);
+  console.log(isLogin);
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    dispatch(logoutSuccess())
+    navigate("/account")
+  }
 
   return (
     <div className="header-container">
@@ -25,7 +36,7 @@ function Header({ cartCount, wishCount, setCartVisible }) {
           <li>
             <Link to="/all-products">Shop Now</Link>
           </li>
-         
+
           <li className="pages">
             Company <img className="dd" src={dropdown} alt="dropdown icon" />
             <ul className="dropdown-content">
@@ -60,18 +71,26 @@ function Header({ cartCount, wishCount, setCartVisible }) {
                   alt="orders-icon"
                   className="account-icon head-icons"
                 />{" "}
-              </Link>          
+              </Link>
             </>
           ) : (
             <>
-              <Link to="/account">
+              {!isLogin ? <Link to="/account">
                 {" "}
                 <img
                   src={accountIcon}
                   alt="account-icon"
                   className="account-icon head-icons"
-                />{" "}
-              </Link> 
+                /> {" "} <strong style={{ color: "white" }}>Login</strong>
+              </Link> : (<div onClick={handleLogout}>
+                <img
+                  src={accountIcon}
+                  alt="account-icon"
+                  className="account-icon head-icons"
+                /> <strong style={{ color: "white" }}>Logout</strong>
+                {" "}
+              </div>)
+              }
               <span className="wishlist-icon-container">
                 <Link to="/wishlist">
                   {" "}
