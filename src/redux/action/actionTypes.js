@@ -12,3 +12,5 @@ export const REMOVE_FROM_WISH = 'REMOVE_FROM_WISH';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const UPDATE_USER_INFO = 'UPDATE_USER_INFO';
+
+export const CLEAR_CART = 'CLEAR_CART';

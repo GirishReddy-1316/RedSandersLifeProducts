@@ -6,6 +6,7 @@ import {
     UPDATE_CART_ITEM_QUANTITY,
     ADD_TO_WISH,
     REMOVE_FROM_WISH,
+    CLEAR_CART,
 } from './actionTypes';
 
 export const addToCart = (product) => ({
@@ -31,4 +32,8 @@ export const addToWish = (product) => ({
 export const removeFromWish = (productId) => ({
     type: REMOVE_FROM_WISH,
     payload: productId,
+});
+
+export const clearCart = () => ({
+    type: CLEAR_CART,
 });

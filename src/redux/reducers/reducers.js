@@ -6,6 +6,7 @@ import {
     ADD_TO_WISH,
     REMOVE_FROM_WISH,
     UPDATE_CART_ITEM_QUANTITY,
+    CLEAR_CART,
 } from '../action/actionTypes';
 
 const initialState = {
@@ -15,7 +16,30 @@ const initialState = {
     subtotal: 0,
 };
 
-const reducer = (state = initialState, action) => {
+const loadStateFromLocalStorage = () => {
+    try {
+        const serializedState = localStorage.getItem('cartAndWishState');
+        if (serializedState === null) {
+            return initialState;
+        }
+        return JSON.parse(serializedState);
+    } catch (error) {
+        console.error('Error loading state from localStorage:', error);
+        return initialState;
+    }
+};
+
+const saveStateToLocalStorage = (state) => {
+    try {
+        const serializedState = JSON.stringify(state);
+        localStorage.setItem('cartAndWishState', serializedState);
+    } catch (error) {
+        console.error('Error saving state to localStorage:', error);
+    }
+};
+
+const reducer = (state = loadStateFromLocalStorage(), action) => {
+    let newState;
     switch (action.type) {
         case ADD_TO_CART: {
             const existingProductIndex = state.cartItems.findIndex(item => item._id === action.payload._id);
@@ -32,7 +56,9 @@ const reducer = (state = initialState, action) => {
                 const itemPrice = item.price ? parseFloat(item.price.substring(1)) : 0;
                 return total + item.quantity * itemPrice;
             }, 0);
-            return { ...state, cartItems, itemCount, subtotal };
+            newState = { ...state, cartItems, itemCount, subtotal };
+            saveStateToLocalStorage(newState);
+            return newState;
         }
         case REMOVE_FROM_CART: {
             const cartItems = state.cartItems.filter(item => item._id !== action.payload);
@@ -41,7 +67,9 @@ const reducer = (state = initialState, action) => {
                 const itemPrice = item.price ? parseFloat(item.price.substring(1)) : 0;
                 return total + item.quantity * itemPrice;
             }, 0);
-            return { ...state, cartItems, itemCount, subtotal };
+            newState = { ...state, cartItems, itemCount, subtotal };
+            saveStateToLocalStorage(newState);
+            return newState;
         }
         case UPDATE_CART_ITEM_QUANTITY: {
             const cartItems = state.cartItems.map(item =>
@@ -52,20 +80,36 @@ const reducer = (state = initialState, action) => {
                 const itemPrice = item.price ? parseFloat(item.price.substring(1)) : 0;
                 return total + item.quantity * itemPrice;
             }, 0);
-            return { ...state, cartItems, itemCount, subtotal };
+            newState = { ...state, cartItems, itemCount, subtotal };
+            saveStateToLocalStorage(newState);
+            return newState;
+        }
+        case CLEAR_CART: {
+            const newState = {
+                ...state,
+                cartItems: [],
+                itemCount: 0,
+                subtotal: 0,
+            };
+            saveStateToLocalStorage(newState);
+            return newState;
         }
         case ADD_TO_WISH: {
             const existingProductIndex = state.wishItems.findIndex(item => item._id === action.payload._id);
             if (existingProductIndex !== -1) {
                 return state;
             }
-            return {
+            newState = {
                 ...state,
                 wishItems: [...state.wishItems, action.payload],
             };
+            saveStateToLocalStorage(newState);
+            return newState;
         }
         case REMOVE_FROM_WISH:
-            return { ...state, wishItems: state.wishItems.filter(item => item._id !== action.payload) };
+            newState = { ...state, wishItems: state.wishItems.filter(item => item._id !== action.payload) };
+            saveStateToLocalStorage(newState);
+            return newState;
         default:
             return state;
     }
