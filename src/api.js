@@ -7,11 +7,10 @@ const axiosInstance = axios.create({
     }
 });
 
-const token = localStorage.getItem("token");
 const axiosInstanceWithToken = axios.create({
     baseURL: "https://sore-tan-pangolin-kilt.cyclic.app/api",
     headers: {
-        "authorization": `Bearer ${token}`
+        "authorization": `Bearer ${localStorage.getItem("token")}`
     }
 });
 
