@@ -12,12 +12,14 @@ import BottomBar from "../components/BottomBar.jsx";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { axiosInstanceWithToken } from "../api.js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { clearCart } from "../redux/action/actions.js";
 
 function Checkout() {
   const { cartItems, subtotal } = useSelector(state => state.reducer);
-  const isLogin = useSelector((state) => state.auth.isLoggedIn);
+  const { isLoggedIn, userInfo } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [custName, setcustName] = useState("");
   const [email, setEmail] = useState("");
@@ -161,7 +163,16 @@ function Checkout() {
           quantity: item.quantity
         })),
         totalPrice: finalPrice,
-        shippingAddress: `${streetAddress}, ${city}, ${selectedState}, ${pin}, ${country}`,
+        shippingAddress: {
+          street: streetAddress,
+          city: city,
+          state: selectedState,
+          country: country,
+          email: email,
+          custName: custName,
+          pin: pin,
+          mobile: mobile,
+        },
         paymentMethod: "Credit Card",
       };
 
@@ -169,7 +180,7 @@ function Checkout() {
       console.log(response);
 
       if (response.status === 201) {
-        localStorage.removeItem("cartItems");
+        dispatch(clearCart());
         navigate("/thankyou");
       } else {
         toast.error("Failed to create order");
@@ -187,11 +198,25 @@ function Checkout() {
 
 
   useEffect(() => {
-    if (!isLogin) {
+    if (!isLoggedIn) {
       navigate("/account")
     }
 
-  }, [isLogin])
+  }, [isLoggedIn])
+
+  useEffect(() => {
+    if (userInfo && userInfo.address) {
+      setcustName(userInfo.address.custName || "");
+      setEmail(userInfo.address.email || "");
+      setStreetAddress(userInfo.address.street || "");
+      setCity(userInfo.address.city || "");
+      setPin(userInfo.address.pin || "");
+      setSelectedState(userInfo.address.state || "");
+      setMobile(userInfo.address.mobile || "");
+      setCardHolderName(userInfo.cardHolderName || "");
+    }
+
+  }, [])
 
 
 
