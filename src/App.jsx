@@ -18,22 +18,25 @@ import Thankyou from "./pages/Thankyou.jsx";
 import "./styles/index.css";
 import Orders from "./pages/Orders.jsx";
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { axiosInstanceWithToken } from "./api.js";
+import { updateUserInfo } from "./redux/action/authActions.js";
 
 function App() {
   let location = useLocation();
+  const dispatch = useDispatch();
   const [timer, setTimer] = useState(null);
   const [userActive, setUserActive] = useState(true);
-
-  
+  const { isLoggedIn, token } = useSelector((state) => state.auth);
   const resetTimer = () => {
     clearTimeout(timer);
     startTimer();
   };
 
   const startTimer = () => {
-    const timeout = setTimeout(() => {      
+    const timeout = setTimeout(() => {
       console.log("User has been logged out due to inactivity.");
-    }, 120000); 
+    }, 120000);
     setTimer(timeout);
   };
 
@@ -61,7 +64,21 @@ function App() {
     };
   }, [userActive]);
 
+  useEffect(() => {
+    if (token && !isLoggedIn) {
+      getUserProfile()
+    }
+  }, []);
 
+  const getUserProfile = async () => {
+    try {
+      const response = await axiosInstanceWithToken.get('/user/profile');
+      dispatch(updateUserInfo(response.data.user))
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+    }
+  }
   return (
     <>
       <Toaster richColors theme="dark" />
