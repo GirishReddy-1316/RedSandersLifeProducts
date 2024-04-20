@@ -7,7 +7,7 @@ import { axiosInstance, axiosInstanceWithToken } from '../api.js';
 import { useSelector } from 'react-redux';
 
 const Orders = () => {
-    const isLogin = useSelector((state) => state.auth.isLoggedIn);
+    const { isLogin, token } = useSelector((state) => state.auth);
     const [orders, setOrders] = useState([]);
     const [orderId, setOrderId] = useState('');
     useEffect(() => {
@@ -29,7 +29,7 @@ const Orders = () => {
             }
         };
 
-        if (!isLogin) {
+        if (!isLogin && !token) {
             fetchOrders();
         } else {
             fetchUserOrders()
