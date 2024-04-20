@@ -13,7 +13,7 @@ import { logoutSuccess } from "../redux/action/authActions.js";
 function Header({ cartCount, wishCount, setCartVisible }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const userData = useSelector(state => state.userData);
+  const userData = useSelector(state => state.auth.userInfo);
   const isLogin = useSelector((state) => state.auth.isLoggedIn);
   console.log(isLogin);
 
