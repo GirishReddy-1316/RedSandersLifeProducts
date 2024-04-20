@@ -48,7 +48,8 @@ function ForgotPassword({ onPasswordReset }) {
     setLoading(true);
     try {
       const response = await axiosInstance.post("/user/verify-password-otp", {
-        phoneNumber: EmailOrPhone,
+        email: EmailOrPhone,
+        phone: EmailOrPhone,
         otp,
       });
       console.log("OTP verification", response.data);
@@ -87,7 +88,7 @@ function ForgotPassword({ onPasswordReset }) {
     // Logic to submit new password
     try {
       setLoading(true);
-      const response = axiosInstance.post("/user/reset-password", {
+      const response = await axiosInstance.post("/user/reset-password", {
         EmailOrPhone,
         password: newPassword,
       });
