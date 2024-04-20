@@ -20,7 +20,7 @@ import Orders from "./pages/Orders.jsx";
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { axiosInstanceWithToken } from "./api.js";
-import { updateUserInfo } from "./redux/action/authActions.js";
+import { logoutSuccess, updateUserInfo } from "./redux/action/authActions.js";
 
 function App() {
   let location = useLocation();
@@ -35,7 +35,7 @@ function App() {
 
   const startTimer = () => {
     const timeout = setTimeout(() => {
-      console.log("User has been logged out due to inactivity.");
+      dispatch(logoutSuccess())
     }, 120000);
     setTimer(timeout);
   };
