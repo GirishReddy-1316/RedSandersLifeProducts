@@ -21,6 +21,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { axiosInstanceWithToken } from "./api.js";
 import { logoutSuccess, updateUserInfo } from "./redux/action/authActions.js";
+import UserProfile from "./pages/UserProfile.jsx";
 
 function App() {
   let location = useLocation();
@@ -101,7 +102,7 @@ function App() {
           <Route path="/registrationForm" element={<RegistrationForm />} />
           <Route path="/faqs" element={<Faq />} />
           <Route path="/orders" element={<Orders />} />
-
+          <Route path="/user-profile" element={<UserProfile />} />
         </Routes>
       </div>
     </>
