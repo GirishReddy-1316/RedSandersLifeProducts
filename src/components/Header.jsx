@@ -17,11 +17,6 @@ function Header({ cartCount, wishCount, setCartVisible }) {
   const isLogin = useSelector((state) => state.auth.isLoggedIn);
   console.log(isLogin);
 
-  function handleLogout() {
-    localStorage.removeItem("token");
-    dispatch(logoutSuccess())
-    navigate("/account")
-  }
 
   return (
     <div className="header-container">
@@ -61,39 +56,35 @@ function Header({ cartCount, wishCount, setCartVisible }) {
 
         <div className="head-icons-container">
           <Search />
-          {userData ? (
+
+          {!isLogin ? <Link to="/account">
+            {" "}
+            <img
+              src={accountIcon}
+              alt="account-icon"
+              className="account-icon head-icons"
+            /> {" "} <strong style={{ color: "white" }}>Login</strong>
+          </Link> : (
             <>
-              <span className="username">{userData.username}</span>
+              <Link to={"/user-profile"}>
+                <img
+                  src={accountIcon}
+                  alt="account-icon"
+                  className="account-icon head-icons"
+                /> <strong style={{ color: "white" }}>Profile</strong>
+                {" "}
+              </Link>
               <Link to="/orders">
                 {" "}
                 <img
                   src={cartIcon}
-                  alt="orders-icon"
+                  alt="account-icon"
                   className="account-icon head-icons"
                 />{" "}
               </Link>
             </>
-          ) : (
-            <>
-              {!isLogin ? <Link to="/account">
-                {" "}
-                <img
-                  src={accountIcon}
-                  alt="account-icon"
-                  className="account-icon head-icons"
-                /> {" "} <strong style={{ color: "white" }}>Login</strong>
-              </Link> : (<div onClick={handleLogout}>
-                <img
-                  src={accountIcon}
-                  alt="account-icon"
-                  className="account-icon head-icons"
-                /> <strong style={{ color: "white" }}>Logout</strong>
-                {" "}
-              </div>)
-              }
-
-            </>
-          )}
+          )
+          }
           <span className="wishlist-icon-container">
             <Link to="/wishlist">
               {" "}
