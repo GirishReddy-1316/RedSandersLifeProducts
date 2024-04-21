@@ -11,13 +11,13 @@ import PagesHeader from "../components/PagesHeader.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-import { axiosInstanceWithToken } from "../api.js";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../redux/action/actions.js";
+import { axiosInstance } from "../api.js";
 
 function Checkout() {
   const { cartItems, subtotal } = useSelector(state => state.reducer);
-  const { isLoggedIn, userInfo } = useSelector((state) => state.auth);
+  const { isLoggedIn, userInfo, token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -176,7 +176,11 @@ function Checkout() {
         paymentMethod: "Credit Card",
       };
 
-      const response = await axiosInstanceWithToken.post("/order/create", order);
+      const response = await axiosInstance.post("/order/create", order, {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
       console.log(response);
 
       if (response.status === 201) {
