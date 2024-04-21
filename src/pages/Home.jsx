@@ -26,6 +26,7 @@ function Home() {
     if (accessToken) {
       localStorage.setItem('token', accessToken);
       navigate("/")
+      window.location.reload();
     }
   }, [accessToken]);
 
