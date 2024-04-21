@@ -3,39 +3,71 @@ import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import "../styles/orders.css";
 import PagesHeader from '../components/PagesHeader.jsx';
-import { axiosInstance, axiosInstanceWithToken } from '../api.js';
+import { axiosInstance } from '../api.js';
 import { useSelector } from 'react-redux';
+import { toast } from "sonner";
 
 const Orders = () => {
-    const { isLogin, token } = useSelector((state) => state.auth);
+    const { isLoggedIn, token } = useSelector((state) => state.auth);
     const [orders, setOrders] = useState([]);
-    const [orderId, setOrderId] = useState('');
+    const [orderId, setOrderId] = useState(null);
     useEffect(() => {
+        let timerId;
         const fetchOrders = async () => {
             try {
                 const response = await axiosInstance.get(`/order/get-all?orderId=${orderId}`);
                 setOrders(response.data);
             } catch (error) {
+                setOrders([])
                 console.log('Error fetching orders:', error);
+                toast.error(
+                    error.response ? error.response.data.message : error.message,
+                    { duration: 2000, position: "top-center" }
+                );
             }
         };
 
         const fetchUserOrders = async () => {
             try {
-                const response = await axiosInstanceWithToken.get(`/order/get`);
+                const response = await axiosInstance.get(`/order/get`, {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
                 setOrders(response.data);
             } catch (error) {
                 console.log('Error fetching orders:', error);
+                toast.error(
+                    error.response ? error.response.data.message : error.message,
+                    { duration: 2000, position: "top-center" }
+                );
             }
         };
+        const handleDebounce = () => {
+            clearTimeout(timerId);
+            timerId = setTimeout(() => {
+                if (orderId) {
+                    fetchOrders();
+                }
+            }, 300);
+        };
 
-        if (!isLogin && !token) {
-            fetchOrders();
+        if (isLoggedIn && token) {
+            fetchUserOrders();
         } else {
-            fetchUserOrders()
+            handleDebounce();
         }
+        return () => {
+            clearTimeout(timerId);
+        };
 
-    }, [orderId, isLogin]);
+    }, [orderId, isLoggedIn, token]);
+
+    useEffect(() => {
+        if (!isLoggedIn) {
+            setOrders([]); // Clear orders when user logs out
+        }
+    }, [isLoggedIn]);
 
     return (
         <div>
