@@ -25,7 +25,6 @@ function Home() {
   useEffect(() => {
     if (accessToken) {
       localStorage.setItem('token', accessToken);
-      getUserProfile()
       navigate("/")
     }
   }, [accessToken]);
