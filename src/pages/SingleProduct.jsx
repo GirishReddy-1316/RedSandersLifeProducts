@@ -6,93 +6,45 @@ import CartPop from "../components/CartPop.jsx";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, addToWish, updateCartItemQuantity } from "../redux/action/actions.js";
 
 function SingleProduct() {
   const location = useLocation();
   const items = location.state.items;
   const [itemQuantity, setItemQuantity] = useState(1);
-  const [cartItems, setCartItems] = useState(() => {
-    const savedCartItems = localStorage.getItem("cartItems");
-    return savedCartItems ? JSON.parse(savedCartItems) : [];
-  });
+  const { cartItems, wishItems } = useSelector(state => state.reducer);
   const [cartVisible, setCartVisible] = useState(false);
+  const dispatch = useDispatch();
+  const handleQuantityChange = (qnty) => {
 
-  useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
 
-  const addToCart = (product) => {
-    const existingProduct = cartItems.find((elem) => elem.id === product.id);
-    if (existingProduct) {
-      setCartItems(
-        cartItems.map((elem) =>
-          elem.id === product.id
-            ? { ...elem, quantity: elem.quantity + itemQuantity }
-            : elem,
-        ),
-      );
-    } else {
-      setCartItems([...cartItems, { ...product, quantity: itemQuantity }]);
+    if (qnty > 0 || itemQuantity + qnty > 0) {
+      if (cartItems.filter(cartItem => cartItem._id === items._id).length === 0) {
+        addToCartProduct(items);
+      }
+      dispatch(updateCartItemQuantity(items._id, qnty))
     }
   };
 
-  const [wishItems, setWishItems] = useState(() => {
-    const savedWishItems = localStorage.getItem("wishItems");
-    return savedWishItems ? JSON.parse(savedWishItems) : [];
-  });
+  const addToCartProduct = (product) => {
+    dispatch(addToCart(product))
+  };
+
+  const addToWishProduct = (product) => {
+    dispatch(addToWish(product));
+  };
 
   useEffect(() => {
-    localStorage.setItem("wishItems", JSON.stringify(wishItems));
-  }, [wishItems]);
+    let isProductInCart = cartItems.filter((cartItem) => cartItem._id === items._id)
+    setItemQuantity(isProductInCart[0]?.quantity || 1)
+  }, [cartItems])
 
-  const addToWish = (product) => {
-    const existingWishProduct = wishItems.find(
-      (elem) => elem.id === product.id,
-    );
-    if (existingWishProduct) {
-      setWishItems(
-        wishItems.map((elem) =>
-          elem.id === product.id
-            ? { ...elem, wishQuantity: elem.wishQuantity + 1 }
-            : elem,
-        ),
-      );
-    } else {
-      setWishItems([...wishItems, { ...product, wishQuantity: 1 }]);
-    }
-  };
-
-  const onDelete = (index) => {
-    setCartItems((currentItems) =>
-      currentItems.filter((_, idx) => idx !== index),
-    );
-  };
-
-  const onUpdateQuantity = (index, delta) => {
-    setCartItems((currentItems) =>
-      currentItems.map((item, idx) =>
-        idx === index
-          ? { ...item, quantity: Math.max(item.quantity + delta, 0) }
-          : item,
-      ),
-    );
-  };
-
-  const minusItem = () => {
-    if (itemQuantity > 1) setItemQuantity(itemQuantity - 1);
-  };
-
-  const plusItem = () => {
-    setItemQuantity(itemQuantity + 1);
-  };
   return (
     <>
       {cartVisible && (
         <CartPop
-          cartItems={cartItems}
           setCartVisible={setCartVisible}
-          onUpdateQuantity={onUpdateQuantity}
-          onDelete={onDelete}
         />
       )}
 
@@ -114,18 +66,18 @@ function SingleProduct() {
             <div className="sp-desc">{items.desc}</div>
             <div className="quantity-text">Quantity:</div>
             <div className="sp-counter">
-              <button className="buttonminus" onClick={minusItem}>
+              <button className="buttonminus" onClick={() => handleQuantityChange(-1)}>
                 -
               </button>
               <p>{itemQuantity}</p>
-              <button className="buttonplus" onClick={plusItem}>
+              <button className="buttonplus" onClick={() => handleQuantityChange(1)}>
                 +
               </button>
             </div>
             <button
               className="sp-add-to-cart"
               onClick={() => {
-                addToCart(items);
+                addToCartProduct(items);
                 toast.success("Added to Cart", { duration: 1000 });
               }}
             >
@@ -134,7 +86,7 @@ function SingleProduct() {
             <button
               className="sp-add-to-cart"
               onClick={() => {
-                addToWish(items);
+                addToWishProduct(items);
                 toast.success("Added to Wishlist", { duration: 1000 });
               }}
             >
