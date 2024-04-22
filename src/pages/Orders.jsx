@@ -15,27 +15,11 @@ const Orders = () => {
     const { cartItems, wishItems } = useSelector(state => state.reducer);
     const [cartVisible, setCartVisible] = useState(false);
     const [orders, setOrders] = useState([]);
-    const [orderId, setOrderId] = useState(null);
+    const [orderId, setOrderId] = useState('');
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         let timerId;
-        const fetchOrders = async () => {
-            try {
-                setLoading(true);
-                const response = await axiosInstance.get(`/order/get-all?orderId=${orderId}`);
-                setOrders(response.data);
-                setLoading(false);
-            } catch (error) {
-                setOrders([])
-                console.log('Error fetching orders:', error);
-                toast.error(
-                    error.response ? error.response.data.message : error.message,
-                    { duration: 2000, position: "top-center" }
-                );
-            }
-            setLoading(false);
-        };
 
         const fetchUserOrders = async () => {
             setLoading(true);
@@ -56,25 +40,12 @@ const Orders = () => {
                 setLoading(false);
             }
         };
-        const handleDebounce = () => {
-            clearTimeout(timerId);
-            timerId = setTimeout(() => {
-                if (orderId) {
-                    fetchOrders();
-                }
-            }, 300);
-        };
 
         if (isLoggedIn && token) {
             fetchUserOrders();
-        } else {
-            handleDebounce();
         }
-        return () => {
-            clearTimeout(timerId);
-        };
 
-    }, [orderId, isLoggedIn, token]);
+    }, [isLoggedIn, token]);
 
     useEffect(() => {
         if (!isLoggedIn) {
@@ -82,9 +53,31 @@ const Orders = () => {
         }
     }, [isLoggedIn]);
 
+    const handleSearch = () => {
+        const fetchOrders = async () => {
+            try {
+                setLoading(true);
+                const response = await axiosInstance.get(`/order/get-all?orderId=${orderId}`);
+                setOrders(response.data);
+                setLoading(false);
+            } catch (error) {
+                setOrders([])
+                console.log('Error fetching orders:', error);
+                toast.error(
+                    error.response ? error.response.data.message : error.message,
+                    { duration: 2000, position: "top-center" }
+                );
+            }
+            setLoading(false);
+        };
+        if (orderId.trim()) {
+            fetchOrders();
+        }
+    };
+
     return (
         <div>
-     {loading && <Loader />}
+            {loading && <Loader />}
             <div className="orders-container">
                 {cartVisible && (
                     <CartPop
@@ -106,7 +99,7 @@ const Orders = () => {
                         value={orderId}
                         onChange={(e) => setOrderId(e.target.value)}
                     />
-                    <button>Search</button>
+                    <button onClick={handleSearch}>Search</button> {/* Add onClick handler */}
                 </div>
                 {orders.length === 0 ? (
                     <p className='no-orders'>No orders available</p>
