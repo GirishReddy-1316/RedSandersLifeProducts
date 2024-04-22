@@ -106,6 +106,7 @@ const Orders = () => {
                         value={orderId}
                         onChange={(e) => setOrderId(e.target.value)}
                     />
+                    <button>Search</button>
                 </div>
                 {orders.length === 0 ? (
                     <p className='no-orders'>No orders available</p>
