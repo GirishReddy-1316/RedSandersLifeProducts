@@ -1,12 +1,28 @@
-import PagesHeader from "../components/PagesHeader.jsx";
 import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import "../styles/policies.css";
+import CartPop from "../components/CartPop.jsx";
+import Header from "../components/Header.jsx";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 function Policies() {
+  const [cartVisible, setCartVisible] = useState(false);
+  const { cartItems, wishItems } = useSelector(state => state.reducer);
   return (
     <div className="policies-page">
-      <PagesHeader />
+      {cartVisible && (
+        <CartPop
+          setCartVisible={setCartVisible}
+        />
+      )}
+      <div className="main-container">
+        <Header
+          cartCount={cartItems.length}
+          wishCount={wishItems.length}
+          setCartVisible={setCartVisible}
+        />
+      </div>
 
       <main className="policies-main-content">
         <h1>Our Policies</h1>

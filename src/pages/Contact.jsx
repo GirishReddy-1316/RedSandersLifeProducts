@@ -1,11 +1,15 @@
 import { useState } from "react";
 import "../styles/contact.css";
-import PagesHeader from "../components/PagesHeader.jsx";
 import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import { axiosInstance } from "../api.js";
+import CartPop from "../components/CartPop.jsx";
+import Header from "../components/Header.jsx";
+import { useSelector } from "react-redux";
 
 function Contact() {
+  const [cartVisible, setCartVisible] = useState(false);
+  const { cartItems, wishItems } = useSelector(state => state.reducer);
   const [formState, setFormState] = useState({
     custName: "",
     email: "",
@@ -73,7 +77,18 @@ function Contact() {
 
   return (
     <div className="contact-container">
-      <PagesHeader />
+      {cartVisible && (
+        <CartPop
+          setCartVisible={setCartVisible}
+        />
+      )}
+      <div className="main-container">
+        <Header
+          cartCount={cartItems.length}
+          wishCount={wishItems.length}
+          setCartVisible={setCartVisible}
+        />
+      </div>
       <form onSubmit={handleContactSubmit} className="contact-form">
         <h1>Contact Us</h1>
         <input

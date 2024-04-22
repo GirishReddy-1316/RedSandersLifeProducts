@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../styles/registrationForm.css";
-import PagesHeader from "../components/PagesHeader.jsx";
 import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import { axiosInstance } from "../api.js";
@@ -8,9 +7,14 @@ import { useNavigate } from "react-router-dom";
 import GoogleButton from "react-google-button";
 import { toast } from "sonner";
 import Loader from "../components/Loader.jsx";
+import CartPop from "../components/CartPop.jsx";
+import Header from "../components/Header.jsx";
+import { useSelector } from "react-redux";
 
 const RegistrationForm = () => {
   const navigate = useNavigate();
+  const [cartVisible, setCartVisible] = useState(false);
+  const { cartItems, wishItems } = useSelector(state => state.reducer);
   const [formData, setFormData] = useState({
     username: "",
     phoneNumber: "",
@@ -228,7 +232,18 @@ const RegistrationForm = () => {
   return (
     <div className="registration-form-container">
       {loading && <Loader />}
-      <PagesHeader />
+      {cartVisible && (
+        <CartPop
+          setCartVisible={setCartVisible}
+        />
+      )}
+      <div className="main-container">
+        <Header
+          cartCount={cartItems.length}
+          wishCount={wishItems.length}
+          setCartVisible={setCartVisible}
+        />
+      </div>
       <div className="pheader-container">
         <h2 className="contact-head">Registration Form</h2>
       </div>

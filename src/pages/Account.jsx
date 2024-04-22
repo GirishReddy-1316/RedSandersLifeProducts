@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../styles/account.css";
-import PagesHeader from "../components/PagesHeader.jsx";
 import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import ForgotPassword from "../components/ForgotPassword.jsx";
@@ -10,11 +9,15 @@ import axios from "axios";
 import { toast } from "sonner";
 import Loader from "../components/Loader.jsx";
 import { axiosInstance } from "../api.js";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginSuccess } from "../redux/action/authActions.js";
+import CartPop from "../components/CartPop.jsx";
+import Header from "../components/Header.jsx";
 
 function Account() {
   const navigate = useNavigate();
+  const [cartVisible, setCartVisible] = useState(false);
+  const { cartItems, wishItems } = useSelector(state => state.reducer);
   const [animationKey, setAnimationKey] = useState(0);
   const [emailOrPhone, setEmailOrPhone] = useState("");
   const [custPassword, setCustPassword] = useState("");
@@ -110,7 +113,18 @@ function Account() {
   return (
     <div className="account-container">
       {loading && <Loader />}
-      <PagesHeader />
+      {cartVisible && (
+        <CartPop
+          setCartVisible={setCartVisible}
+        />
+      )}
+      <div className="main-container">
+        <Header
+          cartCount={cartItems.length}
+          wishCount={wishItems.length}
+          setCartVisible={setCartVisible}
+        />
+      </div>
       <div className="pheader-container">
         <h2 className="contact-head">Login</h2>
 

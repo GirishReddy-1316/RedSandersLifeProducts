@@ -7,16 +7,18 @@ import amex from "../assets/amex.png";
 import pasteIcon from "../assets/paste.svg";
 import disc from "../assets/disc.png";
 import Footer from "../components/Footer.jsx";
-import PagesHeader from "../components/PagesHeader.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../redux/action/actions.js";
 import { axiosInstance } from "../api.js";
+import CartPop from "../components/CartPop.jsx";
+import Header from "../components/Header.jsx";
 
 function Checkout() {
-  const { cartItems, subtotal } = useSelector(state => state.reducer);
+  const { cartItems, subtotal, wishItems } = useSelector(state => state.reducer);
+  const [cartVisible, setCartVisible] = useState(false);
   const { isLoggedIn, userInfo, token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -200,14 +202,6 @@ function Checkout() {
     createOrder();
   }
 
-
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate("/account")
-    }
-
-  }, [isLoggedIn])
-
   useEffect(() => {
     if (userInfo && userInfo.address) {
       setcustName(userInfo.address.custName || "");
@@ -227,7 +221,19 @@ function Checkout() {
   return (
     <>
       <div className="checkout-page">
-        <PagesHeader />
+        {cartVisible && (
+          <CartPop
+            setCartVisible={setCartVisible}
+          />
+        )}
+        <div className="main-container">
+          <Header
+            cartCount={cartItems.length}
+            wishCount={wishItems.length}
+            setCartVisible={setCartVisible}
+          />
+        </div>
+
 
         <div className="checkout-main-container">
           <form onSubmit={handleFormSubmit} className="checkout-form">

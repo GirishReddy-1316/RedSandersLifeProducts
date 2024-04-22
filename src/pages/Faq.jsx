@@ -1,11 +1,15 @@
 import { useState } from "react";
-import PagesHeader from "../components/PagesHeader.jsx";
 import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import "../styles/faq.css";
+import CartPop from "../components/CartPop.jsx";
+import Header from "../components/Header.jsx";
+import { useSelector } from "react-redux";
 
 function Faq() {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [cartVisible, setCartVisible] = useState(false);
+  const { cartItems, wishItems } = useSelector(state => state.reducer);
 
   const questionsAnswers = [
     {
@@ -36,7 +40,18 @@ function Faq() {
 
   return (
     <div className="faq-page">
-      <PagesHeader />
+      {cartVisible && (
+        <CartPop
+          setCartVisible={setCartVisible}
+        />
+      )}
+      <div className="main-container">
+        <Header
+          cartCount={cartItems.length}
+          wishCount={wishItems.length}
+          setCartVisible={setCartVisible}
+        />
+      </div>
 
       <main className="faq-content">
         <div className="faq-container">

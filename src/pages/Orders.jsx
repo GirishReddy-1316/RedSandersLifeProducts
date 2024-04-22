@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import "../styles/orders.css";
-import PagesHeader from '../components/PagesHeader.jsx';
 import { axiosInstance } from '../api.js';
 import { useSelector } from 'react-redux';
 import { toast } from "sonner";
+import CartPop from '../components/CartPop.jsx';
+import Header from '../components/Header.jsx';
 
 const Orders = () => {
     const { isLoggedIn, token } = useSelector((state) => state.auth);
@@ -72,7 +73,18 @@ const Orders = () => {
     return (
         <div>
             <div className="orders-container">
-                <PagesHeader />
+                {cartVisible && (
+                    <CartPop
+                        setCartVisible={setCartVisible}
+                    />
+                )}
+                <div className="main-container">
+                    <Header
+                        cartCount={cartItems.length}
+                        wishCount={wishItems.length}
+                        setCartVisible={setCartVisible}
+                    />
+                </div>
                 <h2 className='no-orders'>Orders</h2>
                 <div className="search-container">
                     <input

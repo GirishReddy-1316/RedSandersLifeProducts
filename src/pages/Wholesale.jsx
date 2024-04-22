@@ -1,12 +1,28 @@
-import PagesHeader from "../components/PagesHeader.jsx";
 import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import "../styles/wholesale.css";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import Header from "../components/Header.jsx";
+import CartPop from "../components/CartPop.jsx";
 
 function Wholesale() {
+  const [cartVisible, setCartVisible] = useState(false);
+  const { cartItems, wishItems } = useSelector(state => state.reducer);
   return (
     <div className="wholesale-page">
-      <PagesHeader />
+      {cartVisible && (
+        <CartPop
+          setCartVisible={setCartVisible}
+        />
+      )}
+      <div className="main-container">
+        <Header
+          cartCount={cartItems.length}
+          wishCount={wishItems.length}
+          setCartVisible={setCartVisible}
+        />
+      </div>
 
       <main className="wholesale-main-content">
         <h1>Welcome!! Step into JiYaBa Wholesale </h1>
@@ -21,7 +37,7 @@ function Wholesale() {
             <li>
               Direct from the Source:
               <span>
-              we procure genuine products with a license from the forest and farms. Our Products are sourced directly from the private farms land in
+                we procure genuine products with a license from the forest and farms. Our Products are sourced directly from the private farms land in
                 and around city of Tirupati Andhra Pradesh, ensuring the quality
                 and color.
               </span>
@@ -69,7 +85,7 @@ function Wholesale() {
             <li>
               Refreshing Choices for a Healthy Lifestyle:
               <span>
-                 Explore our assortment of beverages, cool drinks, and soft
+                Explore our assortment of beverages, cool drinks, and soft
                 drinks, each offering their own array of healthful properties.
               </span>
             </li>
@@ -94,11 +110,11 @@ function Wholesale() {
               needs and how we can best support your business.
             </li>
             <li>
-            Have more questions? Visit our <a href="/faqs">FAQ page</a> or
-            contact us directly.
+              Have more questions? Visit our <a href="/faqs">FAQ page</a> or
+              contact us directly.
             </li>
           </ul>
-        </section> 
+        </section>
       </main>
 
       <Footer />
