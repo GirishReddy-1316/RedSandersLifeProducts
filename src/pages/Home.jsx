@@ -11,22 +11,31 @@ import Footer from "../components/Footer.jsx";
 import "../styles/home.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from "sonner";
 
 
 function Home() {
   const navigate = useNavigate();
   let [searchParams] = useSearchParams();
   const accessToken = searchParams.get('accessToken');
+  const username = searchParams.get('userName');
   const [cartVisible, setCartVisible] = useState(false);
   const cartItems = useSelector(state => state.reducer.cartItems);
   const wishItems = useSelector(state => state.reducer.wishItems);
 
-
+  let toastShown = false;
   useEffect(() => {
-    if (accessToken) {
+    if (accessToken && !toastShown) {
       localStorage.setItem('token', accessToken);
-      navigate("/")
-      window.location.reload();
+      toast.success(`Welcome, ${username} Logged in successfully With Google`, {
+        duration: 2000,
+        position: "top-center",
+      });
+      toastShown = true;
+      navigate("/");
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000)
     }
   }, [accessToken]);
 

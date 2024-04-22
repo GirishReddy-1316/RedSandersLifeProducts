@@ -74,7 +74,7 @@ function Account() {
         setFormSubmitted(true);
         dispatch(loginSuccess(response.data.token, response.data.user))
         localStorage.setItem("token", response.data.token);
-        toast.success(`${response.data?.user?.username || "User"} Logged in successfully`, {
+        toast.success(`Welcome, ${response.data?.user?.username || "User"} Logged in successfully`, {
           duration: 2000,
           position: "top-center",
         });
