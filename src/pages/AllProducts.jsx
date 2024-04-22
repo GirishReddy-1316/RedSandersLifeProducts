@@ -12,6 +12,8 @@ import wishlistImg from "../assets/heart.svg";
 import { axiosInstance } from "../api.js";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, addToWish } from "../redux/action/actions.js";
+import Loader from "../components/Loader.jsx";
+
 
 
 function AllProducts() {
@@ -36,17 +38,25 @@ function AllProducts() {
   }, [])
 
   const getAllProductsList = async () => {
+    setLoading(true);
     try {
       const response = await axiosInstance.get("/products");
-      setLoading(true);
       setItems(response.data);
+      setLoading(false);
     } catch (error) {
       console.error("There was an error fetching the products list:", error);
+      toast.error(
+        error.response ? error.response.data.message : error.message,
+        { duration: 2000, position: "top-center" }
+    );
+      setLoading(false);
+     
     }
   };
 
   return (
     <>
+     {loading && <Loader />}
       {cartVisible && (
         <CartPop
           setCartVisible={setCartVisible}

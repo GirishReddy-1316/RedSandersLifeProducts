@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux';
 import { toast } from "sonner";
 import CartPop from '../components/CartPop.jsx';
 import Header from '../components/Header.jsx';
+import Loader from "../components/Loader.jsx";
+
 
 const Orders = () => {
     const { isLoggedIn, token } = useSelector((state) => state.auth);
@@ -14,12 +16,16 @@ const Orders = () => {
     const [cartVisible, setCartVisible] = useState(false);
     const [orders, setOrders] = useState([]);
     const [orderId, setOrderId] = useState(null);
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         let timerId;
         const fetchOrders = async () => {
             try {
+                setLoading(true);
                 const response = await axiosInstance.get(`/order/get-all?orderId=${orderId}`);
                 setOrders(response.data);
+                setLoading(false);
             } catch (error) {
                 setOrders([])
                 console.log('Error fetching orders:', error);
@@ -28,9 +34,11 @@ const Orders = () => {
                     { duration: 2000, position: "top-center" }
                 );
             }
+            setLoading(false);
         };
 
         const fetchUserOrders = async () => {
+            setLoading(true);
             try {
                 const response = await axiosInstance.get(`/order/get`, {
                     headers: {
@@ -38,12 +46,14 @@ const Orders = () => {
                     }
                 });
                 setOrders(response.data);
+                setLoading(false);
             } catch (error) {
                 console.log('Error fetching orders:', error);
                 toast.error(
                     error.response ? error.response.data.message : error.message,
                     { duration: 2000, position: "top-center" }
                 );
+                setLoading(false);
             }
         };
         const handleDebounce = () => {
@@ -74,6 +84,7 @@ const Orders = () => {
 
     return (
         <div>
+     {loading && <Loader />}
             <div className="orders-container">
                 {cartVisible && (
                     <CartPop

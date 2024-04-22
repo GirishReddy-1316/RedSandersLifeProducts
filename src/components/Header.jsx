@@ -59,49 +59,6 @@ function Header({ cartCount, wishCount, setCartVisible }) {
 
         <div className="head-icons-container">
           <Search />
-
-          {!isLogin ? (
-            <Link to="/account">
-              {" "}
-              <img
-                src={accountIcon}
-                alt="account-icon"
-                className="account-icon head-icons"
-              />{" "}
-            </Link>
-          ) : (
-            // <>
-            //   <Link to={"/user-profile"}>
-            //     <img
-            //       src={accountIcon}
-            //       alt="account-icon"
-            //       className="account-icon head-icons"
-            //     />
-            //     {" "}
-            //   </Link>
-            // </>
-            <ul className="navigation">
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/all-products">Shop Now</Link>
-              </li>
-
-              <li className="pages">
-                My Profile{" "}
-                <img className="dd" src={dropdown} alt="dropdown icon" />
-                <ul className="dropdown-content">
-                  <li>
-                    <Link to="/user-profile">My Details</Link>
-                  </li>
-                  <li>
-                    <a onClick={handleLogout}>Logout</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          )}
           <Link to="/orders">
             {" "}
             <img
@@ -132,6 +89,34 @@ function Header({ cartCount, wishCount, setCartVisible }) {
             />
             {cartCount > 0 && <span className="cart-counter">{cartCount}</span>}
           </span>
+
+          {!isLogin ? (
+            <Link to="/account">
+              {" "}
+              <img
+                src={accountIcon}
+                alt="account-icon"
+                className="account-icon head-icons"
+              />{" "}
+            </Link>
+          ) : (          
+            <ul className="navigation margin-0">      
+
+              <li className="pages">
+                My Profile{" "}
+                <img className="dd" src={dropdown} alt="dropdown icon" />
+                <ul className="dropdown-content">
+                  <li>
+                    <Link to="/user-profile">My Details</Link>
+                  </li>
+                  <li>
+                    <a onClick={handleLogout}>Logout</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          )}
+          
         </div>
       </header>
     </div>
