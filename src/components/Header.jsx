@@ -7,16 +7,19 @@ import cartIcon from "../assets/cart2.svg";
 import cartAdd from "../assets/cart.svg";
 import { Link, useNavigate } from "react-router-dom";
 import Search from "./Search.jsx";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { logoutSuccess } from "../redux/action/authActions.js";
 
 function Header({ cartCount, wishCount, setCartVisible }) {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const userData = useSelector(state => state.auth.userInfo);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.auth.isLoggedIn);
-  console.log(isLogin);
 
+  function handleLogout() {
+    localStorage.removeItem("token");
+    dispatch(logoutSuccess());
+    navigate("/account");
+  }
 
   return (
     <div className="header-container">
@@ -57,26 +60,48 @@ function Header({ cartCount, wishCount, setCartVisible }) {
         <div className="head-icons-container">
           <Search />
 
-          {!isLogin ? <Link to="/account">
-            {" "}
-            <img
-              src={accountIcon}
-              alt="account-icon"
-              className="account-icon head-icons"
-            /> {" "}
-          </Link> : (
-            <>
-              <Link to={"/user-profile"}>
-                <img
-                  src={accountIcon}
-                  alt="account-icon"
-                  className="account-icon head-icons"
-                />
-                {" "}
-              </Link>
-            </>
-          )
-          }
+          {!isLogin ? (
+            <Link to="/account">
+              {" "}
+              <img
+                src={accountIcon}
+                alt="account-icon"
+                className="account-icon head-icons"
+              />{" "}
+            </Link>
+          ) : (
+            // <>
+            //   <Link to={"/user-profile"}>
+            //     <img
+            //       src={accountIcon}
+            //       alt="account-icon"
+            //       className="account-icon head-icons"
+            //     />
+            //     {" "}
+            //   </Link>
+            // </>
+            <ul className="navigation">
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/all-products">Shop Now</Link>
+              </li>
+
+              <li className="pages">
+                My Profile{" "}
+                <img className="dd" src={dropdown} alt="dropdown icon" />
+                <ul className="dropdown-content">
+                  <li>
+                    <Link to="/user-profile">My Details</Link>
+                  </li>
+                  <li>
+                    <a onClick={handleLogout}>Logout</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          )}
           <Link to="/orders">
             {" "}
             <img
