@@ -11,7 +11,7 @@ import BottomBar from "../components/BottomBar.jsx";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clearCart } from "../redux/action/actions.js";
+import { clearCart, setOrderId } from "../redux/action/actions.js";
 import { axiosInstance } from "../api.js";
 import CartPop from "../components/CartPop.jsx";
 import Header from "../components/Header.jsx";
@@ -178,15 +178,20 @@ function Checkout() {
         paymentMethod: "Credit Card",
       };
 
-      const response = await axiosInstance.post("/order/create", order, {
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      });
+      let response;
+      if (!isLoggedIn) {
+        response = await axiosInstance.post("/order/create/guest", order);
+      } else {
+        response = await axiosInstance.post("/order/create", order, {
+          headers: {
+            "authorization": `Bearer ${token}`
+          }
+        });
+      }
       console.log(response);
-
       if (response.status === 201) {
         dispatch(clearCart());
+        dispatch(setOrderId(response.data.orderId));
         navigate("/thankyou");
       } else {
         toast.error("Failed to create order");

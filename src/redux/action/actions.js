@@ -7,6 +7,8 @@ import {
     ADD_TO_WISH,
     REMOVE_FROM_WISH,
     CLEAR_CART,
+    SET_ORDER_ID,
+    CLEAR_ORDER_ID,
 } from './actionTypes';
 
 export const addToCart = (product) => ({
@@ -36,4 +38,13 @@ export const removeFromWish = (productId) => ({
 
 export const clearCart = () => ({
     type: CLEAR_CART,
+});
+
+export const setOrderId = (orderId) => ({
+    type: SET_ORDER_ID,
+    payload: orderId,
+});
+
+export const clearOrderId = () => ({
+    type: CLEAR_ORDER_ID,
 });

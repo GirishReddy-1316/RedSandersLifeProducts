@@ -10,6 +10,8 @@ import Header from '../components/Header.jsx';
 
 const Orders = () => {
     const { isLoggedIn, token } = useSelector((state) => state.auth);
+    const { cartItems, wishItems } = useSelector(state => state.reducer);
+    const [cartVisible, setCartVisible] = useState(false);
     const [orders, setOrders] = useState([]);
     const [orderId, setOrderId] = useState(null);
     useEffect(() => {

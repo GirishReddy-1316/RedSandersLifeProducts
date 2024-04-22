@@ -14,3 +14,6 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const UPDATE_USER_INFO = 'UPDATE_USER_INFO';
 
 export const CLEAR_CART = 'CLEAR_CART';
+
+export const SET_ORDER_ID = 'SET_ORDER_ID';
+export const CLEAR_ORDER_ID = 'CLEAR_ORDER_ID';

@@ -7,6 +7,8 @@ import {
     REMOVE_FROM_WISH,
     UPDATE_CART_ITEM_QUANTITY,
     CLEAR_CART,
+    CLEAR_ORDER_ID,
+    SET_ORDER_ID,
 } from '../action/actionTypes';
 
 const initialState = {
@@ -14,6 +16,7 @@ const initialState = {
     wishItems: [],
     itemCount: 0,
     subtotal: 0,
+    oderId: null
 };
 
 const loadStateFromLocalStorage = () => {
@@ -110,6 +113,23 @@ const reducer = (state = loadStateFromLocalStorage(), action) => {
             newState = { ...state, wishItems: state.wishItems.filter(item => item._id !== action.payload) };
             saveStateToLocalStorage(newState);
             return newState;
+        case SET_ORDER_ID: {
+            newState = {
+                ...state,
+                orderId: action.payload,
+            };
+            saveStateToLocalStorage(newState);
+            return newState;
+        }
+        case CLEAR_ORDER_ID: {
+            newState = {
+                ...state,
+                orderId: null,
+            };
+            saveStateToLocalStorage(newState);
+            return newState;
+        }
+
         default:
             return state;
     }

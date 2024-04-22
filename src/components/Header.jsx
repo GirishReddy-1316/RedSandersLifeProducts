@@ -63,7 +63,7 @@ function Header({ cartCount, wishCount, setCartVisible }) {
               src={accountIcon}
               alt="account-icon"
               className="account-icon head-icons"
-            /> {" "} <strong style={{ color: "white" }}>Login</strong>
+            /> {" "}
           </Link> : (
             <>
               <Link to={"/user-profile"}>
@@ -71,20 +71,20 @@ function Header({ cartCount, wishCount, setCartVisible }) {
                   src={accountIcon}
                   alt="account-icon"
                   className="account-icon head-icons"
-                /> <strong style={{ color: "white" }}>Profile</strong>
+                />
                 {" "}
-              </Link>
-              <Link to="/orders">
-                {" "}
-                <img
-                  src={cartIcon}
-                  alt="account-icon"
-                  className="account-icon head-icons"
-                />{" "}
               </Link>
             </>
           )
           }
+          <Link to="/orders">
+            {" "}
+            <img
+              src={cartIcon}
+              alt="account-icon"
+              className="account-icon head-icons"
+            />{" "}
+          </Link>
           <span className="wishlist-icon-container">
             <Link to="/wishlist">
               {" "}
