@@ -38,7 +38,7 @@ function App() {
     const timeout = setTimeout(() => {
       localStorage.removeItem("token");
       dispatch(logoutSuccess())
-    }, 120000);
+    }, 300000);
     setTimer(timeout);
   };
 
