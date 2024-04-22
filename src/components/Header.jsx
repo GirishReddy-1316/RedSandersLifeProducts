@@ -8,16 +8,16 @@ import cartAdd from "../assets/cart.svg";
 import { Link, useNavigate } from "react-router-dom";
 import Search from "./Search.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutSuccess } from "../redux/action/authActions.js";
+import { Logout } from "../redux/action/authActions.js";
 
 function Header({ cartCount, wishCount, setCartVisible }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.auth.isLoggedIn);
 
-  function handleLogout() {
+  async function handleLogout() {
+    await dispatch(Logout(token));
     localStorage.removeItem("token");
-    dispatch(logoutSuccess());
     navigate("/account");
   }
 
@@ -99,8 +99,8 @@ function Header({ cartCount, wishCount, setCartVisible }) {
                 className="account-icon head-icons"
               />{" "}
             </Link>
-          ) : (          
-            <ul className="navigation margin-0">      
+          ) : (
+            <ul className="navigation margin-0">
 
               <li className="pages">
                 My Profile{" "}
@@ -116,7 +116,7 @@ function Header({ cartCount, wishCount, setCartVisible }) {
               </li>
             </ul>
           )}
-          
+
         </div>
       </header>
     </div>

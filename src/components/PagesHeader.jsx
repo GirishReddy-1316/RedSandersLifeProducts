@@ -6,7 +6,6 @@ import dropdown from "../assets/dd.svg";
 import cartIcon from "../assets/cart2.svg";
 import { Link, useNavigate } from "react-router-dom";
 import Search from "./Search.jsx";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutSuccess } from "../redux/action/authActions.js";
 
@@ -14,11 +13,10 @@ function PagesHeader() {
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const isLogin = useSelector((state) => state.auth.isLoggedIn);
-  console.log(isLogin);
 
-  function handleLogout() {
+  async function handleLogout() {
     localStorage.removeItem("token");
-    dispatch(logoutSuccess())
+    await dispatch(Logout(token));
     navigate("/account")
 
   }

@@ -2,8 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import "../styles/UserProfile.css"
-import { logoutSuccess } from '../redux/action/authActions';
-import HeroSection from '../components/HeroSection';
+import { Logout, logoutSuccess } from '../redux/action/authActions';
 import Header from '../components/Header';
 
 const UserProfile = () => {
@@ -12,9 +11,9 @@ const UserProfile = () => {
     const cartItems = useSelector(state => state.reducer.cartItems);
     const wishItems = useSelector(state => state.reducer.wishItems);
     const { isLoggedIn, token, userInfo } = useSelector((state) => state.auth);
-    function handleLogout() {
+    async function handleLogout() {
+        await dispatch(Logout(token));
         localStorage.removeItem("token");
-        dispatch(logoutSuccess())
         navigate("/account")
     }
     console.log(userInfo)

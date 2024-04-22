@@ -20,7 +20,7 @@ import Orders from "./pages/Orders.jsx";
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { axiosInstanceWithToken } from "./api.js";
-import { logoutSuccess, updateUserInfo } from "./redux/action/authActions.js";
+import { Logout, updateUserInfo } from "./redux/action/authActions.js";
 import UserProfile from "./pages/UserProfile.jsx";
 
 function App() {
@@ -35,9 +35,9 @@ function App() {
   };
 
   const startTimer = () => {
-    const timeout = setTimeout(() => {
+    const timeout = setTimeout(async () => {
+      await dispatch(Logout(token));
       localStorage.removeItem("token");
-      dispatch(logoutSuccess())
     }, 300000);
     setTimer(timeout);
   };

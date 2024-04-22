@@ -19,14 +19,12 @@ const Orders = () => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        let timerId;
-
         const fetchUserOrders = async () => {
             setLoading(true);
             try {
                 const response = await axiosInstance.get(`/order/get`, {
                     headers: {
-                        "Authorization": `Bearer ${token}`
+                        "authorization": `Bearer ${token}`
                     }
                 });
                 setOrders(response.data);
