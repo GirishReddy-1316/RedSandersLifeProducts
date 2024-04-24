@@ -5,8 +5,8 @@ const Benefits = () => {
   return (
     <div className="benefits-container">
       <p className="benefits-intro">
-        Many people these days hesitate to talk about "red sandalwood" because
-        it's often associated with smuggling. But red sandalwood isn't just
+        These days, many people hesitate to talk about "red sandalwood" because
+        it's often associated with trafficking. But red sandalwood isn't just
         about illegal trade. It actually has many health benefits that are worth
         knowing about. Have you ever wondered why red sandalwood is so
         expensive, or why it's exported to other countries? While some may know
@@ -14,7 +14,7 @@ const Benefits = () => {
         just being a material for furniture items.
       </p>
       <h2 className="section-title">Benefits of Red Sandalwood</h2>
-      <div className="benefits-list">    
+      <div className="benefits-list">
         <div className="benefit">
           <h3 className="benefit-title">Diabetes Management</h3>
           <p className="benefit-description">

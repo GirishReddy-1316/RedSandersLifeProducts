@@ -26,13 +26,8 @@ function Wholesale() {
 
       <main className="wholesale-main-content">
         <h1>Welcome!! Step into JiYaBa Wholesale </h1>
-        <p>
-          What makes our company the best choice for wholesale purchases of our
-          products?
-        </p>
-
-        <section className="why-wholesale">
-          <h2>Why Partner with Jiyaba ?</h2>
+         <section className="why-wholesale">
+          <h2>Why Jiyaba for wholesale?</h2>
           <ul className="our-offerings-list">
             <li>
               Direct from the Source:
@@ -110,8 +105,8 @@ function Wholesale() {
               needs and how we can best support your business.
             </li>
             <li>
-              Have more questions? Visit our <a href="/faqs">FAQ page</a> or
-              contact us directly.
+              Have more questions? Visit our <a href="/faqs">FAQ page</a> or 
+              <a href="/contact"> Contact us</a> directly.
             </li>
           </ul>
         </section>

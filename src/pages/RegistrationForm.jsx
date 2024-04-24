@@ -219,7 +219,7 @@ const RegistrationForm = () => {
   async function handlerGoogleAuth() {
     try {
       setLoading(true);
-      window.location.href = `http://localhost:3000/auth/google`;
+      window.location.href = `https://sore-tan-pangolin-kilt.cyclic.app/auth/google`;
     } catch (error) {
       toast.error(
         error.response ? error.response.data.message : error.message,
