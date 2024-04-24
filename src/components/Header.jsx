@@ -13,7 +13,7 @@ import { Logout } from "../redux/action/authActions.js";
 function Header({ cartCount, wishCount, setCartVisible }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isLogin = useSelector((state) => state.auth.isLoggedIn);
+  const { isLoggedIn, token } = useSelector((state) => state.auth);
 
   async function handleLogout() {
     await dispatch(Logout(token));
@@ -89,7 +89,7 @@ function Header({ cartCount, wishCount, setCartVisible }) {
             {cartCount > 0 && <span className="cart-counter">{cartCount}</span>}
           </span>
 
-          {!isLogin ? (
+          {!isLoggedIn ? (
             <Link to="/account">
               {" "}
               <img
