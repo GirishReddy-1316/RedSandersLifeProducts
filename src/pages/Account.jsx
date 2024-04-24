@@ -79,9 +79,6 @@ function Account() {
           position: "top-center",
         });
         navigate("/");
-        setTimeout(() => {
-          window.location.reload();
-        }, 0)
       } catch (error) {
         toast.error(
           "Login failed: " +

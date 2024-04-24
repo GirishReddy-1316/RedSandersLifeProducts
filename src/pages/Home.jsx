@@ -23,19 +23,36 @@ function Home() {
   const cartItems = useSelector(state => state.reducer.cartItems);
   const wishItems = useSelector(state => state.reducer.wishItems);
 
-  let toastShown = false;
+  // Init useState to check for updates in localStorage without refreshing
+  const [, setTokenUpdate] = useState();
+
   useEffect(() => {
-    if (accessToken && !toastShown) {
-      localStorage.setItem('token', accessToken);
-      toast.success(`Welcome, ${username} Logged in successfully With Google`, {
+    const handleTokenChange = (event) => {
+      if (event.key === 'token' && event.newValue && event.newValue !== localStorage.getItem('token')) {
+        setCredientials(event.newValue);
+        setTokenUpdate(event.newValue);
+      }
+    };
+    window.addEventListener('storage', handleTokenChange);
+    return () => window.removeEventListener('storage', handleTokenChange);
+  }, []);
+
+  const setCredientials = (token) => {
+    let toastShown = false;
+    if (token && !toastShown) {
+      localStorage.setItem('token', token);
+      toast.success(`Welcome back, ${username}!`, {
         duration: 2000,
         position: "top-center",
       });
       toastShown = true;
       navigate("/");
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000)
+    }
+  }
+
+  useEffect(() => {
+    if (accessToken) {
+      setCredientials(accessToken);
     }
   }, [accessToken]);
 
