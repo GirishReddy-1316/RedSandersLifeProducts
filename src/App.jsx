@@ -37,7 +37,6 @@ function App() {
   const startTimer = () => {
     const timeout = setTimeout(async () => {
       await dispatch(Logout(token));
-      localStorage.removeItem("token");
     }, 300000);
     setTimer(timeout);
   };
@@ -75,6 +74,7 @@ function App() {
   const getUserProfile = async () => {
     try {
       const response = await axiosInstanceWithToken.get('/user/profile');
+      localStorage.setItem('userId', response.data.user._id);
       dispatch(updateUserInfo(response.data.user))
       return response.data;
     } catch (error) {

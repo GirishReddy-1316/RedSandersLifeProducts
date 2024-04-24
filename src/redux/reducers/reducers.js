@@ -1,5 +1,3 @@
-
-
 import {
     ADD_TO_CART,
     REMOVE_FROM_CART,
@@ -10,18 +8,19 @@ import {
     CLEAR_ORDER_ID,
     SET_ORDER_ID,
 } from '../action/actionTypes';
+import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
     cartItems: [],
     wishItems: [],
     itemCount: 0,
     subtotal: 0,
-    oderId: null
+    orderId: null
 };
 
-const loadStateFromLocalStorage = () => {
+const loadStateFromLocalStorage = (userId) => {
     try {
-        const serializedState = localStorage.getItem('cartAndWishState');
+        const serializedState = localStorage.getItem(`cartAndWishState-${userId}`);
         if (serializedState === null) {
             return initialState;
         }
@@ -32,16 +31,28 @@ const loadStateFromLocalStorage = () => {
     }
 };
 
-const saveStateToLocalStorage = (state) => {
+const saveStateToLocalStorage = (state, userId) => {
     try {
         const serializedState = JSON.stringify(state);
-        localStorage.setItem('cartAndWishState', serializedState);
+        localStorage.setItem(`cartAndWishState-${userId}`, serializedState);
     } catch (error) {
         console.error('Error saving state to localStorage:', error);
     }
 };
 
-const reducer = (state = loadStateFromLocalStorage(), action) => {
+const generateUserId = () => {
+    let userId = localStorage.getItem('userId');
+    if (!userId) {
+        userId = uuidv4(); // Generate a UUID
+        localStorage.setItem('userId', userId);
+    }
+    return userId;
+};
+
+const reducer = (state, action) => {
+    const userId = generateUserId();
+    state = loadStateFromLocalStorage(userId);
+
     let newState;
     switch (action.type) {
         case ADD_TO_CART: {
@@ -60,7 +71,7 @@ const reducer = (state = loadStateFromLocalStorage(), action) => {
                 return total + item.quantity * itemPrice;
             }, 0);
             newState = { ...state, cartItems, itemCount, subtotal };
-            saveStateToLocalStorage(newState);
+            saveStateToLocalStorage(newState, userId);
             return newState;
         }
         case REMOVE_FROM_CART: {
@@ -71,7 +82,7 @@ const reducer = (state = loadStateFromLocalStorage(), action) => {
                 return total + item.quantity * itemPrice;
             }, 0);
             newState = { ...state, cartItems, itemCount, subtotal };
-            saveStateToLocalStorage(newState);
+            saveStateToLocalStorage(newState, userId);
             return newState;
         }
         case UPDATE_CART_ITEM_QUANTITY: {
@@ -84,17 +95,18 @@ const reducer = (state = loadStateFromLocalStorage(), action) => {
                 return total + item.quantity * itemPrice;
             }, 0);
             newState = { ...state, cartItems, itemCount, subtotal };
-            saveStateToLocalStorage(newState);
+            saveStateToLocalStorage(newState, userId);
             return newState;
         }
         case CLEAR_CART: {
             const newState = {
                 ...state,
                 cartItems: [],
+                wishItems: [],
                 itemCount: 0,
                 subtotal: 0,
             };
-            saveStateToLocalStorage(newState);
+            saveStateToLocalStorage(newState, userId);
             return newState;
         }
         case ADD_TO_WISH: {
@@ -106,19 +118,19 @@ const reducer = (state = loadStateFromLocalStorage(), action) => {
                 ...state,
                 wishItems: [...state.wishItems, action.payload],
             };
-            saveStateToLocalStorage(newState);
+            saveStateToLocalStorage(newState, userId);
             return newState;
         }
         case REMOVE_FROM_WISH:
             newState = { ...state, wishItems: state.wishItems.filter(item => item._id !== action.payload) };
-            saveStateToLocalStorage(newState);
+            saveStateToLocalStorage(newState, userId);
             return newState;
         case SET_ORDER_ID: {
             newState = {
                 ...state,
                 orderId: action.payload,
             };
-            saveStateToLocalStorage(newState);
+            saveStateToLocalStorage(newState, userId);
             return newState;
         }
         case CLEAR_ORDER_ID: {
@@ -126,7 +138,7 @@ const reducer = (state = loadStateFromLocalStorage(), action) => {
                 ...state,
                 orderId: null,
             };
-            saveStateToLocalStorage(newState);
+            saveStateToLocalStorage(newState, userId);
             return newState;
         }
 
