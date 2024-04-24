@@ -93,7 +93,7 @@ function AllProducts() {
                     className="all-padd-to-wish"
                     onClick={() => {
                       addToWishProduct(item);
-                      toast.success("Added to Wishlist", { duration: 1000, position: "top-right"  });
+                      toast.success("Added to Wishlist", { duration: 1000 });
                     }}
                   >
                     <img src={wishlistImg} />
@@ -102,7 +102,7 @@ function AllProducts() {
                     className="all-padd-to-cart"
                     onClick={() => {
                       addToCartProduct(item);
-                      toast.success("Added to Cart", { duration: 1000, position: "top-right"  });
+                      toast.success("Added to Cart", { duration: 1000 });
                     }}
                   >
                     <img src={addToCartImg} />
