@@ -1,12 +1,15 @@
 .user-profile {
-
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    /* margin: 0 auto; */
-    margin: 150px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 100px 0 0 0;
+    background-image: radial-gradient(at 50% 50%,
+        hsla(162, 77%, 40%, 0.121) 0,
+        transparent 50%),
+      radial-gradient(at 82% 65%, #111d2765 0, transparent 50%);
+      color:#fff;
 }
 
 .user-details {
@@ -19,7 +22,7 @@
 
 .user-details strong {
     font-weight: bold;
-    color: #333;
+    color: #fff;
 }
 
 .logout-button {
