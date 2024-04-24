@@ -13,7 +13,6 @@ const UserProfile = () => {
     const { isLoggedIn, token, userInfo } = useSelector((state) => state.auth);
     async function handleLogout() {
         await dispatch(Logout(token));
-        localStorage.removeItem("token");
         navigate("/account")
     }
     console.log(userInfo)

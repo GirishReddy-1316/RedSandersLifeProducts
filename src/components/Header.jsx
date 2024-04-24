@@ -17,7 +17,6 @@ function Header({ cartCount, wishCount, setCartVisible }) {
 
   async function handleLogout() {
     await dispatch(Logout(token));
-    localStorage.removeItem("token");
     navigate("/account");
   }
 

@@ -13,7 +13,6 @@ export const logoutSuccess = () => ({
 });
 
 export const Logout = (token) => async (dispatch) => {
-    console.log('Logout', token);
     try {
         const response = await axiosInstance.post(
             '/user/logout',
@@ -24,6 +23,8 @@ export const Logout = (token) => async (dispatch) => {
                 }
             }
         );
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
         dispatch(logoutSuccess());
     } catch (error) {
         throw new Error(error.response.data.message || 'Failed to logout');

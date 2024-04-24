@@ -15,7 +15,6 @@ function PagesHeader() {
   const isLogin = useSelector((state) => state.auth.isLoggedIn);
 
   async function handleLogout() {
-    localStorage.removeItem("token");
     await dispatch(Logout(token));
     navigate("/account")
 
