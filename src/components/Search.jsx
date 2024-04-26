@@ -4,23 +4,25 @@ import searchImg from "../assets/search.svg";
 import closeSearch from "../assets/close2.svg";
 import Products from "../data/Products.jsx";
 import "../styles/search.css";
+import { useSelector } from "react-redux";
 
 export default function Search() {
   const inputRef = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchIcon, setSearchIcon] = useState(searchImg);
   const [pholder, setPlaceholder] = useState("Search products...");
+  const { products } = useSelector(state => state.product);
 
   const [isOpen, setIsOpen] = useState(false);
 
   const filteredProducts =
     searchTerm.length >= 2
-      ? Products.filter(
-          (product) =>
-            product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            product.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            product.brandName.toLowerCase().includes(searchTerm.toLowerCase()),
-        )
+      ? products.filter(
+        (product) =>
+          product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.brandName.toLowerCase().includes(searchTerm.toLowerCase()),
+      )
       : [];
 
   useEffect(() => {

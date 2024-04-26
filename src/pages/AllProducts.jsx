@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import "../styles/allproducts.css";
-import Products from "../data/Products.jsx";
 import Header from "../components/Header.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import Footer from "../components/Footer.jsx";
@@ -9,9 +8,8 @@ import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import addToCartImg from "../assets/cart-product.svg";
 import wishlistImg from "../assets/heart.svg";
-import { axiosInstance } from "../api.js";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, addToWish } from "../redux/action/actions.js";
+import { addToCart, addToWish, fetchProducts } from "../redux/action/actions.js";
 import Loader from "../components/Loader.jsx";
 
 
@@ -20,7 +18,7 @@ function AllProducts() {
   const dispatch = useDispatch();
   const cartItems = useSelector(state => state.reducer.cartItems);
   const wishItems = useSelector(state => state.reducer.wishItems);
-  const [loading, setLoading] = useState(false);
+  const { products, loading, error } = useSelector(state => state.product);
   const [cartVisible, setCartVisible] = useState(false);
 
   const [items, setItems] = useState([]);
@@ -34,29 +32,16 @@ function AllProducts() {
   };
 
   useEffect(() => {
-    getAllProductsList()
-  }, [])
-
-  const getAllProductsList = async () => {
-    setLoading(true);
-    try {
-      const response = await axiosInstance.get("/products");
-      setItems(response.data);
-      setLoading(false);
-    } catch (error) {
-      console.error("There was an error fetching the products list:", error);
-      toast.error(
-        error.response ? error.response.data.message : error.message,
-        { duration: 2000, position: "top-center" }
-    );
-      setLoading(false);
-     
+    if (products.length === 0) {
+      dispatch(fetchProducts());
     }
-  };
+  }, []);
+
+  console.log(products)
 
   return (
     <>
-     {loading && <Loader />}
+      {loading && <Loader />}
       {cartVisible && (
         <CartPop
           setCartVisible={setCartVisible}
@@ -71,8 +56,8 @@ function AllProducts() {
 
       <div className="all-products-container">
         <div className="all-products">
-          {items.map((item) => (
-            <div key={item.id} className="all-product">
+          {products && products.map((item) => (
+            <div key={item._id} className="all-product">
               <Link to={`/products/${item.slug}`} state={{ items: item }}>
                 <img
                   className="all-product-image"

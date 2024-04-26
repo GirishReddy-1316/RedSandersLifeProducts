@@ -22,6 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { axiosInstanceWithToken } from "./api.js";
 import { Logout, updateUserInfo } from "./redux/action/authActions.js";
 import UserProfile from "./pages/UserProfile.jsx";
+import { fetchProducts } from "./redux/action/actions.js";
 
 function App() {
   let location = useLocation();
@@ -69,6 +70,7 @@ function App() {
     if (token && !isLoggedIn) {
       getUserProfile()
     }
+    dispatch(fetchProducts());
   }, []);
 
   const getUserProfile = async () => {

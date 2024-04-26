@@ -6,7 +6,7 @@ import {
     UPDATE_CART_ITEM_QUANTITY,
     CLEAR_CART,
     CLEAR_ORDER_ID,
-    SET_ORDER_ID,
+    SET_ORDER_ID
 } from '../action/actionTypes';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -49,9 +49,10 @@ const generateUserId = () => {
     return userId;
 };
 
-const reducer = (state, action) => {
+const reducer = (state = initialState, action) => {
     const userId = generateUserId();
     state = loadStateFromLocalStorage(userId);
+    console.log(action.payload);
 
     let newState;
     switch (action.type) {

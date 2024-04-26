@@ -1,5 +1,6 @@
 // actions.js
 
+import { axiosInstance } from '../../api';
 import {
     ADD_TO_CART,
     REMOVE_FROM_CART,
@@ -9,6 +10,9 @@ import {
     CLEAR_CART,
     SET_ORDER_ID,
     CLEAR_ORDER_ID,
+    FETCH_PRODUCTS_REQUEST,
+    FETCH_PRODUCTS_SUCCESS,
+    FETCH_PRODUCTS_FAILURE
 } from './actionTypes';
 
 export const addToCart = (product) => ({
@@ -48,3 +52,15 @@ export const setOrderId = (orderId) => ({
 export const clearOrderId = () => ({
     type: CLEAR_ORDER_ID,
 });
+
+
+
+export const fetchProducts = () => async (dispatch) => {
+    dispatch({ type: FETCH_PRODUCTS_REQUEST });
+    try {
+        const response = await axiosInstance.get("/products");
+        dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: response.data });
+    } catch (error) {
+        dispatch({ type: FETCH_PRODUCTS_FAILURE, payload: error.message });
+    }
+}
