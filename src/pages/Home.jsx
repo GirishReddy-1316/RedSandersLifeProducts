@@ -47,6 +47,10 @@ function Home() {
       });
       toastShown = true;
       navigate("/");
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+
     }
   }
 
