@@ -153,11 +153,8 @@ function Checkout() {
   };
 
 
-  async function createOrder() {
+  async function createOrder(paymetInfo) {
     try {
-      if (!validateForm()) {
-        return;
-      }
 
       const order = {
         products: cartItems.map((item) => ({
@@ -175,7 +172,7 @@ function Checkout() {
           pin: pin,
           mobile: mobile,
         },
-        paymentMethod: "Credit Card",
+        paymentMethod: paymetInfo,
       };
 
       let response;
@@ -188,7 +185,6 @@ function Checkout() {
           }
         });
       }
-      console.log(response);
       if (response.status === 201) {
         dispatch(clearCart());
         dispatch(setOrderId(response.data.orderId));
@@ -202,10 +198,52 @@ function Checkout() {
     }
   }
 
-  function handleFormSubmit(event) {
-    event.preventDefault();
-    createOrder();
+  async function processPayment() {
+    const orderData = {
+      amount: finalPrice
+    };
+
+    try {
+      const paymentResponse = await axiosInstance.get(`/payment/pay?amount=${finalPrice}`);
+      const paymentRedirectUrl = paymentResponse.data.data.instrumentResponse.redirectInfo.url;
+      window.location.href = paymentRedirectUrl;
+    } catch (error) {
+      console.error("Error processing payment:", error);
+      toast.error("An error occurred while processing the payment");
+    }
   }
+
+  async function validatePayment(merchantTransactionId) {
+    try {
+      const response = await axiosInstance.get(`/payment/validate/${merchantTransactionId}`);
+      console.log(response);
+      if (response.data && response.data.code === "PAYMENT_SUCCESS") {
+        setTimeout(async () => {
+          await createOrder(response.data.data.paymentInstrument);
+        }, 1000)
+      } else {
+        toast.error("Payment validation failed");
+      }
+    } catch (error) {
+      console.error("Error validating payment:", error);
+      toast.error("An error occurred while validating the payment");
+    }
+  }
+
+  async function handleFormSubmit(event) {
+    event.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
+    try {
+      await processPayment();
+    } catch (error) {
+      console.error("Error processing payment:", error);
+      toast.error("An error occurred while processing the payment");
+    }
+  }
+
+  console.log(isLoggedIn)
 
   useEffect(() => {
     if (userInfo && userInfo.address) {
@@ -221,6 +259,13 @@ function Checkout() {
 
   }, [])
 
+  const params = new URLSearchParams(window.location.search);
+  const merchantTransactionId = params.get("merchantTransactionId");
+  useEffect(() => {
+    if (merchantTransactionId) {
+      validatePayment(merchantTransactionId);
+    }
+  }, [merchantTransactionId]);
 
 
   return (
