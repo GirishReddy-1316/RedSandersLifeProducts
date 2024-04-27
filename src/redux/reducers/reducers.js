@@ -103,7 +103,6 @@ const reducer = (state = initialState, action) => {
             const newState = {
                 ...state,
                 cartItems: [],
-                wishItems: [],
                 itemCount: 0,
                 subtotal: 0,
             };
