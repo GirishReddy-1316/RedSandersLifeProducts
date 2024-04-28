@@ -12,7 +12,8 @@ import {
     CLEAR_ORDER_ID,
     FETCH_PRODUCTS_REQUEST,
     FETCH_PRODUCTS_SUCCESS,
-    FETCH_PRODUCTS_FAILURE
+    FETCH_PRODUCTS_FAILURE,
+    ADD_SHIPPING_ADDRESS, UPDATE_SHIPPING_ADDRESS
 } from './actionTypes';
 
 export const addToCart = (product) => ({
@@ -64,3 +65,16 @@ export const fetchProducts = () => async (dispatch) => {
         dispatch({ type: FETCH_PRODUCTS_FAILURE, payload: error.message });
     }
 }
+
+export const addShippingAddress = (shippingAddress) => {
+    console.log(shippingAddress);
+    return {
+        type: ADD_SHIPPING_ADDRESS,
+        payload: shippingAddress,
+    };
+};
+
+export const updateShippingAddress = (shippingAddress) => ({
+    type: UPDATE_SHIPPING_ADDRESS,
+    payload: shippingAddress,
+});

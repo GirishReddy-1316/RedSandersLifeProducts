@@ -7,13 +7,14 @@ import BottomBar from "../components/BottomBar.jsx";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clearCart, setOrderId } from "../redux/action/actions.js";
-import { axiosInstance } from "../api.js";
+import { addShippingAddress, clearCart, setOrderId } from "../redux/action/actions.js";
+import { axiosInstance, axiosInstanceWithToken } from "../api.js";
 import CartPop from "../components/CartPop.jsx";
 import Header from "../components/Header.jsx";
+import { updateUserInfo } from "../redux/action/authActions.js";
 
 function Checkout() {
-  const { cartItems, subtotal, wishItems } = useSelector(
+  const { cartItems, subtotal, wishItems, shippingAddress } = useSelector(
     (state) => state.reducer
   );
   const [cartVisible, setCartVisible] = useState(false);
@@ -129,21 +130,14 @@ function Checkout() {
           quantity: item.quantity,
         })),
         totalPrice: finalPrice,
-        shippingAddress: {
-          street: streetAddress,
-          city: city,
-          state: selectedState,
-          country: country,
-          email: email,
-          custName: custName,
-          pin: pin,
-          mobile: mobile,
-        },
+        shippingAddress: shippingAddress,
         paymentMethod: paymetInfo,
       };
 
+      console.log(order, "Order");
+
       let response;
-      if (!isLoggedIn) {
+      if (!isLoggedIn && !token) {
         response = await axiosInstance.post("/order/create/guest", order);
       } else {
         response = await axiosInstance.post("/order/create", order, {
@@ -166,10 +160,6 @@ function Checkout() {
   }
 
   async function processPayment() {
-    const orderData = {
-      amount: finalPrice,
-    };
-
     try {
       const paymentResponse = await axiosInstance.get(
         `/payment/pay?amount=${finalPrice}`
@@ -188,11 +178,8 @@ function Checkout() {
       const response = await axiosInstance.get(
         `/payment/validate/${merchantTransactionId}`
       );
-      console.log(response);
       if (response.data && response.data.code === "PAYMENT_SUCCESS") {
-        setTimeout(async () => {
-          await createOrder(response.data.data.paymentInstrument);
-        }, 1000);
+        await createOrder(response.data.data.paymentInstrument);
       } else {
         toast.error("Payment validation failed");
       }
@@ -207,7 +194,18 @@ function Checkout() {
     if (!validateForm()) {
       return;
     }
+    let newShippingAddress = {
+      street: streetAddress,
+      city: city,
+      state: selectedState,
+      country: country,
+      email: email,
+      custName: custName,
+      pin: pin,
+      mobile: mobile
+    }
     try {
+      dispatch(addShippingAddress(newShippingAddress));
       await processPayment();
     } catch (error) {
       console.error("Error processing payment:", error);
@@ -215,20 +213,7 @@ function Checkout() {
     }
   }
 
-  console.log(isLoggedIn);
-
-  useEffect(() => {
-    
-    if (userInfo && userInfo.address) {
-      setcustName(userInfo.address.custName || "");
-      setEmail(userInfo.address.email || "");
-      setStreetAddress(userInfo.address.street || "");
-      setCity(userInfo.address.city || "");
-      setPin(userInfo.address.pin || "");
-      setSelectedState(userInfo.address.state || "");
-      setMobile(userInfo.address.mobile || "");
-    }
-  }, []);
+  console.log(isLoggedIn, shippingAddress);
 
   const params = new URLSearchParams(window.location.search);
   const merchantTransactionId = params.get("merchantTransactionId");
@@ -237,6 +222,32 @@ function Checkout() {
       validatePayment(merchantTransactionId);
     }
   }, [merchantTransactionId]);
+
+  useEffect(() => {
+    const getUserProfile = async () => {
+      try {
+        const response = await axiosInstanceWithToken.get('/user/profile');
+        dispatch(updateUserInfo(response.data.user));
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+      }
+    };
+
+    getUserProfile();
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (userInfo && userInfo.address) {
+      const { address } = userInfo;
+      setcustName(address.custName || "");
+      setEmail(address.email || "");
+      setStreetAddress(address.street || "");
+      setCity(address.city || "");
+      setPin(address.pin || "");
+      setSelectedState(address.state || "");
+      setMobile(address.mobile || "");
+    }
+  }, [userInfo]);
 
   return (
     <>
