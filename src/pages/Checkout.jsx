@@ -178,9 +178,6 @@ function Checkout() {
 
   async function processPayment() {
     const orderData = {
-      amount: finalPrice,
-    };
-
     try {
       const paymentResponse = await axiosInstance.get(
         `/payment/pay?amount=${finalPrice}`
@@ -199,11 +196,8 @@ function Checkout() {
       const response = await axiosInstance.get(
         `/payment/validate/${merchantTransactionId}`
       );
-      console.log(response);
       if (response.data && response.data.code === "PAYMENT_SUCCESS") {
-        setTimeout(async () => {
-          await createOrder(response.data.data.paymentInstrument);
-        }, 1000);
+        await createOrder(response.data.data.paymentInstrument);
       } else {
         toast.error("Payment validation failed");
       }

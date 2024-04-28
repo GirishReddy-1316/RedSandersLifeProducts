@@ -21,8 +21,6 @@ function AllProducts() {
   const { products, loading, error } = useSelector(state => state.product);
   const [cartVisible, setCartVisible] = useState(false);
 
-  const [items, setItems] = useState([]);
-
   const addToCartProduct = (product) => {
     dispatch(addToCart(product))
   };
@@ -36,8 +34,6 @@ function AllProducts() {
       dispatch(fetchProducts());
     }
   }, []);
-
-  console.log(products)
 
   return (
     <>
