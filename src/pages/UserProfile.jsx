@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import "../styles/UserProfile.css"
-import { Logout, logoutSuccess } from '../redux/action/authActions';
+import { Logout, logoutSuccess, updateUserInfo } from '../redux/action/authActions';
 import Header from '../components/Header';
+import { axiosInstanceWithToken } from '../api';
 
 const UserProfile = () => {
     const navigate = useNavigate()
@@ -14,6 +15,21 @@ const UserProfile = () => {
     async function handleLogout() {
         await dispatch(Logout(token));
         navigate("/account")
+    }
+
+    useEffect(() => {
+        getUserProfile()
+    }, []);
+
+    const getUserProfile = async () => {
+        try {
+            const response = await axiosInstanceWithToken.get('/user/profile');
+            localStorage.setItem('userId', response.data.user._id);
+            dispatch(updateUserInfo(response.data.user))
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching user profile:', error);
+        }
     }
     console.log(userInfo)
     return (
@@ -33,7 +49,7 @@ const UserProfile = () => {
                             <p><strong>Email:</strong> {userInfo?.email}</p>
                             <p><strong>Username:</strong> {userInfo?.username}</p>
                             {
-                                userInfo.address && (<> <p><strong>Address:</strong></p>
+                                Object.keys(userInfo.address).length > 0 && (<> <p><strong>Address:</strong></p>
                                     <p>Street: {userInfo.address?.street}</p>
                                     <p>City: {userInfo.address?.city}</p>
                                     <p>State: {userInfo.address?.state}</p>
