@@ -49,7 +49,7 @@ const UserProfile = () => {
                             <p><strong>Email:</strong> {userInfo?.email}</p>
                             <p><strong>Username:</strong> {userInfo?.username}</p>
                             {
-                                Object.keys(userInfo.address).length > 0 && (<> <p><strong>Address:</strong></p>
+                                userInfo.address && Object.keys(userInfo.address).length > 0 && (<> <p><strong>Address:</strong></p>
                                     <p>Street: {userInfo.address?.street}</p>
                                     <p>City: {userInfo.address?.city}</p>
                                     <p>State: {userInfo.address?.state}</p>
