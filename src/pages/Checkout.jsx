@@ -8,9 +8,10 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addShippingAddress, clearCart, setOrderId } from "../redux/action/actions.js";
-import { axiosInstance } from "../api.js";
+import { axiosInstance, axiosInstanceWithToken } from "../api.js";
 import CartPop from "../components/CartPop.jsx";
 import Header from "../components/Header.jsx";
+import { updateUserInfo } from "../redux/action/authActions.js";
 
 function Checkout() {
   const { cartItems, subtotal, wishItems, shippingAddress } = useSelector(
@@ -225,18 +226,6 @@ function Checkout() {
 
   console.log(isLoggedIn, shippingAddress);
 
-  useEffect(() => {
-    if (userInfo && userInfo.address && (Object.keys(userInfo.address).length > 0)) {
-      setcustName(userInfo.address.custName || "");
-      setEmail(userInfo.address.email || "");
-      setStreetAddress(userInfo.address.street || "");
-      setCity(userInfo.address.city || "");
-      setPin(userInfo.address.pin || "");
-      setSelectedState(userInfo.address.state || "");
-      setMobile(userInfo.address.mobile || "");
-    }
-  }, []);
-
   const params = new URLSearchParams(window.location.search);
   const merchantTransactionId = params.get("merchantTransactionId");
   useEffect(() => {
@@ -244,6 +233,32 @@ function Checkout() {
       validatePayment(merchantTransactionId);
     }
   }, [merchantTransactionId]);
+
+  useEffect(() => {
+    const getUserProfile = async () => {
+      try {
+        const response = await axiosInstanceWithToken.get('/user/profile');
+        dispatch(updateUserInfo(response.data.user));
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+      }
+    };
+
+    getUserProfile();
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (userInfo && userInfo.address) {
+      const { address } = userInfo;
+      setcustName(address.custName || "");
+      setEmail(address.email || "");
+      setStreetAddress(address.street || "");
+      setCity(address.city || "");
+      setPin(address.pin || "");
+      setSelectedState(address.state || "");
+      setMobile(address.mobile || "");
+    }
+  }, [userInfo]);
 
   return (
     <>
