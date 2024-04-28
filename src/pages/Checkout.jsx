@@ -65,7 +65,9 @@ function Checkout() {
       setcustNameValid(true);
     }
 
-    if (!email.trim() || !email.includes("@")) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!email.trim() || !emailRegex.test(email)) {
       setEmailValid(false);
       isValid = false;
       toast.error("Invalid Email", {
@@ -115,7 +117,9 @@ function Checkout() {
       setSelectedStateValid(true);
     }
 
-    if (!mobile.trim() || !/^\d+$/.test(mobile)) {
+    const mobileRegex = /^[789]\d{9}$/;
+
+    if (!mobile.trim() || !mobileRegex.test(mobile)) {
       setMobileValid(false);
       isValid = false;
       toast.error("Invalid Mobile Number", {
@@ -124,6 +128,7 @@ function Checkout() {
     } else {
       setMobileValid(true);
     }
+
     return isValid;
   }
 
@@ -259,20 +264,31 @@ function Checkout() {
           <form onSubmit={handleFormSubmit} className="checkout-form">
             <div className="checkout-left">
               <div className="demo-details">
-                <p>Please enter your details below</p>
+                <p>Please enter your shipping address</p>
               </div>
               <label>Name</label>
               <input
                 type="text"
+                placeholder="Enter your name"
                 name="custname"
                 className={custNameValid ? "" : "error-input"}
                 value={custName}
                 onChange={(e) => setcustName(e.target.value)}
               />
+              <label>Mobile Number</label>
+              <input
+                type="tel"
+                placeholder="Enter your 10 digit mobile number"
+                name="mobile"
+                className={mobileValid ? "" : "error-input"}
+                value={mobile}
+                onChange={(e) => setMobile(e.target.value)}
+              />
 
               <label>Email</label>
               <input
                 type="email"
+                placeholder="Enter your gmail id"
                 name="email"
                 className={emailValid ? "" : "error-input"}
                 value={email}
@@ -283,6 +299,7 @@ function Checkout() {
               <input
                 type="text"
                 name="streetAddress"
+                placeholder="Enter your door number and street name"
                 className={streetAddressValid ? "" : "error-input"}
                 value={streetAddress}
                 onChange={(e) => setStreetAddress(e.target.value)}
@@ -302,7 +319,6 @@ function Checkout() {
                   placeholder="Pin Code"
                   type="text"
                   name="pin"
-                  id="ml"
                   className={pinValid ? "" : "error-input"}
                   value={pin}
                   onChange={(e) => setPin(e.target.value)}
@@ -333,15 +349,6 @@ function Checkout() {
                   ))}
                 </datalist>
               </div>
-
-              <label>Mobile Number</label>
-              <input
-                type="tel"
-                name="mobile"
-                className={mobileValid ? "" : "error-input"}
-                value={mobile}
-                onChange={(e) => setMobile(e.target.value)}
-              />
             </div>
 
             <div className="checkout-right">
