@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import "../styles/checkout.css";
-import usStates from "../data/States.jsx";
-import visa from "../assets/visa.png";
-import mastercard from "../assets/master.png";
-import amex from "../assets/amex.png";
+import indianStates from "../data/States.jsx";
 import pasteIcon from "../assets/paste.svg";
-import disc from "../assets/disc.png";
 import Footer from "../components/Footer.jsx";
 import BottomBar from "../components/BottomBar.jsx";
 import { toast } from "sonner";
@@ -17,7 +13,9 @@ import CartPop from "../components/CartPop.jsx";
 import Header from "../components/Header.jsx";
 
 function Checkout() {
-  const { cartItems, subtotal, wishItems } = useSelector(state => state.reducer);
+  const { cartItems, subtotal, wishItems } = useSelector(
+    (state) => state.reducer
+  );
   const [cartVisible, setCartVisible] = useState(false);
   const { isLoggedIn, userInfo, token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -31,8 +29,6 @@ function Checkout() {
   const [country] = useState("India");
   const [selectedState, setSelectedState] = useState("");
   const [mobile, setMobile] = useState("");
-  const [cardHolderName, setCardHolderName] = useState("");
-  const cvc = "9999";
 
   const [custNameValid, setcustNameValid] = useState(true);
   const [emailValid, setEmailValid] = useState(true);
@@ -41,7 +37,6 @@ function Checkout() {
   const [pinValid, setPinCode] = useState(true);
   const [selectedStateValid, setSelectedStateValid] = useState(true);
   const [mobileValid, setMobileValid] = useState(true);
-  const [cardHolderNameValid, setCardHolderNameValid] = useState(true);
 
   const paste = () => {
     setcustName("Girish Reddy");
@@ -51,7 +46,6 @@ function Checkout() {
     setPin("517101");
     setSelectedState("Andhra Pradesh");
     setMobile("9591834456");
-    setCardHolderName("Girish Reddy");
   };
 
   const finalPrice = subtotal + 10;
@@ -130,36 +124,15 @@ function Checkout() {
     } else {
       setMobileValid(true);
     }
-
-    if (!cardHolderName.trim() || !/^[A-Za-z\s]+$/.test(cardHolderName)) {
-      setCardHolderNameValid(false);
-      isValid = false;
-      toast.error("Invalid Cardholder Name", {
-        position: "bottom-center",
-      });
-    } else {
-      setCardHolderNameValid(true);
-    }
-
     return isValid;
   }
 
-  const handleCardHolderNameChange = (e) => {
-    setCardHolderName(e.target.value);
-  };
-
-  const handleCvcChange = (e) => {
-    setCvc(e.target.value);
-  };
-
-
   async function createOrder(paymetInfo) {
     try {
-
       const order = {
         products: cartItems.map((item) => ({
           productId: item._id,
-          quantity: item.quantity
+          quantity: item.quantity,
         })),
         totalPrice: finalPrice,
         shippingAddress: {
@@ -181,8 +154,8 @@ function Checkout() {
       } else {
         response = await axiosInstance.post("/order/create", order, {
           headers: {
-            "authorization": `Bearer ${token}`
-          }
+            authorization: `Bearer ${token}`,
+          },
         });
       }
       if (response.status === 201) {
@@ -200,12 +173,15 @@ function Checkout() {
 
   async function processPayment() {
     const orderData = {
-      amount: finalPrice
+      amount: finalPrice,
     };
 
     try {
-      const paymentResponse = await axiosInstance.get(`/payment/pay?amount=${finalPrice}`);
-      const paymentRedirectUrl = paymentResponse.data.data.instrumentResponse.redirectInfo.url;
+      const paymentResponse = await axiosInstance.get(
+        `/payment/pay?amount=${finalPrice}`
+      );
+      const paymentRedirectUrl =
+        paymentResponse.data.data.instrumentResponse.redirectInfo.url;
       window.location.href = paymentRedirectUrl;
     } catch (error) {
       console.error("Error processing payment:", error);
@@ -215,12 +191,14 @@ function Checkout() {
 
   async function validatePayment(merchantTransactionId) {
     try {
-      const response = await axiosInstance.get(`/payment/validate/${merchantTransactionId}`);
+      const response = await axiosInstance.get(
+        `/payment/validate/${merchantTransactionId}`
+      );
       console.log(response);
       if (response.data && response.data.code === "PAYMENT_SUCCESS") {
         setTimeout(async () => {
           await createOrder(response.data.data.paymentInstrument);
-        }, 1000)
+        }, 1000);
       } else {
         toast.error("Payment validation failed");
       }
@@ -243,7 +221,7 @@ function Checkout() {
     }
   }
 
-  console.log(isLoggedIn)
+  console.log(isLoggedIn);
 
   useEffect(() => {
     if (userInfo && userInfo.address) {
@@ -254,10 +232,8 @@ function Checkout() {
       setPin(userInfo.address.pin || "");
       setSelectedState(userInfo.address.state || "");
       setMobile(userInfo.address.mobile || "");
-      setCardHolderName(userInfo.cardHolderName || "");
     }
-
-  }, [])
+  }, []);
 
   const params = new URLSearchParams(window.location.search);
   const merchantTransactionId = params.get("merchantTransactionId");
@@ -267,15 +243,10 @@ function Checkout() {
     }
   }, [merchantTransactionId]);
 
-
   return (
     <>
       <div className="checkout-page">
-        {cartVisible && (
-          <CartPop
-            setCartVisible={setCartVisible}
-          />
-        )}
+        {cartVisible && <CartPop setCartVisible={setCartVisible} />}
         <div className="main-container">
           <Header
             cartCount={cartItems.length}
@@ -284,13 +255,11 @@ function Checkout() {
           />
         </div>
 
-
         <div className="checkout-main-container">
           <form onSubmit={handleFormSubmit} className="checkout-form">
             <div className="checkout-left">
-              <div className="demo-details" onClick={paste}>
-                <img src={pasteIcon} className="paste-image" />
-                <p>Paste Demo Details</p>
+              <div className="demo-details">
+                <p>Please enter your details below</p>
               </div>
               <label>Name</label>
               <input
@@ -330,7 +299,7 @@ function Checkout() {
                 />
 
                 <input
-                  placeholder="pin Code"
+                  placeholder="Pin Code"
                   type="text"
                   name="pin"
                   id="ml"
@@ -359,7 +328,7 @@ function Checkout() {
                   onChange={(e) => setSelectedState(e.target.value)}
                 />
                 <datalist id="state-list">
-                  {usStates.map((state, index) => (
+                  {indianStates.map((state, index) => (
                     <option key={index} value={state} />
                   ))}
                 </datalist>
@@ -411,54 +380,23 @@ function Checkout() {
                     <span>Total</span>
                     <span>₹{finalPrice.toFixed(2)}</span>
                   </div>
+                  {finalPrice < 750 && (
+                    <div className="order-item total">
+                      <p>
+                        Since we're just starting out, we're open to accepting
+                        slightly larger orders. The minimum cart value we
+                        require is 750 rupees.
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
 
-              <div className="card-information">
-                <div className="test-mode">Test Mode</div>
-                <label htmlFor="card-number">Card Number</label>
-                <input
-                  type="text"
-                  id="card-number"
-                  value={"1234 5678 9012 3456"}
-                  readOnly
-                />
-                <div className="card-icons">
-                  <img src={visa} alt="Visa" />
-                  <img src={mastercard} alt="MasterCard" />
-                  <img src={amex} alt="American Express" />
-                  <img src={disc} alt="Discover" />
-                </div>
-
-                <div className="expiry-cvc">
-                  <input
-                    type="text"
-                    id="expiry"
-                    placeholder="MM / YY"
-                    value={expiry}
-                    readOnly
-                  />
-                  <input
-                    type="password"
-                    id="cvc"
-                    placeholder="CVV/CVC"
-                    value={cvc}
-                    readOnly
-                  />
-                </div>
-
-                <label htmlFor="cardholder-name">Cardholder Name</label>
-                <input
-                  type="text"
-                  id="cardholder-name"
-                  placeholder="Full name on card"
-                  value={cardHolderName}
-                  onChange={handleCardHolderNameChange}
-                  className={cardHolderNameValid ? "" : "error-input"}
-                />
-              </div>
-
-              <input type="submit" value="Place Order" />
+              <input
+                type="submit"
+                value="Place Order"
+                disabled={cartItems.length === 0 && finalPrice <= 750}
+              />
             </div>
           </form>
         </div>

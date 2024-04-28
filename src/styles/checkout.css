@@ -74,6 +74,12 @@ input[readonly] {
   transition: background-color 0.3s;
 }
 
+.checkout-form input[type="submit" i]:disabled {
+  color: #eee;
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
 .checkout-form input[type="submit"]:hover {
   background-color: #ffffff20;
 }
@@ -202,7 +208,6 @@ input[readonly] {
   font-weight: bold;
   letter-spacing: 1px;
   text-transform: uppercase;
-  cursor: pointer;
 }
 
 .demo-details:hover {
