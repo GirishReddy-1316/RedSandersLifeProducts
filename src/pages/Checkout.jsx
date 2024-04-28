@@ -38,19 +38,8 @@ function Checkout() {
   const [selectedStateValid, setSelectedStateValid] = useState(true);
   const [mobileValid, setMobileValid] = useState(true);
 
-  const paste = () => {
-    setcustName("Girish Reddy");
-    setEmail("gundulurugiri@gmail.com");
-    setStreetAddress("5-60, Mallaiahpalli");
-    setCity("Tirupati");
-    setPin("517101");
-    setSelectedState("Andhra Pradesh");
-    setMobile("9591834456");
-  };
+    const finalPrice = subtotal + 10;
 
-  const finalPrice = subtotal + 10;
-
-  const expiry = "05/33";
 
   function validateForm() {
     let isValid = true;
@@ -229,6 +218,7 @@ function Checkout() {
   console.log(isLoggedIn);
 
   useEffect(() => {
+    
     if (userInfo && userInfo.address) {
       setcustName(userInfo.address.custName || "");
       setEmail(userInfo.address.email || "");
@@ -402,7 +392,7 @@ function Checkout() {
               <input
                 type="submit"
                 value="Place Order"
-                disabled={cartItems.length === 0 && finalPrice <= 750}
+                disabled={cartItems.length === 0 || finalPrice <= 750}
               />
             </div>
           </form>
