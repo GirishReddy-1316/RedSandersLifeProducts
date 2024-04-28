@@ -7,13 +7,13 @@ import BottomBar from "../components/BottomBar.jsx";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clearCart, setOrderId } from "../redux/action/actions.js";
+import { addShippingAddress, clearCart, setOrderId } from "../redux/action/actions.js";
 import { axiosInstance } from "../api.js";
 import CartPop from "../components/CartPop.jsx";
 import Header from "../components/Header.jsx";
 
 function Checkout() {
-  const { cartItems, subtotal, wishItems } = useSelector(
+  const { cartItems, subtotal, wishItems, shippingAddress } = useSelector(
     (state) => state.reducer
   );
   const [cartVisible, setCartVisible] = useState(false);
@@ -140,21 +140,14 @@ function Checkout() {
           quantity: item.quantity,
         })),
         totalPrice: finalPrice,
-        shippingAddress: {
-          street: streetAddress,
-          city: city,
-          state: selectedState,
-          country: country,
-          email: email,
-          custName: custName,
-          pin: pin,
-          mobile: mobile,
-        },
+        shippingAddress: shippingAddress,
         paymentMethod: paymetInfo,
       };
 
+      console.log(order, "Order");
+
       let response;
-      if (!isLoggedIn) {
+      if (!isLoggedIn && !token) {
         response = await axiosInstance.post("/order/create/guest", order);
       } else {
         response = await axiosInstance.post("/order/create", order, {
@@ -211,7 +204,18 @@ function Checkout() {
     if (!validateForm()) {
       return;
     }
+    let newShippingAddress = {
+      street: streetAddress,
+      city: city,
+      state: selectedState,
+      country: country,
+      email: email,
+      custName: custName,
+      pin: pin,
+      mobile: mobile
+    }
     try {
+      dispatch(addShippingAddress(newShippingAddress));
       await processPayment();
     } catch (error) {
       console.error("Error processing payment:", error);
@@ -219,10 +223,10 @@ function Checkout() {
     }
   }
 
-  console.log(isLoggedIn);
+  console.log(isLoggedIn, shippingAddress);
 
   useEffect(() => {
-    if (userInfo && userInfo.address) {
+    if (userInfo && userInfo.address && (Object.keys(userInfo.address).length > 0)) {
       setcustName(userInfo.address.custName || "");
       setEmail(userInfo.address.email || "");
       setStreetAddress(userInfo.address.street || "");

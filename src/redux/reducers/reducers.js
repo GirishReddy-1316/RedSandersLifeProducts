@@ -6,7 +6,9 @@ import {
     UPDATE_CART_ITEM_QUANTITY,
     CLEAR_CART,
     CLEAR_ORDER_ID,
-    SET_ORDER_ID
+    SET_ORDER_ID,
+    ADD_SHIPPING_ADDRESS,
+    UPDATE_SHIPPING_ADDRESS
 } from '../action/actionTypes';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -15,7 +17,8 @@ const initialState = {
     wishItems: [],
     itemCount: 0,
     subtotal: 0,
-    orderId: null
+    orderId: null,
+    shippingAddress: {}
 };
 
 const loadStateFromLocalStorage = (userId) => {
@@ -141,6 +144,13 @@ const reducer = (state = initialState, action) => {
             saveStateToLocalStorage(newState, userId);
             return newState;
         }
+        case ADD_SHIPPING_ADDRESS:
+        case UPDATE_SHIPPING_ADDRESS:
+            newState = {
+                ...state,
+                shippingAddress: action.payload,
+            };
+            saveStateToLocalStorage(newState, userId);
 
         default:
             return state;

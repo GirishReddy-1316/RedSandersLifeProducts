@@ -31,7 +31,6 @@ const UserProfile = () => {
             console.error('Error fetching user profile:', error);
         }
     }
-    console.log(userInfo)
     return (
         <>
             <div className="main-container">
