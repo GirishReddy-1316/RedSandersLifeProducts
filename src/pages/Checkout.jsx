@@ -177,7 +177,6 @@ function Checkout() {
   }
 
   async function processPayment() {
-    const orderData = {
     try {
       const paymentResponse = await axiosInstance.get(
         `/payment/pay?amount=${finalPrice}`
