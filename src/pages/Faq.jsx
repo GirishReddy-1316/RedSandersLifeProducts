@@ -30,7 +30,7 @@ function Faq() {
     {
       question: "What is your return policy?",
       answer:
-        "We accept returns within 30 days of purchase, provided the products are in their original condition.",
+        "We accept returns within 10 days of purchase, provided the products are in their original condition.",
     },
   ];
 
