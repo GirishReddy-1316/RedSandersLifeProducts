@@ -63,17 +63,7 @@ function SingleProduct() {
             <h3 className="sp-name">{items.name}</h3>
             <p className="sp-size">{items.size}</p>
             <p className="sp-price">{items.price}</p>
-            <div className="sp-desc">{items.desc}</div>
-            <div className="quantity-text">Quantity:</div>
-            <div className="sp-counter">
-              <button className="buttonminus" onClick={() => handleQuantityChange(-1)}>
-                -
-              </button>
-              <p>{itemQuantity}</p>
-              <button className="buttonplus" onClick={() => handleQuantityChange(1)}>
-                +
-              </button>
-            </div>
+            <div className="sp-desc">{items.desc}</div>           
             <button
               className="sp-add-to-cart"
               onClick={() => {
