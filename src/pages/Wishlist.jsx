@@ -46,7 +46,7 @@ function Wishlist() {
           <div className="empty-wishlist-message">Your wishlist is empty!</div>
         ) : (
           <div className="wish-products">
-            {wishItems.map((item, index) => (
+            {wishItems.map((item) => (
               <div key={item.id} className="wish-product">
                 <Link to={`/products/${item.slug}`} state={{ items: item }}>
                   <img
