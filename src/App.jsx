@@ -1,88 +1,82 @@
-import Home from "./pages/Home.jsx";
-import About from "./pages/About.jsx";
-import AllProducts from "./pages/AllProducts.jsx";
-import Checkout from "./pages/Checkout.jsx";
-import Contact from "./pages/Contact.jsx";
-import Policies from "./pages/Policies.jsx";
-import Account from "./pages/Account.jsx";
-import Wholesale from "./pages/Wholesale.jsx";
-import SingleProduct from "./pages/SingleProduct.jsx";
+import React, { useState, useEffect, useCallback } from 'react';
 import { Route, Routes, useLocation } from "react-router-dom";
-import Faq from "./pages/Faq.jsx";
-import { Toaster } from "sonner";
-import UnderConstruction from "./pages/UnderConstruction.jsx";
-import RegistrationForm from "./pages/RegistrationForm.jsx";
-import Wishlist from "./pages/Wishlist.jsx";
-import ScrollToTop from "./components/ScrollToTop.jsx";
-import Thankyou from "./pages/Thankyou.jsx";
-import "./styles/index.css";
-import Orders from "./pages/Orders.jsx";
-import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { axiosInstanceWithToken } from "./api.js";
 import { Logout, updateUserInfo } from "./redux/action/authActions.js";
-import UserProfile from "./pages/UserProfile.jsx";
 import { fetchProducts } from "./redux/action/actions.js";
+import { Toaster } from "sonner";
+import ScrollToTop from "./components/ScrollToTop.jsx";
+import Home from "./pages/Home.jsx";
+import About from "./pages/About.jsx";
+import AllProducts from "./pages/AllProducts.jsx";
+import SingleProduct from "./pages/SingleProduct.jsx";
+import Wishlist from "./pages/Wishlist.jsx";
+import Account from "./pages/Account.jsx";
+import Checkout from "./pages/Checkout.jsx";
+import Thankyou from "./pages/Thankyou.jsx";
+import Contact from "./pages/Contact.jsx";
+import Policies from "./pages/Policies.jsx";
+import Wholesale from "./pages/Wholesale.jsx";
+import UnderConstruction from "./pages/UnderConstruction.jsx";
+import RegistrationForm from "./pages/RegistrationForm.jsx";
+import Faq from "./pages/Faq.jsx";
+import Orders from "./pages/Orders.jsx";
+import UserProfile from "./pages/UserProfile.jsx";
 
 function App() {
-  let location = useLocation();
+  const location = useLocation();
   const dispatch = useDispatch();
-  const [timer, setTimer] = useState(null);
-  const [userActive, setUserActive] = useState(true);
+  const [isInactive, setIsInactive] = useState(false);
   const { isLoggedIn, token } = useSelector((state) => state.auth);
-  const resetTimer = () => {
-    clearTimeout(timer);
-    startTimer();
-  };
-
-  const startTimer = () => {
-    const timeout = setTimeout(async () => {
-      await dispatch(Logout(token));
-    }, 300000);
-    setTimer(timeout);
-  };
-
-  const handleUserActivity = () => {
-    if (!userActive) {
-      setUserActive(true);
-      resetTimer();
-    }
-  };
 
   useEffect(() => {
-    startTimer();
-    return () => clearTimeout(timer);
+    const activityEvents = ["mousedown", "mousemove", "keydown", "scroll", "touchstart"];
+
+    const handleActivity = () => {
+      setIsInactive(false);
+    };
+
+    activityEvents.forEach(eventName => {
+      document.addEventListener(eventName, handleActivity, true);
+    });
+
+    const interval = setInterval(() => {
+      setIsInactive(true);
+    }, 5 * 60 * 1000); // 5 minutes of inactivity
+
+    return () => {
+      activityEvents.forEach(eventName => {
+        document.removeEventListener(eventName, handleActivity, true);
+      });
+      clearInterval(interval);
+    };
   }, []);
 
   useEffect(() => {
-    const events = ['mousemove', 'keydown'];
-    events.forEach(event => {
-      window.addEventListener(event, handleUserActivity);
-    });
-    return () => {
-      events.forEach(event => {
-        window.removeEventListener(event, handleUserActivity);
-      });
-    };
-  }, [userActive]);
+    if (isInactive && isLoggedIn) {
+      console.log("Inactive")
+      dispatch(Logout(token));
+    }
+  }, [isInactive, isLoggedIn, dispatch, token]);
 
   useEffect(() => {
     if (token && !isLoggedIn) {
-      getUserProfile()
+      getUserProfile();
     }
     dispatch(fetchProducts());
-  }, []);
+  }, [token, isLoggedIn, dispatch]);
 
   const getUserProfile = async () => {
     try {
       const response = await axiosInstanceWithToken.get('/user/profile');
       localStorage.setItem('userId', response.data.user._id);
-      dispatch(updateUserInfo(response.data.user))
+      dispatch(updateUserInfo(response.data.user));
       return response.data;
     } catch (error) {
       console.error('Error fetching user profile:', error);
     }
   }
+
   return (
     <>
       <Toaster richColors theme="dark" />
