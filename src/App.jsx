@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Route, Routes, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { axiosInstanceWithToken } from "./api.js";
@@ -6,6 +6,7 @@ import { Logout, updateUserInfo } from "./redux/action/authActions.js";
 import { fetchProducts } from "./redux/action/actions.js";
 import { Toaster } from "sonner";
 import ScrollToTop from "./components/ScrollToTop.jsx";
+import { useIdleTimer } from 'react-idle-timer';
 import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
 import AllProducts from "./pages/AllProducts.jsx";
@@ -26,38 +27,11 @@ import UserProfile from "./pages/UserProfile.jsx";
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
-  const [isInactive, setIsInactive] = useState(false);
   const { isLoggedIn, token } = useSelector((state) => state.auth);
+  const idleTimeRef = useRef(null);
 
-  useEffect(() => {
-    const activityEvents = ["mousedown", "mousemove", "keydown", "scroll", "touchstart"];
 
-    const handleActivity = () => {
-      setIsInactive(false);
-    };
 
-    activityEvents.forEach(eventName => {
-      document.addEventListener(eventName, handleActivity, true);
-    });
-
-    const interval = setInterval(() => {
-      setIsInactive(true);
-    }, 5 * 60 * 1000); // 5 minutes of inactivity
-
-    return () => {
-      activityEvents.forEach(eventName => {
-        document.removeEventListener(eventName, handleActivity, true);
-      });
-      clearInterval(interval);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (isInactive && isLoggedIn) {
-      console.log("Inactive")
-      dispatch(Logout(token));
-    }
-  }, [isInactive, isLoggedIn, dispatch, token]);
 
   useEffect(() => {
     if (token && !isLoggedIn) {
@@ -76,6 +50,20 @@ function App() {
       console.error('Error fetching user profile:', error);
     }
   }
+
+  const onIdle = () => {
+    if (isLoggedIn) {
+      console.log("Inactive");
+      dispatch(Logout(token));
+    }
+  };
+
+  useIdleTimer({
+    crossTab: true,
+    ref: idleTimeRef,
+    timeout: 60 * 5 * 1000, // 5 minutes of inactivity
+    onIdle: onIdle,
+  });
 
   return (
     <>
