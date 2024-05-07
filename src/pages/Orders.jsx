@@ -114,18 +114,18 @@ const Orders = () => {
                         </thead>
                         <tbody>
                             {orders.map(order => (
-                                <tr key={order._id}>
-                                    <td>{order._id}</td>
+                                <tr key={order?._id || 'missing-id'}>
+                                    <td>{order?._id || 'No ID'}</td>
                                     <td>
-                                        {order.products.map((prod, index) => (
+                                        {order.products?.map((prod, index) => (
                                             <span key={index}>
-                                                {prod.quantity}-{prod.productId.name} {index < order.products.length - 1 ? ", " : ""}
+                                                {prod?.quantity || '0'}-{prod?.productId?.name || 'Unknown Product'} {index < (order?.products?.length || 0) - 1 ? ", " : ""}
                                             </span>
                                         ))}
                                     </td>
-                                    <td>{order.products.reduce((total, prod) => total + prod.quantity, 0)}</td>
-                                    <td>{order.createdAt}</td>
-                                    <td>{order.status}</td>
+                                    <td>{order?.products?.reduce((total, prod) => total + (prod.quantity || 0), 0)}</td>
+                                    <td>{order?.createdAt || 'Unknown Date'}</td>
+                                    <td>{order?.status || 'No Status'}</td>
                                 </tr>
                             ))}
                         </tbody>
