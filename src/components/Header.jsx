@@ -17,6 +17,7 @@ function Header({ cartCount, wishCount, setCartVisible }) {
 
   async function handleLogout() {
     await dispatch(Logout(token));
+    window.location.reload();
     navigate("/account");
   }
 
