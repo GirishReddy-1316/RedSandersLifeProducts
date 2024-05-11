@@ -55,8 +55,6 @@ const generateUserId = () => {
 const reducer = (state = initialState, action) => {
     const userId = generateUserId();
     state = loadStateFromLocalStorage(userId);
-    console.log(action.payload);
-
     let newState;
     switch (action.type) {
         case ADD_TO_CART: {
