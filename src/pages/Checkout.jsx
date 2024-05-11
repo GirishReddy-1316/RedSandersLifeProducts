@@ -39,7 +39,7 @@ function Checkout() {
   const [selectedStateValid, setSelectedStateValid] = useState(true);
   const [mobileValid, setMobileValid] = useState(true);
 
-    const finalPrice = subtotal + 10;
+  const finalPrice = subtotal + 10;
 
 
   function validateForm() {
@@ -124,13 +124,23 @@ function Checkout() {
 
   async function createOrder(paymetInfo) {
     try {
+      let newShippingAddress = {
+        street: streetAddress,
+        city: city,
+        state: selectedState,
+        country: country,
+        email: email,
+        custName: custName,
+        pin: pin,
+        mobile: mobile
+      }
       const order = {
         products: cartItems.map((item) => ({
           productId: item._id,
           quantity: item.quantity,
         })),
         totalPrice: finalPrice,
-        shippingAddress: shippingAddress,
+        shippingAddress: Object.keys(shippingAddress).length === 0 ? newShippingAddress : shippingAddress,
         paymentMethod: paymetInfo,
       };
 
