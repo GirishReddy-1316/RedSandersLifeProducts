@@ -41,12 +41,8 @@ function CarouselSlider() {
   return (
     <Slider {...settings}>
       <Link to="/all-products">
-        <div className="carousel-slide">
-          <img
-            src={slide1}
-            className="d-block w-100"
-            alt="..."
-          />
+        <div className="carousel-slide slideOne"> 
+        <h2>Why RedSandal Wood?</h2>       
           <div className="carousel-caption">
             <h1 className="hero-heading">Welcome to Red Sanders Family</h1>
             <p className="hero-subtitle">
@@ -57,12 +53,8 @@ function CarouselSlider() {
         </div>
       </Link>
       <Link to="/all-products"> 
-        <div className="carousel-slide">
-          <img
-            src={slide2}
-            className="d-block w-100"
-            alt="..."
-          />
+        <div className="carousel-slide slideTwo"> 
+        <h2>Why Redsandal is so Demand and Expensive</h2>            
           <div className="carousel-caption">
             <h1 className="hero-heading">Welcome to Red Sanders Family</h1>
             <p className="hero-subtitle">
@@ -73,12 +65,8 @@ function CarouselSlider() {
         </div>
       </Link>
       <Link to="/all-products"> 
-        <div className="carousel-slide">
-          <img
-            src={slide3}
-            className="d-block w-100"
-            alt="..."
-          />
+        <div className="carousel-slide slideThree">    
+        <h2>Why wont we get the bebefit of redsandal wood</h2>       
           <div className="carousel-caption">
             <h1 className="hero-heading">Welcome to Red Sanders Family</h1>
             <p className="hero-subtitle">
