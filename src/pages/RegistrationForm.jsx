@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 const RegistrationForm = () => {
   const navigate = useNavigate();
   const [cartVisible, setCartVisible] = useState(false);
-  const { cartItems, wishItems } = useSelector(state => state.reducer);
+  const { cartItems, wishItems } = useSelector((state) => state.reducer);
   const [formData, setFormData] = useState({
     username: "",
     phoneNumber: "",
@@ -55,8 +55,10 @@ const RegistrationForm = () => {
       });
       setLoading(false);
     } catch (error) {
-      toast.error((error.response ? error.response.data.message : error.message),
-        { duration: 2000, position: "top-center" });
+      toast.error(
+        error.response ? error.response.data.message : error.message,
+        { duration: 2000, position: "top-center" }
+      );
       setLoading(false);
     }
   };
@@ -232,11 +234,7 @@ const RegistrationForm = () => {
   return (
     <div className="registration-form-container">
       {loading && <Loader />}
-      {cartVisible && (
-        <CartPop
-          setCartVisible={setCartVisible}
-        />
-      )}
+      {cartVisible && <CartPop setCartVisible={setCartVisible} />}
       <div className="main-container">
         <Header
           cartCount={cartItems.length}
@@ -245,101 +243,103 @@ const RegistrationForm = () => {
         />
       </div>
       <div className="pheader-container">
-        <h2 className="contact-head">Registration Form</h2>
-      </div>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-          />
-          {errors.username && <p className="error">{errors.username}</p>}
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          {errors.email && <p className="error">{errors.email}</p>}
-        </div>
-        {verificationStage === "phone" && (
+        <form onSubmit={handleSubmit} className="registrationForm">
+          <h2 className="contact-head">Registration Form</h2>
           <div className="form-group">
-            <label htmlFor="phoneNumber">Phone Number:</label>
             <input
               type="text"
-              id="phoneNumber"
-              name="phoneNumber"
-              value={formData.phoneNumber}
+              id="username"
+              name="username"
+              value={formData.username}
               onChange={handleChange}
+              placeholder="Username"
             />
-            {errors.phoneNumber && (
-              <p className="error">{errors.phoneNumber}</p>
-            )}
+            {errors.username && <p className="error">{errors.username}</p>}
           </div>
-        )}
-        {verificationStage === "phone" && (
-          <button type="button" onClick={handleVerify}>
-            Verify
-          </button>
-        )}
-        {verificationStage === "otp" && (
           <div className="form-group">
-            <label htmlFor="otp">OTP:</label>
             <input
-              type="text"
-              id="otp"
-              name="otp"
-              value={formData.otp}
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
               onChange={handleChange}
+              placeholder="Email"
             />
-            {errors.otp && <p className="error">{errors.otp}</p>}
+            {errors.email && <p className="error">{errors.email}</p>}
           </div>
-        )}
-        {verificationStage === "otp" && (
-          <button type="button" onClick={handlerSubmitOTP}>
-            {" "}
-            Submit OTP
-          </button>
-        )}
-        {verificationStage === "password" && (
-          <div>
+          {verificationStage === "phone" && (
             <div className="form-group">
-              <label htmlFor="password">Password:</label>
               <input
-                type="password"
-                id="password"
-                name="password"
-                value={formData.password}
+                type="text"
+                id="phoneNumber"
+                name="phoneNumber"
+                value={formData.phoneNumber}
                 onChange={handleChange}
+                placeholder="Phone Number"
               />
-              {errors.password && <p className="error">{errors.password}</p>}
-            </div>
-            <div className="form-group">
-              <label htmlFor="confirmPassword">Confirm Password:</label>
-              <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-              />
-              {errors.confirmPassword && (
-                <p className="error">{errors.confirmPassword}</p>
+              {errors.phoneNumber && (
+                <p className="error">{errors.phoneNumber}</p>
               )}
             </div>
-            <input type="submit" value="Register" />
+          )}
+          {verificationStage === "phone" && (
+            <button type="button" onClick={handleVerify}>
+              Verify
+            </button>
+          )}
+          {verificationStage === "otp" && (
+            <div className="form-group">
+              <input
+                type="text"
+                id="otp"
+                name="otp"
+                value={formData.otp}
+                onChange={handleChange}
+                placeholder="Enter OTP"
+              />
+              {errors.otp && <p className="error">{errors.otp}</p>}
+            </div>
+          )}
+          {verificationStage === "otp" && (
+            <button type="button" onClick={handlerSubmitOTP}>
+              {" "}
+              Submit OTP
+            </button>
+          )}
+          {verificationStage === "password" && (
+            <div>
+              <div className="form-group">
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Password"
+                />
+                {errors.password && <p className="error">{errors.password}</p>}
+              </div>
+              <div className="form-group">
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  placeholder="Confirm Password"
+                />
+                {errors.confirmPassword && (
+                  <p className="error">{errors.confirmPassword}</p>
+                )}
+              </div>
+              <button type="submit">Register</button>
+            </div>
+          )}
+          <div className="alignCenter">
+            <GoogleButton onClick={handlerGoogleAuth} />
           </div>
-        )}
-      </form>
-      <GoogleButton onClick={handlerGoogleAuth} />
+        </form>
+      </div>
       <Footer />
       <BottomBar />
     </div>

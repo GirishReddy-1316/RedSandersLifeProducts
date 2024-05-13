@@ -1,70 +1,70 @@
 .account-container {
+  margin-top: 70px;
+}
+
+.pheader-container,
+.alignCenter {
+  display: flex;
+  justify-content: center;
+}
+.account-login-form {
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  /* height: 100vh; */
-  padding: 0;
-  margin: 0;
-  background-image: radial-gradient(at 50% 50%,
-      hsla(162, 77%, 40%, 0.121) 0,
-      transparent 50%),
-    radial-gradient(at 82% 65%, #111d2765 0, transparent 50%);
-    margin-top: 50px;
-}
-
-.contact-head {
-  font-size: 1.3rem;
-  color: #d6d6d6;
-  margin: 20px 0 5px 0;
-  text-transform: uppercase;
-  text-align: center;
-  padding: 0;
-}
-
-.contact-form {
-  /* height: 60vh; */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  background: #212121;
+  gap: 20px;
+  border-radius: 5px;
+  border: 2px solid #fefefe;
+  box-shadow: 4px 4px #fefefe;
   width: 40vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
-.contact-form input {
-  color: #f6f6f6;
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
-  border: 1px solid #ffffff32;
-  background-color: transparent;
+.account-login-form input {
+  border-radius: 5px;
+  border: 2px solid #fefefe;
+  background-color: #111;
+  box-shadow: 4px 4px #fefefe;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fefefe;
+  outline: none;
+  height: 45px;
+  padding-left: 10px;
 }
 
-.contact-form input[type="submit"] {
+.account-login-form button {
   width: 100%;
-  padding: 12px 20px;
-  border-radius: 4px;
-  background-color: #ffffff1f;
-  border: 1px solid #ffffff1a;
-  font-size: 16px;
-  color: #d4d4d4;
-  letter-spacing: 1px;
+  height: 50px;
+  border-radius: 5px;
+  border: 2px solid #fefefe;
+  background-color: #111;
+  box-shadow: 4px 4px #fefefe;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fefefe;
+  outline: none;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
-.contact-form input[type="submit"]:hover {
-  background-color: #ffffff29;
+.account-login-form button:hover {
+  background-color: #0056b3;
 }
 
-.contact-form input.contact-error-input {
-  border: 1px solid rgba(151, 0, 0, 0.668);
+.account-login-form input.contact-error-input {
+  border: 5px solid rgba(151, 0, 0, 0.668);
   animation: shake 0.5s ease-in-out;
 }
-
+.account-login-form .contact-head {
+  margin: 0px 0 0px 0;
+  font-size: 25px;
+  font-weight: 900;
+  text-align: center;
+  color: #fefefe;
+  width: 100%;
+}
 .contact-text {
   color: #dfdfdf;
   width: 100%;
@@ -86,8 +86,8 @@
 
 .registrationLink {
   color: #fff;
-  font-size: 25px;
-  margin: 20px;
+  font-size: 18px;
+  margin: 0px;
 
   a {
     color: #4d8908fd;
@@ -100,7 +100,6 @@
 }
 
 @keyframes shake {
-
   0%,
   100% {
     transform: translateX(0);
@@ -120,7 +119,7 @@
 }
 
 @media (max-width: 600px) {
-  .contact-form {
+  .account-login-form {
     width: 90vw;
   }
 

@@ -9,7 +9,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import Loader from "../components/Loader.jsx";
 import { axiosInstance } from "../api.js";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { loginSuccess } from "../redux/action/authActions.js";
 import CartPop from "../components/CartPop.jsx";
 import Header from "../components/Header.jsx";
@@ -17,7 +17,7 @@ import Header from "../components/Header.jsx";
 function Account() {
   const navigate = useNavigate();
   const [cartVisible, setCartVisible] = useState(false);
-  const { cartItems, wishItems } = useSelector(state => state.reducer);
+  const { cartItems, wishItems } = useSelector((state) => state.reducer);
   const [animationKey, setAnimationKey] = useState(0);
   const [emailOrPhone, setEmailOrPhone] = useState("");
   const [custPassword, setCustPassword] = useState("");
@@ -72,20 +72,25 @@ function Account() {
         });
         setLoading(false);
         setFormSubmitted(true);
-        dispatch(loginSuccess(response.data.token, response.data.user))
+        dispatch(loginSuccess(response.data.token, response.data.user));
         localStorage.setItem("token", response.data.token);
-        toast.success(`Welcome, ${response.data?.user?.username || "User"} Logged in successfully`, {
-          duration: 2000,
-          position: "top-center",
-        });
+        toast.success(
+          `Welcome, ${
+            response.data?.user?.username || "User"
+          } Logged in successfully`,
+          {
+            duration: 2000,
+            position: "top-center",
+          }
+        );
         navigate("/");
         setTimeout(() => {
           window.location.reload();
-        }, 1000)
+        }, 1000);
       } catch (error) {
         toast.error(
           "Login failed: " +
-          (error.response ? error.response.data.message : error.message),
+            (error.response ? error.response.data.message : error.message),
           { duration: 2000, position: "top-center" }
         );
         setLoading(false);
@@ -116,11 +121,7 @@ function Account() {
   return (
     <div className="account-container">
       {loading && <Loader />}
-      {cartVisible && (
-        <CartPop
-          setCartVisible={setCartVisible}
-        />
-      )}
+      {cartVisible && <CartPop setCartVisible={setCartVisible} />}
       <div className="main-container">
         <Header
           cartCount={cartItems.length}
@@ -129,10 +130,9 @@ function Account() {
         />
       </div>
       <div className="pheader-container">
-        <h2 className="contact-head">Login</h2>
-
         {!forgotPassword ? (
-          <form onSubmit={handlerSignin} className="contact-form">
+          <form onSubmit={handlerSignin} className="account-login-form">
+            <h2 className="contact-head">Login</h2>
             <input
               id="emailOrPhone"
               key={`emailOrPhone-${animationKey}`}
@@ -156,7 +156,8 @@ function Account() {
               placeholder="Password"
             />
 
-            <input type="submit" value="Sign In" />
+            {/* <input type="submit" value="Sign In" /> */}
+            <button type="submit" >Sign In</button>
             <a
               className="forgot-password"
               onClick={() => setForgotPassword(true)}
@@ -169,16 +170,21 @@ function Account() {
                 Welcome back
               </span>
             )}
+            <div className="alignCenter">
+              <GoogleButton onClick={handlerGoogleAuth} />
+            </div>
+            <div className="alignCenter">             
+              <div className="registrationLink">
+                Join us today! <Link to={"/registrationForm"}>Register</Link>{" "}
+                now for free and become a part of our community.
+              </div>              
+            </div>
           </form>
         ) : (
           <ForgotPassword onPasswordReset={() => setForgotPassword(false)} />
         )}
       </div>
-      <GoogleButton onClick={handlerGoogleAuth} />
-      <div className="registrationLink">
-        Join us today! <Link to={"/registrationForm"}>Register</Link> now for
-        free and become a part of our community.
-      </div>
+
       <Footer />
       <BottomBar />
     </div>

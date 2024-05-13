@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 function Contact() {
   const [cartVisible, setCartVisible] = useState(false);
-  const { cartItems, wishItems } = useSelector(state => state.reducer);
+  const { cartItems, wishItems } = useSelector((state) => state.reducer);
   const [formState, setFormState] = useState({
     custName: "",
     email: "",
@@ -22,7 +22,16 @@ function Contact() {
   });
 
   // De-structure for easier access in the code
-  const { custName, email, mobile, message, custNameValid, emailValid, mobileValid, formSubmitted } = formState;
+  const {
+    custName,
+    email,
+    mobile,
+    message,
+    custNameValid,
+    emailValid,
+    mobileValid,
+    formSubmitted,
+  } = formState;
 
   function triggerAnimation() {
     setAnimationKey((prevKey) => prevKey + 1);
@@ -49,7 +58,12 @@ function Contact() {
     e.preventDefault();
     if (validateForm()) {
       try {
-        const response = await axiosInstance.post('/contact', { custName, email, mobile, message });
+        const response = await axiosInstance.post("/contact", {
+          custName,
+          email,
+          mobile,
+          message,
+        });
         console.log(response.data);
         setFormState({ ...formState, formSubmitted: true });
         setFormState({
@@ -60,9 +74,8 @@ function Contact() {
           message: "",
           formSubmitted: true,
         });
-
       } catch (error) {
-        console.error('Error submitting contact query:', error);
+        console.error("Error submitting contact query:", error);
       }
     }
   }
@@ -77,11 +90,7 @@ function Contact() {
 
   return (
     <div className="contact-container">
-      {cartVisible && (
-        <CartPop
-          setCartVisible={setCartVisible}
-        />
-      )}
+      {cartVisible && <CartPop setCartVisible={setCartVisible} />}
       <div className="main-container">
         <Header
           cartCount={cartItems.length}
@@ -89,52 +98,55 @@ function Contact() {
           setCartVisible={setCartVisible}
         />
       </div>
-      <form onSubmit={handleContactSubmit} className="contact-form">
-        <h1>Contact Us</h1>
-        <input
-          id="custName"
-          type="text"
-          name="custName"
-          className={custNameValid ? "" : "contact-error-input"}
-          value={custName}
-          onChange={handleChange}
-          autoComplete="name"
-          placeholder="Your Name"
-        />
-        <input
-          id="email"
-          type="email"
-          name="email"
-          className={emailValid ? "" : "contact-error-input"}
-          value={email}
-          onChange={handleChange}
-          autoComplete="email"
-          placeholder="Email"
-        />
-        <input
-          id="mobile"
-          type="tel"
-          name="mobile"
-          className={mobileValid ? "" : "contact-error-input"}
-          value={mobile}
-          onChange={handleChange}
-          autoComplete="tel"
-          placeholder="Contact Number"
-        />
-        <textarea
-          name="message"
-          className="contact-text"
-          value={message}
-          onChange={handleChange}
-          placeholder="Message"
-        ></textarea>
-        <input type="submit" value="Send" />
-        {formSubmitted && (
-          <span className="thanks visible">
-            Your request has been received. We will review it and get back to you soon.
-          </span>
-        )}
-      </form>
+      <div className="pheader-container">
+        <form onSubmit={handleContactSubmit} className="contact-form">
+          <h1 className="alignCenter">Contact Us</h1>
+          <input
+            id="custName"
+            type="text"
+            name="custName"
+            className={custNameValid ? "" : "contact-error-input"}
+            value={custName}
+            onChange={handleChange}
+            autoComplete="name"
+            placeholder="Your Name"
+          />
+          <input
+            id="email"
+            type="email"
+            name="email"
+            className={emailValid ? "" : "contact-error-input"}
+            value={email}
+            onChange={handleChange}
+            autoComplete="email"
+            placeholder="Email"
+          />
+          <input
+            id="mobile"
+            type="tel"
+            name="mobile"
+            className={mobileValid ? "" : "contact-error-input"}
+            value={mobile}
+            onChange={handleChange}
+            autoComplete="tel"
+            placeholder="Contact Number"
+          />
+          <textarea
+            name="message"
+            className="contact-text"
+            value={message}
+            onChange={handleChange}
+            placeholder="Message"
+          ></textarea>
+          <button type="submit">Send</button>
+          {formSubmitted && (
+            <span className="thanks visible">
+              Your request has been received. We will review it and get back to
+              you soon.
+            </span>
+          )}
+        </form>
+      </div>
       <Footer />
       <BottomBar />
     </div>
