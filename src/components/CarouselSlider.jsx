@@ -59,6 +59,9 @@ function CarouselSlider() {
               <ul>
                 <li>UPGRADE YOUR HYDRATION TODAY!!</li>
               </ul>
+              <button class="btn">
+                <i class="animation"></i>Shop Now<i class="animation"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -67,11 +70,12 @@ function CarouselSlider() {
         <div className="carousel-slide slideTwo">
           <div className="upperSection">
             <h2>
-            Enhance your beauty the natural way with our pure red sandalwood face pack! 
-
+              Enhance your beauty the natural way with our pure red sandalwood
+              face pack!
             </h2>
             <h2>
-            Unveil radiant skin with the power of nature. Try it today for a glowing complexion!.
+              Unveil radiant skin with the power of nature. Try it today for a
+              glowing complexion!.
             </h2>
           </div>
           <div className="row">
@@ -82,30 +86,30 @@ function CarouselSlider() {
               <ul>
                 <li>TRY IT NOW FOR RADIANT SKIN!!</li>
               </ul>
+              <button class="btn">
+                <i class="animation"></i>Shop Now<i class="animation"></i>
+              </button>
             </div>
           </div>
         </div>
       </Link>
       <Link to="/all-products">
         <div className="carousel-slide slideThree">
-        <div className="upperSection">
+          <div className="upperSection">
             <h2>
-            Elevate your worship experience with our pure, genuine red sandalwood Homam sticks, Incense sticks and
- 
- Red sandal pearls
+              Elevate your worship experience with our pure, genuine red
+              sandalwood Homam sticks, Incense sticks and Red sandal pearls
             </h2>
-            <h2>
-            Immerse yourself in divine worship like never before…
-            </h2>
+            <h2>Immerse yourself in divine worship like never before…</h2>
           </div>
           <div className="row">
             <div className="leftSideSection">
               <img src={slide3} alt="jiyaba bevareges" />
             </div>
             <div className="rightSideSection">
-              <ul>
-                <li>UPGRADE YOUR Pooja TODAY!!</li>
-              </ul>
+              <button class="btn">
+                <i class="animation"></i>Shop Now<i class="animation"></i>
+              </button>
             </div>
           </div>
         </div>
