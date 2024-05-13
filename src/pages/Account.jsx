@@ -99,7 +99,7 @@ function Account() {
   async function handlerGoogleAuth() {
     try {
       setLoading(true);
-      window.location.href = `https://sore-tan-pangolin-kilt.cyclic.app/auth/google`;
+      window.location.href = `https://redsanderslifeserver.onrender.com/auth/google/callback`;
     } catch (error) {
       console.error(
         "Google login error:",
