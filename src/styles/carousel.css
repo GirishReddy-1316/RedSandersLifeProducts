@@ -70,8 +70,12 @@
 .carousel-slide {
   position: relative;
   width: 100%;
-  height: 80vh; /* Set height to full viewport height */
+  /* height: 80vh; */
   overflow: hidden; /* Hide any overflow content */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .slideOne {
   background-color: #00d680;
@@ -104,4 +108,56 @@
 }
 .slick-next {
   right: 40px !important;
+}
+
+
+.upperSection {
+  width: 100%;
+}
+
+.upperSection h2 {
+  text-align: center !important;
+  width: 100% !important; 
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+}
+
+.leftSideSection {
+  width: 100%;
+}
+
+.leftSideSection img {
+  width: 100%; 
+}
+
+.rightSideSection {
+  width: 100%;
+}
+
+.rightSideSection ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .row {
+    flex-direction: row; 
+  }
+
+  .upperSection h2 {
+    text-align: left;
+    width: 50%; 
+  }
+
+  .leftSideSection {
+    width: 50%; 
+  }
+
+  .rightSideSection {
+    width: 50%;
+  }
 }
