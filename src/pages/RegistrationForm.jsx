@@ -221,7 +221,7 @@ const RegistrationForm = () => {
   async function handlerGoogleAuth() {
     try {
       setLoading(true);
-      window.location.href = `https://redsanderslifeserver.onrender.com/auth/google`;
+      window.location.href = `https://redsanderslifeserver.onrender.com/auth/google/callback`;
     } catch (error) {
       toast.error(
         error.response ? error.response.data.message : error.message,
