@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import FaChevronDown from "../assets/arrowDown.png";
-import FaChevronUp from "../assets/arrowUp.png";
+import downArrow from "../assets/arrowDown.png";
+import upArrow from "../assets/arrowUp.png";
 
 import "../styles/accordion.css";
 
@@ -15,7 +15,7 @@ function AccordionItem({ title, description }) {
     <div className="accordion-item">
       <h3 className={`accordion-header ${isOpen ? 'active' : ''}`} onClick={toggleAccordion}>
         {title}       
-        {isOpen ? <img src="/src/assets/arrowUp.png" alt="Arrow Up" className='arrows'/> : <img src="/src/assets/arrowDown.png" alt="Arrow Down" className='arrows'/> } 
+        {isOpen ? <img src={upArrow} alt="Arrow Up" className='arrows'/> : <img src={downArrow} alt="Arrow Down" className='arrows'/> } 
       </h3>
       {isOpen && (
         <div className="accordion-content">

@@ -27,6 +27,9 @@
 }
 .footer-elements li {
   padding: 2px 10px;
+  a:hover{
+     color:#fff
+  }
 }
 
 @media (max-width: 890px) {
