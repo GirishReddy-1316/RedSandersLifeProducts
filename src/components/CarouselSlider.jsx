@@ -59,8 +59,8 @@ function CarouselSlider() {
               <ul>
                 <li>UPGRADE YOUR HYDRATION TODAY!!</li>
               </ul>
-              <button class="btn">
-                <i class="animation"></i>Shop Now<i class="animation"></i>
+              <button className="btn">
+                <i className="animation"></i>Shop Now<i className="animation"></i>
               </button>
             </div>
           </div>
@@ -86,8 +86,8 @@ function CarouselSlider() {
               <ul>
                 <li>TRY IT NOW FOR RADIANT SKIN!!</li>
               </ul>
-              <button class="btn">
-                <i class="animation"></i>Shop Now<i class="animation"></i>
+              <button className="btn">
+                <i className="animation"></i>Shop Now<i className="animation"></i>
               </button>
             </div>
           </div>
@@ -107,8 +107,8 @@ function CarouselSlider() {
               <img src={slide3} alt="jiyaba bevareges" />
             </div>
             <div className="rightSideSection">
-              <button class="btn">
-                <i class="animation"></i>Shop Now<i class="animation"></i>
+              <button className="btn">
+                <i className="animation"></i>Shop Now<i className="animation"></i>
               </button>
             </div>
           </div>
