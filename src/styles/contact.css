@@ -65,3 +65,8 @@
   align-self: flex-start;
   color: #fff;
 }
+@media (max-width: 600px) {
+  .contact-form{
+    width: 90vw;
+  }
+}

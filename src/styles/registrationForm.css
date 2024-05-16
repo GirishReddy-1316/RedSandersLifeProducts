@@ -63,3 +63,8 @@
   margin-top: 10px;
   font-weight: bold;
 }
+@media (max-width: 600px) {
+  .registrationForm{
+    width: 90vw;
+  }
+}
