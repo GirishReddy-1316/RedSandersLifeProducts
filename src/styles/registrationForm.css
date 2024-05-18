@@ -7,7 +7,7 @@
 }
 
 .registrationForm {
-  padding: 20px;
+  padding: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,7 +18,7 @@
   border-radius: 5px;
   border: 2px solid #fefefe;
   box-shadow: 4px 4px #fefefe;
-  width: 40vw;
+  width: 50vw;
 }
 
 .registrationForm input {
