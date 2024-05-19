@@ -12,6 +12,7 @@ import { axiosInstance, axiosInstanceWithToken } from "../api.js";
 import CartPop from "../components/CartPop.jsx";
 import Header from "../components/Header.jsx";
 import { updateUserInfo } from "../redux/action/authActions.js";
+import Loader from "../components/Loader.jsx";
 
 function Checkout() {
   const { cartItems, subtotal, wishItems, shippingAddress } = useSelector(
@@ -38,7 +39,7 @@ function Checkout() {
   const [pinValid, setPinCode] = useState(true);
   const [selectedStateValid, setSelectedStateValid] = useState(true);
   const [mobileValid, setMobileValid] = useState(true);
-
+  const [loading, setLoading] = useState(false);
   const finalPrice = subtotal + 10;
 
 
@@ -124,6 +125,7 @@ function Checkout() {
 
   async function createOrder(paymetInfo) {
     try {
+      setLoading(true);
       let newShippingAddress = {
         street: streetAddress,
         city: city,
@@ -163,7 +165,9 @@ function Checkout() {
       } else {
         toast.error("Failed to create order");
       }
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.error("Error creating order:", error);
       toast.error("An error occurred while creating the order");
     }
@@ -185,6 +189,7 @@ function Checkout() {
 
   async function validatePayment(merchantTransactionId) {
     try {
+      setLoading(true);
       const response = await axiosInstance.get(
         `/payment/validate/${merchantTransactionId}`
       );
@@ -193,7 +198,9 @@ function Checkout() {
       } else {
         toast.error("Payment validation failed");
       }
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.error("Error validating payment:", error);
       toast.error("An error occurred while validating the payment");
     }
@@ -216,8 +223,8 @@ function Checkout() {
     }
     try {
       dispatch(addShippingAddress(newShippingAddress));
-      // await processPayment();
-      await createOrder({});
+      await processPayment();
+      // await createOrder({});
     } catch (error) {
       console.error("Error processing payment:", error);
       toast.error("An error occurred while processing the payment");
@@ -263,6 +270,7 @@ function Checkout() {
   return (
     <>
       <div className="checkout-page">
+        {loading && <Loader />}
         {cartVisible && <CartPop setCartVisible={setCartVisible} />}
         <div className="main-container">
           <Header
