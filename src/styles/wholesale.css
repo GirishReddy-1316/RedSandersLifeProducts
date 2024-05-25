@@ -1,23 +1,23 @@
-.wholesale-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  background-image: radial-gradient(
-      at 50% 50%,
-      hsla(162, 100%, 22%, 0.134) 0,
-      transparent 50%
-    ),
-    radial-gradient(at 82% 65%, hsl(218, 39%, 11%) 0, transparent 50%);
-
-}
-
 .wholesale-main-content {
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.wholesale-main-content > section {
+  padding: 50px;
+  display: flex;
   flex-direction: column;
-  flex: 1;
-  margin-top: 10vh;
-  padding: 30px;
+  justify-content: center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  background: #212121;
+  gap: 20px;
+  border-radius: 5px;
+  border: 2px solid #fefefe;
+  box-shadow: 4px 4px #fefefe;
+  width: 50vw;
+  margin: 20px;
 }
 
 .wholesale-main-content h1 {
@@ -25,17 +25,25 @@
   font-size: 1.7rem;
   padding-bottom: 30px;
   padding-top: 15px;
+  display: flex;
+  justify-content: center;
 }
 .wholesale-main-content h2 {
   color: #ffffff;
   font-size: 1.2rem;
   padding: 10px 0 15px 20px;
+  display: flex;
+  justify-content: center;
+
 }
-.our-offerings-list li {
-  color: #ffffff;
-  list-style: none;
-  font-size: 1rem;
-  padding: 5px 0 5px 40px;
+.our-offerings-list {
+  text-align: left;
+  > li {
+    color: #ffffff;
+    list-style: none;
+    font-size: 1rem;
+    padding: 5px 0 5px 40px;
+  }
 }
 
 .our-offerings-list span {
@@ -66,9 +74,7 @@
   width: 0;
   height: 1px;
   background-color: #4b830d;
-  transition:
-    width 0.3s ease,
-    left 0.3s ease;
+  transition: width 0.3s ease, left 0.3s ease;
 }
 
 .our-offerings-list a:hover::after {

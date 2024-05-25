@@ -10,7 +10,7 @@ function Policies() {
   const [cartVisible, setCartVisible] = useState(false);
   const { cartItems, wishItems } = useSelector(state => state.reducer);
   return (
-    <div className="policies-page">
+    <div className="contact-container">
       {cartVisible && (
         <CartPop
           setCartVisible={setCartVisible}
@@ -25,7 +25,7 @@ function Policies() {
       </div>
 
       <main className="policies-main-content">
-        <h1>Our Policies</h1>
+        <section>Our Policies</section>
 
         <section className="shipping-policy">
           <h2>Shipping Policy</h2>

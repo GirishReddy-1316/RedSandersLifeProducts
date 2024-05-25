@@ -10,7 +10,7 @@ function Wholesale() {
   const [cartVisible, setCartVisible] = useState(false);
   const { cartItems, wishItems } = useSelector(state => state.reducer);
   return (
-    <div className="wholesale-page">
+    <div className="contact-container">
       {cartVisible && (
         <CartPop
           setCartVisible={setCartVisible}
@@ -25,7 +25,7 @@ function Wholesale() {
       </div>
 
       <main className="wholesale-main-content">
-        <h1>Welcome!! Step into JiYaBa Wholesale </h1>
+        <section>Welcome!! Step into JiYaBa Wholesale </section>
          <section className="why-wholesale">
           <h2>Why Jiyaba for wholesale?</h2>
           <ul className="our-offerings-list">

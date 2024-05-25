@@ -11,7 +11,7 @@ function About() {
   const { cartItems, wishItems } = useSelector(state => state.reducer);
 
   return (
-    <div className="about-us-page">
+    <div className="contact-container">
       {cartVisible && (
         <CartPop
           setCartVisible={setCartVisible}

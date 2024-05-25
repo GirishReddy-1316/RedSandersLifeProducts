@@ -39,7 +39,7 @@ function Faq() {
   };
 
   return (
-    <div className="faq-page">
+    <div className="contact-container">
       {cartVisible && (
         <CartPop
           setCartVisible={setCartVisible}

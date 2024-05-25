@@ -4,33 +4,30 @@ body,
   height: 100%;
   width: 100%;
 }
-.about-us-page {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-image: radial-gradient(
-      at 50% 50%,
-      hsla(162, 77%, 40%, 0.173) 0,
-      transparent 50%
-    ),
-    radial-gradient(at 82% 65%, hsl(218, 39%, 11%) 0, transparent 50%);
-}
 
 .about-main-content {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-  margin-top: 10vh;
-  padding: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .about-intro,
 .our-mission,
 .our-products,
 .visit-us {
-  margin-bottom: 2em;
-  width: 80%;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  background: #212121;
+  gap: 20px;
+  border-radius: 5px;
+  border: 2px solid #fefefe;
+  box-shadow: 4px 4px #fefefe;
+  width: 50vw;
+  margin: 20px;
 }
 
 .about-intro h1,
@@ -69,9 +66,7 @@ body,
   width: 0;
   height: 1px;
   background-color: #4b830d;
-  transition:
-    width 0.3s ease,
-    left 0.3s ease;
+  transition: width 0.3s ease, left 0.3s ease;
 }
 
 .visit-us a:hover::after {
