@@ -223,8 +223,8 @@ function Checkout() {
     }
     try {
       dispatch(addShippingAddress(newShippingAddress));
-      await processPayment();
-      // await createOrder({});
+      // await processPayment();
+      await createOrder({});
     } catch (error) {
       console.error("Error processing payment:", error);
       toast.error("An error occurred while processing the payment");
