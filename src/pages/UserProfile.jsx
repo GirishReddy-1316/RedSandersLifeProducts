@@ -14,8 +14,8 @@ const UserProfile = () => {
     const { isLoggedIn, token, userInfo } = useSelector((state) => state.auth);
     async function handleLogout() {
         await dispatch(Logout(token));
+        navigate("/account");
         window.location.reload();
-        navigate("/account")
     }
 
     useEffect(() => {
