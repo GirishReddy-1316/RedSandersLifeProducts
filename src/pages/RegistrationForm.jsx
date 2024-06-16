@@ -308,7 +308,7 @@ const RegistrationForm = () => {
           )}
           {verificationStage === "password" && (
             <div>
-              <div className="form-group">
+              <div className="form-password">
                 <input
                   type="password"
                   id="password"
@@ -319,7 +319,7 @@ const RegistrationForm = () => {
                 />
                 {errors.password && <p className="error">{errors.password}</p>}
               </div>
-              <div className="form-group">
+              <div className="form-password">
                 <input
                   type="password"
                   id="confirmPassword"

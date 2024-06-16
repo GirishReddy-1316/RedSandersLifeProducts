@@ -1,9 +1,15 @@
 .registration-form-container {
   margin-top: 70px;
 }
-.pheader-container, .alignCenter {
+
+.pheader-container,
+.alignCenter {
   display: flex;
   justify-content: center;
+}
+
+.form-password {
+  margin-bottom: 20px;
 }
 
 .registrationForm {
@@ -52,19 +58,22 @@
 .registrationForm button:hover {
   background-color: #0056b3;
 }
+
 .registrationForm .contact-head {
   font-size: 1.3rem;
   color: #fff;
   padding-bottom: 0;
   align-self: center;
 }
-.error{
+
+.error {
   color: red;
   margin-top: 10px;
   font-weight: bold;
 }
+
 @media (max-width: 600px) {
-  .registrationForm{
+  .registrationForm {
     width: 90vw;
   }
 }
