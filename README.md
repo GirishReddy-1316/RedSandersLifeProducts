@@ -62,6 +62,8 @@ You can save this content in a file named `README.md`. This file will serve as a
 ## Starting the Project
 
 To start the project, run the following command:
-   ```sh
-   npm start
+   ```sh  
+npm install
+npm run dev, 
+npm run build,
    ```

@@ -7,7 +7,7 @@ import BottomBar from "../components/BottomBar.jsx";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addShippingAddress, clearCart, setOrderId } from "../redux/action/actions.js";
+import { addShippingAddress, clearCart, setOrderId, updateCartItemQuantity } from "../redux/action/actions.js";
 import { axiosInstance, axiosInstanceWithToken } from "../api.js";
 import CartPop from "../components/CartPop.jsx";
 import Header from "../components/Header.jsx";
@@ -41,7 +41,6 @@ function Checkout() {
   const [mobileValid, setMobileValid] = useState(true);
   const [loading, setLoading] = useState(false);
   const finalPrice = subtotal + 10;
-
 
   function validateForm() {
     let isValid = true;
@@ -267,6 +266,10 @@ function Checkout() {
     }
   }, [userInfo]);
 
+  const handleQuantityChange = (id, change) => {
+    dispatch(updateCartItemQuantity(id, change));
+  };
+
   return (
     <>
       <div className="checkout-page">
@@ -283,10 +286,9 @@ function Checkout() {
         <div className="checkout-main-container">
           <form onSubmit={handleFormSubmit} className="checkout-form">
             <div className="checkout-left">
-              <div className="demo-details">
+              <div className="shippin-address-bar">
                 <p>Please enter your shipping address</p>
               </div>
-              <label>Name</label>
               <input
                 type="text"
                 placeholder="Enter your name"
@@ -295,7 +297,6 @@ function Checkout() {
                 value={custName}
                 onChange={(e) => setcustName(e.target.value)}
               />
-              <label>Mobile Number</label>
               <input
                 type="tel"
                 placeholder="Enter your 10 digit mobile number"
@@ -305,7 +306,6 @@ function Checkout() {
                 onChange={(e) => setMobile(e.target.value)}
               />
 
-              <label>Email</label>
               <input
                 type="email"
                 placeholder="Enter your gmail id"
@@ -315,7 +315,6 @@ function Checkout() {
                 onChange={(e) => setEmail(e.target.value)}
               />
 
-              <label>Street Address</label>
               <input
                 type="text"
                 name="streetAddress"
@@ -383,6 +382,18 @@ function Checkout() {
                       />
                       <span>
                         {item.name} x {item.quantity}
+                      </span>
+                      <span className="quantity-control">
+                        <button type="button"
+                          onClick={() => handleQuantityChange(item._id, -1)}
+                          disabled={item.quantity <= 1}
+                        >
+                          -
+                        </button>
+                        <p>{item.quantity}</p>
+                        <button type="button" onClick={() => handleQuantityChange(item._id, 1)}>
+                          +
+                        </button>
                       </span>
                       <span>
                         ₹

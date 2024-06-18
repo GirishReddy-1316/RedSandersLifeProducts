@@ -121,7 +121,7 @@ input[readonly] {
 }
 
 .checkout-left {
-  padding: 20px 80px;
+  padding: 20px;
 }
 
 .checkout-left label {
@@ -195,7 +195,7 @@ input[readonly] {
   margin-right: 10px;
 }
 
-.demo-details {
+.shippin-address-bar {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -204,13 +204,13 @@ input[readonly] {
   color: #181818;
   border-radius: 5px;
   padding: 8px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   font-weight: bold;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
 
-.demo-details:hover {
+.shippin-address-bar:hover {
   background-color: #ededed;
 }
 
@@ -300,14 +300,16 @@ input:-moz-ui-autofill {
 
 @media (max-width: 1350px) {
   .checkout-main-container {
-    width: 100vw;
+    width: 100%;
   }
   .checkout-form {
-    width: 90%;
+    width: 100%;
   }
-  .checkout-left,
+  .checkout-left {
+    width: 40%;
+  }
   .checkout-right {
-    width: 50%;
+    width: 60%;
   }
 }
 
@@ -340,7 +342,6 @@ input:-moz-ui-autofill {
 @media (max-width: 680px) {
   .checkout-main-container {
     padding: 10px;
-
     height: auto;
   }
   .checkout-form {
