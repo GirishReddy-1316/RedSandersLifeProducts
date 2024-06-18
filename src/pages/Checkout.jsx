@@ -380,10 +380,10 @@ function Checkout() {
                         src={item.image}
                         alt={item.name}
                       />
-                      <span>
+                      <span className="name-quantity">
                         {item.name} x {item.quantity}
                       </span>
-                      <span className="quantity-control">
+                      <div className="quantity-control">
                         <button type="button"
                           onClick={() => handleQuantityChange(item._id, -1)}
                           disabled={item.quantity <= 1}
@@ -394,7 +394,7 @@ function Checkout() {
                         <button type="button" onClick={() => handleQuantityChange(item._id, 1)}>
                           +
                         </button>
-                      </span>
+                      </div>
                       <span>
                         ₹
                         {(

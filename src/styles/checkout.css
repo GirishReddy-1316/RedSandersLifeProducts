@@ -298,6 +298,21 @@ input:-moz-ui-autofill {
   color: #c0c0c0 !important;
 }
 
+.quantity-control{
+  display: flex;
+  button{
+    width:30px;
+    cursor: pointer;
+  }
+  p{
+    padding: 10px;
+  }  
+}
+.name-quantity{
+  display: inline-block; 
+  width: 100px;   
+}
+
 @media (max-width: 1350px) {
   .checkout-main-container {
     width: 100%;
