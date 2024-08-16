@@ -108,7 +108,7 @@ function CarouselSlider() {
             </div>
             <div className="rightSideSection">
               <button className="btn">
-                <i className="animation"></i>Shop Now<i className="animation"></i>
+                <i className="animation"></i>Buy Now<i className="animation"></i>
               </button>
             </div>
           </div>

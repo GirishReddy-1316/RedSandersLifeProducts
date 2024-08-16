@@ -29,7 +29,7 @@ function About() {
         <section className="about-intro">
           <h1>About Jiyaba </h1>
           <p className="tagline">
-            A Taste of Authenticity, Straight from the Roots of the Red Sanders Tree to Your Body.
+            A Taste of Authenticity, Straight from the Heart wood of the Red Sanders Tree to Your Body.
           </p>
           <p>
             Our company's story begins with a simple yet powerful belief: everyone deserves access to a healthy lifestyle and a shared commitment to making wellness accessible to all. With our dedication to quality, authenticity, and quantity, we aim to empower individuals to harness the potent properties of Red Sandalwood for their health and well-being. Join us in discovering the natural wonders of this ancient remedy and unlock a healthier, happier you.

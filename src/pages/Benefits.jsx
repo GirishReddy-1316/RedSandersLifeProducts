@@ -83,12 +83,13 @@ function Benefit() {
           direction="left"
           style={{ width: "100%", whiteSpace: "nowrap",  scrollamount: '10', color:'#CB625F'}}
         >
-        <p>  Welcome to Red Sanders Family. A Taste of Authenticity, Straight , from the Roots of the Red Sanders
+        <p>  Welcome to Red Sanders Family. A Taste of Authenticity, Straight , from the Heart wood of the Red Sanders
               Tree to Your Body.</p>
         </marquee>
       </div>
       <p className="benefits-intro">
-        These days, many people hesitate to talk about "red sandalwood" because
+      Red Sandalwood (Pterocarpus santalinus) is a protected species under CITES. 
+      These days, many people hesitate to talk about "red sandalwood" because
         it's often associated with trafficking. But red sandalwood isn't just
         about illegal trade. It actually has many health benefits that are worth
         knowing about. Have you ever wondered why red sandalwood is so
