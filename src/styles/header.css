@@ -204,6 +204,7 @@
     height: 60px;
     display: flex;
     justify-content: space-between;
+    margin-right: 0;
   }
   .header-logo {
     max-width: 100px;
