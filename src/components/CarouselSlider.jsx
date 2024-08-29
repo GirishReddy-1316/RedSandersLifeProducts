@@ -43,26 +43,27 @@ function CarouselSlider() {
         <div className="carousel-slide slideOne">
           <div className="upperSection">
             <h2>
-              Enhance your beauty the natural way with our pure red sandalwood
-              face pack!
+          Jiyaba is the first company in the world to create beverages from red sandalwood.
             </h2>
-            <h2>
-              Unveil radiant skin with the power of nature. Try it today for a
-              glowing complexion!.
-            </h2>
+            <h4>  Enjoy nature's goodness with our healthy drinks made of Pure Red
+              Sandal!</h4>
+            <h4> 
+              Red Jiya and Red Tea, made from red sandal heartwood, are the world's first products of their kind.
+            </h4>
           </div>
           <div className="row">
             <div className="leftSideSection">
               <img src={slide2} alt="jiyaba bevareges" />
             </div>
             <div className="rightSideSection">
-              <ul>
+            <img src={slide2} alt="jiyaba bevareges" />
+              {/* <ul>
                 <li>TRY IT NOW FOR RADIANT SKIN!!</li>
-              </ul>
-              <button className="btn">
+              </ul> */}
+              {/* <button className="btn">
                 <i className="animation"></i>Shop Now
                 <i className="animation"></i>
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
@@ -71,12 +72,12 @@ function CarouselSlider() {
         <div className="carousel-slide slideTwo">
           <div className="upperSection">
             <h2>
-              Enjoy nature's goodness with our healthy drinks made of Pure Red
-              Sandal!
+            Enhance your beauty the natural way with our pure red sandalwood
+              face pack!
             </h2>
             <h2>
-              We offer refreshing drinks and immune-boosting tonics for every
-              taste and lifestyle.
+            Unveil radiant skin with the power of nature. Try it today for a
+              glowing complexion!.
             </h2>
           </div>
           <div className="row">
@@ -84,13 +85,11 @@ function CarouselSlider() {
               <img src={slide1} alt="jiyaba bevareges" />
             </div>
             <div className="rightSideSection">
-              <ul>
-                <li>UPGRADE YOUR HYDRATION TODAY!!</li>
-              </ul>
-              <button className="btn">
+              <img src={slide1} alt="jiyaba bevareges" />
+              {/* <button className="btn">
                 <i className="animation"></i>Shop Now
                 <i className="animation"></i>
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

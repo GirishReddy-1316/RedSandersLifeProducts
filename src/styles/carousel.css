@@ -114,7 +114,7 @@
   width: 100%;
 }
 
-.upperSection h2 {
+.upperSection h4, h2 {
   text-align: center !important;
   width: 100% !important;
 }
