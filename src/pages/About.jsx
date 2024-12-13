@@ -32,7 +32,7 @@ function About() {
             A Taste of Authenticity, Straight from the Heart wood of the Red Sanders Tree to Your Body.
           </p>
           <p>
-            Our company's story begins with a simple yet powerful belief: everyone deserves access to a healthy lifestyle and a shared commitment to making wellness accessible to all. With our dedication to quality, authenticity, and quantity, we aim to empower individuals to harness the potent properties of Red Sandalwood for their health and well-being. Join us in discovering the natural wonders of this ancient remedy and unlock a healthier, happier you.
+          Jiyaba is a startup with a simple goal: to help everyone live a healthy life. In today’s world, where food and water are often affected by harmful substances, staying healthy has become a challenge. That’s why we’ve decided to create products that are good for your health and affordable for everyone.
           </p>
         </section>
 
