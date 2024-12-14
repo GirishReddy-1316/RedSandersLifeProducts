@@ -57,7 +57,7 @@ function Home() {
         <HeroSection />
       </div>
       <div>
-        <video className="background-video" autoPlay loop muted>
+        <video className="background-video bottomVideo" autoPlay loop muted>
           <source src={bg} type="video/mp4" />
           Your browser does not support the video tag.
         </video>

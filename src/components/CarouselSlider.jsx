@@ -76,7 +76,10 @@ function CarouselSlider() {
               face pack!
             </h2>
             <h2>
-            Unveil radiant skin with the power of nature. Try it today for a
+            Unveil radiant skin with the power of nature. 
+            </h2>
+            <h2>
+            Try it today for a
               glowing complexion!.
             </h2>
           </div>
@@ -94,7 +97,7 @@ function CarouselSlider() {
           </div>
         </div>
       </Link>
-      <Link to="/all-products">
+      {/* <Link to="/all-products">
         <div className="carousel-slide slideThree">
           <div className="upperSection">
             <h2>
@@ -115,7 +118,7 @@ function CarouselSlider() {
             </div>
           </div>
         </div>
-      </Link>
+      </Link> */}
     </Slider>
   );
 }

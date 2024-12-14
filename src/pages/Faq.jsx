@@ -26,12 +26,7 @@ function Faq() {
       question: "Do you offer international shipping?",
       answer:
         "Yes, we ship internationally. Shipping costs and times vary depending on the destination.",
-    },
-    {
-      question: "What is your return policy?",
-      answer:
-        "We accept returns within 10 days of purchase, provided the products are in their original condition.",
-    },
+    }
   ];
 
   const toggleFAQ = (index) => {

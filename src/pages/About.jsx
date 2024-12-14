@@ -46,7 +46,7 @@ function About() {
         <section className="our-products">
           <h2>Our Products</h2>
           <p>
-            Explore our wide range of offerings, from Pure Red Sanders Water to Red Sandal cosmetics like lipstick and lip balm, along with Red Sandalwood Powder for face packs, Red Sandal Sticks for Yagna, and Red Sandal incense sticks. Additionally, we offer a selection of refreshing cool drinks and soft drinks to enhance your wellness routine.
+          Explore our wide range of products designed for your well-being. We offer Pure Red Sanders Water, Red Jiya Tea, and Red Sandalwood Powder for face packs. Discover Red Sandalwood Sticks for Yagna, Red Sandal Incense Sticks, and a selection of wooden items like Smashers and Chopping Boards to complement your daily wellness routine.
           </p>
         </section>
 

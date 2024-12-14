@@ -5,7 +5,7 @@ const items = [
   {
     title: "Anti-Cancer Properties",
     description:
-      "Studies suggest that Red Sandalwood may possess compounds that could aid in fighting cancer, though more research is needed in this area.",
+      "Studies suggest that Red Sandalwood may possess compounds that could aid in fighting cancer.",
   },
   {
     title: "Diabetes Management & Blood Sugar Regulation",
@@ -60,7 +60,7 @@ const items = [
   {
     title: "Total Skin Care Solution",
     description:
-      "Red Sandalwood is a skincare powerhouse, renowned for its multifaceted benefits. It fades dark spots and blemishes, evens out skin tone, and calms irritation. Its anti-inflammatory properties combat signs of aging like wrinkles and age spots, revealing a youthful complexion. Effective for oily skin, it balances oil production and gently exfoliates, reducing acne and promoting smoother texture. With its detoxifying abilities, it purifies the skin, promoting a healthier appearance. Red Sandalwood's healing properties also aid in wound recovery, minimizing scars. In short, integrating Red Sandalwood into your skincare routine revitalizes your skin, leaving it clearer, brighter, and more youthful.",
+      "Red Sandalwood is a natural skincare ingredient known for its ability to fade dark spots, even skin tone, and reduce irritation. It fights signs of aging like wrinkles, balances oily skin, and helps reduce acne with gentle exfoliation. Its detoxifying and healing properties also aid in wound recovery and scar reduction, leaving skin clearer, brighter, and more youthful.",
   },
   {
     title: "Spiritual Significance",
