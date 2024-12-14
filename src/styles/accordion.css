@@ -62,7 +62,7 @@
 @media screen and (max-width: 768px) {
   .accordion-item {
     width: calc(
-      50% - 10px
+      100% - 10px
     ); 
   }
 }

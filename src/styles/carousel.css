@@ -117,8 +117,7 @@
 .upperSection h4, h2 {
   text-align: center !important;
   width: 100% !important;
-  font-family: cursive;
-  font-size: 100%;
+  font-size: 0.8rem;
 }
 
 .row {
@@ -211,5 +210,8 @@
 
   .rightSideSection {
     width: 50%;
+  }
+  .upperSection h4, h2 {   
+    font-size: 1.2rem;
   }
 }

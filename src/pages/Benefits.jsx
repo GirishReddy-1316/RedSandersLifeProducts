@@ -8,7 +8,7 @@ const items = [
       "Studies suggest that Red Sandalwood may possess compounds that could aid in fighting cancer.",
   },
   {
-    title: "Diabetes Management & Blood Sugar Regulation",
+    title: "Diabetes Care & Blood Sugar Control",
     description:
       "Red Sandalwood's compounds regulate blood sugar levels, aiding those with diabetes, and enhance insulin secretion, protecting pancreatic cells.",
   },
