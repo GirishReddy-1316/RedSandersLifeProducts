@@ -21,12 +21,7 @@ const items = [
     title: "Gastritis Treatment",
     description:
       "Red Sandalwood has properties that can help treat gastritis, soothing inflammation and discomfort in the stomach lining.",
-  },
-  {
-    title: "Inflammation Relief & Comfort",
-    description:
-      "Red Sandalwood calms inflammation, easing pain and discomfort. It's great for skin issues like eczema and psoriasis, soothing redness and irritation. Use it in oils, balms, or creams for relief.",
-  },
+  },  
   {
     title: "Ulcer Bleeding Prevention",
     description:
@@ -46,6 +41,11 @@ const items = [
     title: "Hair Health & Growth Support",
     description:
       "Red Sandalwood isn't just for skin; it's great for hair too. It nourishes the scalp, strengthens hair follicles, and promotes growth. Regular use fights dandruff, prevents hair loss, and improves texture, leaving hair healthy and full.",
+  },
+  {
+    title: "Inflammation Relief & Comfort",
+    description:
+      "Red Sandalwood calms inflammation, easing pain and discomfort. It's great for skin issues like eczema and psoriasis, soothing redness and irritation. Use it in oils, balms, or creams for relief.",
   },
   {
     title: "Eye Disease Relief",
@@ -71,6 +71,11 @@ const items = [
     title: "Aromatic & Soothing",
     description:
       "Red Sandalwood has a pleasant scent that helps relax and calm the mind, making it a favourite for aromatherapy. It can relieve stress, anxiety, and promote relaxation.",
+  },
+  {
+    title: "Flavoring Agent",
+    description:
+      "Red sandalwood is sometimes used to give a unique taste to alcoholic drinks. Its mild, natural flavor adds something special to the beverages, making them more enjoyable.",
   },
 ];
 
